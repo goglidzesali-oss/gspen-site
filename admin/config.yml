@@ -1,0 +1,119 @@
+# GSPEN — Decap CMS კონფიგურაცია
+#
+# ⚠ ორი ადგილი შესავსებია GitHub-ზე ატვირთვის შემდეგ:
+#   1) repo:      შენი GitHub მომხმარებელი/რეპოზიტორია (მაგ. salome-goglidze/gspen-site)
+#   2) base_url:  OAuth-პროვაიდერის მისამართი (ლოგინისთვის — ინსტრუქცია README-ში)
+
+backend:
+  name: github
+  repo: goglidzesali-oss/gspen-site
+  branch: main
+  base_url: https://REPLACE-WITH-OAUTH-PROVIDER   # ← შეცვალე (README, ნაბიჯი 4)
+
+locale: ka
+site_url: https://gspen.ge
+logo_url: https://gspen.ge/assets/logo.svg
+
+media_folder: "media"
+public_folder: "/media"
+
+collections:
+  - name: "webinars"
+    label: "ვებინარები"
+    files:
+      - file: "content/webinars.json"
+        name: "webinars"
+        label: "ვებინარების სია"
+        fields:
+          - name: "items"
+            label: "ვებინარები"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "title", label: "სათაური", widget: "string" }
+              - { name: "date", label: "თარიღი", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { name: "time", label: "დრო", widget: "string", required: false, hint: "მაგ. 20:00" }
+              - { name: "speaker", label: "მომხსენებელი", widget: "string", required: false }
+              - { name: "description", label: "მოკლე აღწერა", widget: "text", required: false }
+              - { name: "details", label: "სრული აღწერა (მომავალი ვებინარისთვის)", widget: "text", required: false, hint: "ბულეტებისთვის ხაზი დაიწყე • სიმბოლოთი" }
+              - { name: "reg", label: "რეგისტრაციის ბმული", widget: "string", required: false, hint: "მაგ. Google Forms-ის ბმული" }
+              - { name: "image", label: "ბანერის სურათი", widget: "image", required: false }
+              - { name: "youtube", label: "YouTube ბმული (ჩაწერისთვის)", widget: "string", required: false, hint: "ჩატარების შემდეგ ჩასვი ჩაწერის ბმული და მოხსენი „მომავალი" ჭდე" }
+              - { name: "upcoming", label: "მომავალი ვებინარია?", widget: "boolean", default: false, required: false }
+
+  - name: "articles"
+    label: "სტატიები"
+    files:
+      - file: "content/articles.json"
+        name: "articles"
+        label: "სტატიების სია"
+        fields:
+          - name: "items"
+            label: "სტატიები"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "title", label: "სათაური", widget: "string" }
+              - { name: "date", label: "თარიღი", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { name: "author", label: "ავტორი", widget: "string", required: false }
+              - { name: "summary", label: "მოკლე აღწერა (ბარათზე)", widget: "text", required: false }
+              - { name: "cover", label: "ყდის სურათი", widget: "image", required: false }
+              - { name: "body", label: "ტექსტი", widget: "markdown" }
+
+  - name: "projects"
+    label: "პროექტები"
+    files:
+      - file: "content/projects.json"
+        name: "projects"
+        label: "პროექტების სია"
+        fields:
+          - name: "items"
+            label: "პროექტები"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "title", label: "სახელი", widget: "string" }
+              - name: "status"
+                label: "სტატუსი"
+                widget: "select"
+                options:
+                  - { label: "მიმდინარე", value: "current" }
+                  - { label: "დასრულებული", value: "done" }
+                  - { label: "დაგეგმილი", value: "planned" }
+                default: "current"
+              - { name: "date", label: "წელი", widget: "string", hint: "მაგ. 2026" }
+              - { name: "summary", label: "მოკლე აღწერა (ერთი წინადადება)", widget: "text" }
+              - { name: "contact", label: "საკონტაქტო ელფოსტა", widget: "string", default: "pensocietygspen@gmail.com" }
+              - { name: "body", label: "სრული აღწერა", widget: "markdown" }
+
+  - name: "tools"
+    label: "ხელსაწყოები"
+    files:
+      - file: "content/tools.json"
+        name: "tools"
+        label: "ხელსაწყოების სია"
+        fields:
+          - name: "items"
+            label: "ხელსაწყოები"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "title", label: "სახელი", widget: "string" }
+              - { name: "description", label: "აღწერა", widget: "text", required: false }
+              - { name: "url", label: "ბმული", widget: "string", hint: "მაგ. tool.html ან სრული URL" }
+
+  - name: "calculators"
+    label: "კალკულატორები"
+    files:
+      - file: "content/calculators.json"
+        name: "calculators"
+        label: "კალკულატორების სია"
+        fields:
+          - name: "items"
+            label: "კალკულატორები"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "title", label: "სახელი", widget: "string" }
+              - { name: "description", label: "აღწერა", widget: "text", required: false }
+              - { name: "url", label: "ბმული", widget: "string", hint: "მაგ. must.html ან სრული URL" }

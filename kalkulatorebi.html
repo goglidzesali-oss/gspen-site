@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>კალკულატორები — GSPEN</title>
+<meta name="description" content="GSPEN — მალნუტრიციის სკრინინგისა და შეფასების კალკულატორები: MUST, NRS-2002, GLIM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl active" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>MUST · NRS-2002 · GLIM</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / კალკულატორები</div>
+    <span class="kicker">მალნუტრიციის სკრინინგი და შეფასება</span>
+    <h1>კალკულატორები</h1>
+    <p class="sub">ვალიდირებული სასკრინინგო და დიაგნოსტიკური ინსტრუმენტები — MUST, NRS-2002 და GLIM — ინტერაქტიულ, ქართულენოვან ფორმატში.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="grid" id="calcGrid"></div>
+    <div class="empty-note" id="calcEmpty" style="display:none">კალკულატორები მალე დაემატება.</div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script type="application/json" id="calcSeed">
+{"items": [{"title": "MUST — მალნუტრიციის სკრინინგი", "description": "სწრაფი სასკრინინგო კალკულატორი: BMI + უნებლიე წონის კლება + მწვავე დაავადების ეფექტი → რისკის კატეგორია და ქმედება.", "url": "must.html"}, {"title": "NRS-2002 — ნუტრიციული რისკის სკრინინგი", "description": "ESPEN-ის ინსტრუმენტი ჰოსპიტალიზებული პაციენტებისთვის: კვებითი სტატუსი + დაავადების სიმძიმე + ასაკი. ჯამი ≥3 → ნუტრიციული გეგმა.", "url": "nrs.html"}, {"title": "GLIM — მალნუტრიციის დიაგნოზი", "description": "დიაგნოზის საერთაშორისო კრიტერიუმები: ფენოტიპური + ეტიოლოგიური კრიტერიუმები და სიმძიმის განსაზღვრა (Stage 1/2).", "url": "glim.html"}]}
+</script>
+<script src="assets/site.js"></script>
+<script>
+loadContent("content/calculators.json","calcSeed",function(data){
+  var items = data.items||[];
+  var grid = document.getElementById("calcGrid");
+  if(!items.length){ document.getElementById("calcEmpty").style.display="block"; return; }
+  grid.innerHTML = items.map(function(t){
+    return '<a class="card" href="'+esc(t.url||"#")+'">' +
+      '<div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2.5"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8.5" y1="12" x2="8.5" y2="12.01"/><line x1="12" y1="12" x2="12" y2="12.01"/><line x1="15.5" y1="12" x2="15.5" y2="12.01"/><line x1="8.5" y1="16" x2="8.5" y2="16.01"/><line x1="12" y1="16" x2="12" y2="16.01"/><line x1="15.5" y1="16" x2="15.5" y2="16.01"/></svg></div>' +
+      '<h3>'+esc(t.title)+'</h3><p>'+esc(t.description||"")+'</p><span class="arrow">გახსნა →</span></a>';
+  }).join("");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Gspen Nutrition Tool",
+  "schemaVersion": 1,
+  "description": "GSPEN clinical nutrition escalation/de-escalation interactive tool — refreshed clean visual (white, navy/red brand, cool→warm step colors), screening (MUST/GLIM), calculators, comment mode.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>კვებითი მხარდაჭერის ესკალაცია და დეესკალაცია</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f8fafd;
+    --ink:#1b2436;
+    --muted:#5f6880;
+    --line:#e7eaf1;
+    --card:#ffffff;
+    --green:#182449;
+    --green-d:#101a3a;
+    --green-l:#eef1f8;
+    --teal:#3b6fb0;
+    --amber:#c9822a;
+    --amber-l:#fbf0df;
+    --red:#d33f34;
+    --red-l:#fbeae8;
+    --oral:#4a9fd4;
+    --ons:#4b83c4;
+    --en:#4f67b4;
+    --spn:#8a5aa0;
+    --tpn:#d33f34;
+    --shadow:0 6px 24px rgba(16,26,58,.08);
+    --shadow-h:0 12px 36px rgba(16,26,58,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  .accent-top{height:3px;background:linear-gradient(90deg,var(--green),var(--red))}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans Georgian","Poppins","Segoe UI",system-ui,sans-serif;
+    background:
+      radial-gradient(1100px 520px at 90% -14%, #eef2fa 0%, transparent 62%),
+      radial-gradient(820px 460px at -6% 4%, #f4eeec 0%, transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header.top{
+    padding:30px 0 26px;
+    text-align:center;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--green-l);color:var(--green-d);
+    font-size:13px;font-weight:600;letter-spacing:.3px;
+    padding:6px 14px;border-radius:100px;margin-bottom:18px;
+    border:1px solid var(--line);
+  }
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block}
+  h1{font-size:36px;font-weight:800;letter-spacing:-.6px;line-height:1.15;color:var(--green-d)}
+  header.top p.sub{color:var(--muted);max-width:660px;margin:12px auto 0;font-size:16px}
+  .review-note{max-width:680px;margin:16px auto 0;background:#fff6e6;border:1px solid #f0d9a8;border-radius:12px;padding:11px 16px;font-size:13.5px;color:#7a5216;line-height:1.55}
+  .review-note b{color:#6b4712}
+
+  /* ===== Review / comments ===== */
+  [data-anchor]{position:relative}
+  .review-toolbar{position:fixed;right:16px;bottom:16px;z-index:300;display:flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);border-radius:100px;padding:7px 9px;box-shadow:var(--shadow-h);flex-wrap:wrap;max-width:min(94vw,680px)}
+  .rt-name{border:1px solid var(--line);border-radius:100px;padding:8px 13px;font-family:inherit;font-size:13px;width:120px;color:var(--ink)}
+  .rt-btn{border:0;background:#eef3f0;color:var(--green-d);font-family:inherit;font-weight:700;font-size:13px;padding:9px 14px;border-radius:100px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;transition:.2s}
+  .rt-btn:hover{filter:brightness(.97)}
+  .rt-btn.primary{background:var(--green);color:#fff}
+  .rt-btn.amber{background:var(--amber);color:#fff}
+  .rt-count{font-size:12px;font-weight:700;color:var(--muted);padding:0 4px}
+  body:not(.review-on) .cbtn{display:none}
+  body.review-on{scroll-padding-top:80px}
+  .cbtn{background:#fff6e6;border:1px solid #f0d9a8;color:#7a5216;border-radius:100px;font-family:inherit;font-size:12px;font-weight:700;padding:5px 11px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:.2s}
+  .cbtn:hover{background:var(--amber);color:#fff}
+  .cbtn.abs{position:absolute;top:12px;right:14px;z-index:25}
+  .cbtn .cnt{background:var(--red);color:#fff;border-radius:100px;padding:0 6px;font-size:11px;line-height:16px;min-width:16px;text-align:center}
+  .cbtn .cnt.zero{display:none}
+  .cbtn-inline{margin-left:2px}
+  .cnote{background:#fffaf0;border:1px solid #f0d9a8;border-left:4px solid var(--amber);border-radius:12px;padding:12px 15px;margin:10px 0 2px;box-shadow:var(--shadow)}
+  .cnote h5{font-size:11.5px;color:#7a5216;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:800}
+  .cnote .ci{font-size:13.5px;color:#33405c;padding:8px 0;border-top:1px dashed #eddcb8;display:flex;gap:10px;justify-content:space-between;align-items:flex-start;line-height:1.5}
+  .cnote .ci:first-of-type{border-top:0}
+  .cnote .ci b{color:#6b4712}
+  .cdel{border:0;background:transparent;color:var(--red);cursor:pointer;font-size:12px;font-weight:700;flex-shrink:0}
+  .cdel:hover{text-decoration:underline}
+  .ceditor{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:320;width:min(540px,93vw);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-h);padding:16px 18px;display:none}
+  .ceditor.open{display:block}
+  .ceditor h4{font-size:13px;color:var(--muted);margin-bottom:4px;font-weight:600}
+  .ceditor h4 b{color:var(--green-d)}
+  .ceditor textarea{width:100%;min-height:92px;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-family:inherit;font-size:14px;resize:vertical;margin-top:8px}
+  .ceditor textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(24,36,73,.12)}
+  .cea{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+  .toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);z-index:340;background:#1d2b25;color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:100px;box-shadow:var(--shadow-h);opacity:0;pointer-events:none;transition:opacity .3s}
+  .toast.show{opacity:1}
+  @media print{ .review-toolbar,.cbtn,.ceditor,.toast{display:none !important} }
+
+  /* Controls bar */
+  .controls{
+    position:sticky;top:0;z-index:40;
+    background:rgba(244,247,245,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:12px 0;margin-bottom:28px;
+  }
+  .controls-inner{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:100px;padding:4px;box-shadow:var(--shadow)}
+  .seg button{
+    border:0;background:transparent;cursor:pointer;
+    font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);
+    padding:8px 18px;border-radius:100px;transition:.25s;white-space:nowrap;
+  }
+  .seg button.active{background:var(--green);color:#fff;box-shadow:0 3px 10px rgba(24,36,73,.35)}
+  .seg.dir button.active{background:var(--teal);box-shadow:0 3px 10px rgba(58,143,143,.35)}
+  .ctrl-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-right:2px}
+  .ctrl-group{display:flex;align-items:center;gap:8px}
+
+  /* Direction banner */
+  .dir-banner{
+    display:flex;align-items:center;gap:14px;
+    background:linear-gradient(100deg,var(--green-l),#eef2fa);
+    border:1px solid #dbe3f4;border-radius:16px;
+    padding:16px 20px;margin-bottom:26px;
+  }
+  .dir-banner.deesc{background:linear-gradient(100deg,#eef2fa,#f5f8fc);border-color:#dbe6f0}
+  .dir-icon{font-size:26px;flex-shrink:0}
+  .dir-banner h3{font-size:17px;color:var(--green-d);margin-bottom:2px}
+  .dir-banner.deesc h3{color:#2a4a6b}
+  .dir-banner p{font-size:14px;color:var(--muted);margin:0}
+
+  /* Ladder */
+  .ladder{display:flex;flex-direction:column;gap:14px;margin-bottom:14px}
+  .step{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);overflow:hidden;transition:.3s;
+    position:relative;
+  }
+  .step:hover{box-shadow:var(--shadow-h);transform:translateY(-2px)}
+  .step .accent{position:absolute;left:0;top:0;bottom:0;width:6px}
+  .step-head{
+    display:flex;align-items:center;gap:16px;padding:18px 22px 18px 26px;cursor:pointer;user-select:none;
+  }
+  .step-num{
+    width:46px;height:46px;flex-shrink:0;border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;font-weight:800;color:#fff;
+  }
+  .step-titles{flex:1;min-width:0}
+  .step-titles .lvl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+  .step-titles h3{font-size:19px;font-weight:700;color:var(--ink);line-height:1.25}
+  .step-titles .en{font-size:13px;color:var(--muted);font-style:italic}
+  .step-meta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+  .kcal-chip{
+    font-size:13px;font-weight:600;color:var(--green-d);background:var(--green-l);
+    padding:5px 12px;border-radius:100px;border:1px solid #dbe3f4;white-space:nowrap;
+  }
+  .chev{width:26px;height:26px;flex-shrink:0;color:var(--muted);transition:.3s}
+  .step.open .chev{transform:rotate(180deg)}
+  .step-body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+  .step-body-inner{padding:2px 26px 24px 26px;border-top:1px solid var(--line);margin:0 0 0 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .info-block h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .info-block ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .info-block li{font-size:14px;color:#33405c;padding-left:20px;position:relative}
+  .info-block li::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .blk-intro{font-size:13px;color:var(--muted);margin:-2px 0 10px;line-height:1.5;font-style:italic}
+  .blk-freq{margin-top:11px;font-size:13px;color:#33405c;background:#f4f8fb;border:1px solid #d8e6ef;border-radius:10px;padding:9px 12px;line-height:1.5}
+  .blk-freq b{color:#2a5b7a}
+  .h-ind h4{color:var(--green-d)} .h-ind li::before{background:var(--green)}
+  .h-up h4{color:var(--amber)} .h-up li::before{background:var(--amber)}
+  .h-down h4{color:var(--teal)} .h-down li::before{background:var(--teal)}
+  .h-mon h4{color:var(--muted)} .h-mon li::before{background:var(--muted)}
+  .example-box{
+    margin-top:16px;background:#f7f9fc;border:1px dashed #dbe3f4;border-radius:12px;
+    padding:14px 16px;font-size:14px;color:#33405c;
+  }
+  .example-box b{color:var(--green-d)}
+  .flag{
+    margin-top:14px;display:flex;gap:10px;align-items:flex-start;
+    background:var(--amber-l);border:1px solid #eecfa0;border-radius:12px;padding:12px 15px;font-size:13.5px;color:#7a5216;
+  }
+  .flag.stop{background:var(--red-l);border-color:#eec3bf;color:#8a2f28}
+  .flag .fi{font-size:16px;flex-shrink:0;line-height:1.4}
+
+  /* Source badges */
+  .src{font-size:11.5px;color:#8a998f;font-style:italic;margin-top:9px;line-height:1.5;border-top:1px dashed var(--line);padding-top:7px}
+  .src b{color:#6b7a71;font-style:normal}
+  /* Highlight for dietitian */
+  .hl{background:#fff2cf;padding:0 4px;border-radius:4px;font-weight:700;color:#7a5216;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .hl-note{margin-top:11px;background:var(--amber-l);border:1px solid #eecfa0;border-radius:11px;padding:10px 14px;font-size:13px;color:#7a5216;line-height:1.55}
+  .hl-note b{color:#7a5216}
+
+  /* Disclosure (click-to-open) buttons */
+  .disc{margin-top:11px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fbfdfc}
+  .disc+.disc{margin-top:9px}
+  .disc>summary{cursor:pointer;list-style:none;padding:12px 15px;font-size:14px;font-weight:700;color:var(--green-d);display:flex;align-items:center;gap:8px;user-select:none;transition:.2s}
+  .disc>summary::-webkit-details-marker{display:none}
+  .disc>summary::after{content:"＋";margin-left:auto;font-size:15px;color:var(--teal);font-weight:800}
+  .disc[open]>summary::after{content:"－"}
+  .disc>summary:hover{background:var(--green-l)}
+  .disc[open]>summary{background:var(--green-l);border-bottom:1px solid var(--line)}
+  .disc-body{padding:14px 16px;font-size:13.5px;color:#33405c;line-height:1.6}
+  .disc-body p{margin:0 0 9px}
+  .disc-body p:last-child{margin-bottom:0}
+  .disc-body ul,.disc-body ol{margin:2px 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+  .disc-body li{font-size:13.5px;color:#33405c}
+  .disc-body b{color:var(--green-d)}
+  .disc-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--teal);margin:22px 0 2px;display:flex;align-items:center;gap:8px}
+
+  /* Mini calculator inside a step */
+  .mini-calc{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+  .mini-calc .mc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .mini-calc label{font-size:12px;font-weight:600;color:#33405c;display:block;margin-bottom:4px}
+  .mini-calc input,.mini-calc select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:14px;background:#fbfdfc;color:var(--ink)}
+  .mini-calc input:focus,.mini-calc select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(24,36,73,.12)}
+  .mini-calc .mc-out{margin-top:13px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mini-calc .mc-box{background:var(--green-l);border:1px solid #dbe3f4;border-radius:10px;padding:10px 12px;text-align:center}
+  .mini-calc .mc-box .n{font-size:21px;font-weight:800;color:var(--green-d);line-height:1.1}
+  .mini-calc .mc-box .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+  .mc-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+  /* App link + download buttons */
+  .applink{display:inline-flex;align-items:center;gap:8px;margin-top:13px;background:#fff;border:1.5px solid var(--green);color:var(--green-d);font-weight:700;font-size:13.5px;padding:10px 16px;border-radius:11px;text-decoration:none;transition:.2s}
+  .applink:hover{background:var(--green);color:#fff;transform:translateY(-1px)}
+  .dl-row{display:flex;flex-wrap:wrap;gap:9px;margin:11px 0 3px}
+  .dlbtn{display:inline-flex;align-items:center;gap:6px;background:var(--green-l);border:1px solid #dbe3f4;color:var(--green-d);font-weight:600;font-size:13px;padding:8px 13px;border-radius:10px;text-decoration:none;transition:.2s}
+  .dlbtn:hover{background:var(--green);color:#fff}
+  .meth{display:flex;flex-direction:column;gap:9px;margin:2px 0 10px}
+  .meth .m{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  .meth .m b{color:var(--green-d)}
+  .meth .m span{color:var(--muted);font-size:12.5px}
+
+  /* Entry module: screening → diagnosis */
+  .entry{background:linear-gradient(180deg,#eef5ff,#f7fbff);border:1px solid #cfe0f5;border-radius:18px;padding:22px 24px;margin-bottom:26px;box-shadow:var(--shadow)}
+  .entry h2{font-size:20px;color:#2a5b7a;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .entry .esub{font-size:14px;color:var(--muted);margin-bottom:8px}
+  .entry .flow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px;align-items:stretch}
+  .entry .fstep{flex:1;min-width:170px;background:#fff;border:1px solid #cfe0f5;border-radius:12px;padding:12px 14px}
+  .entry .fstep .fn{font-size:11px;font-weight:800;color:#2a5b7a;text-transform:uppercase;letter-spacing:.5px}
+  .entry .fstep .ft{font-size:13px;color:#33405c;margin-top:4px;line-height:1.5}
+  .entry .fstep b{color:#2a5b7a}
+  .entry .farrow{display:flex;align-items:center;justify-content:center;color:#7aa3c0;font-size:22px;font-weight:700}
+  .must-res{margin-top:14px;border-radius:12px;padding:14px 16px;border:1px solid}
+  .must-res.low{background:var(--green-l);border-color:#dbe3f4}
+  .must-res.med{background:var(--amber-l);border-color:#eecfa0}
+  .must-res.high{background:var(--red-l);border-color:#eec3bf}
+  .must-res .mh{font-weight:800;font-size:15.5px;margin-bottom:3px}
+  .must-res.low .mh{color:var(--green-d)} .must-res.med .mh{color:#8a5a10} .must-res.high .mh{color:#8a2f28}
+  .must-res p{font-size:13.5px;color:#3a445c;margin:0}
+  .glim-tbl{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12.5px}
+  .glim-tbl th,.glim-tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.5}
+  .glim-tbl th{background:var(--green-l);color:var(--green-d);font-size:12px;font-weight:700}
+  /* GLIM calculator bits */
+  .glim-cat{font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--green-d);margin-bottom:8px}
+  .glim-fields{display:flex;flex-direction:column;gap:9px}
+  .glim-chk{display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:600;color:#33405c;margin-bottom:8px}
+  .glim-chk input{width:auto;margin-top:3px;accent-color:var(--green);flex-shrink:0}
+  /* step-1 interventions banner */
+  .act-line{background:var(--green-l);border:1px solid #dbe3f4;border-radius:11px;padding:10px 14px;font-size:13.5px;color:#2a4a3a;margin-top:16px;line-height:1.55}
+  .act-line b{color:var(--green-d)}
+  @media(max-width:760px){ .entry .farrow{transform:rotate(90deg)} }
+
+  /* connector arrows between steps */
+  .connector{display:flex;justify-content:center;align-items:center;height:8px;margin:-3px 0}
+  .connector span{
+    font-size:20px;color:var(--teal);opacity:.55;
+  }
+
+  /* Section titles */
+  .section-title{
+    display:flex;align-items:center;gap:12px;margin:48px 0 20px;
+  }
+  .section-title .line{height:1px;background:var(--line);flex:1}
+  .section-title h2{font-size:23px;font-weight:800;color:var(--green-d);white-space:nowrap}
+  .section-title .st-badge{font-size:22px}
+
+  /* Calculators */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .calc{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);padding:22px 22px 24px;
+  }
+  .calc h3{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:9px}
+  .calc .sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;color:#33405c;margin-bottom:6px}
+  .field input[type=number],.field select{
+    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;
+    font-family:inherit;font-size:15px;color:var(--ink);background:#fbfdfc;transition:.2s;
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(24,36,73,.12);background:#fff}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .slider-row{display:flex;align-items:center;gap:12px}
+  .slider-row input[type=range]{flex:1;accent-color:var(--green)}
+  .slider-val{font-weight:700;color:var(--green-d);font-size:14px;min-width:78px;text-align:right}
+  .result{
+    margin-top:18px;background:linear-gradient(120deg,var(--green-l),#eef6f1);
+    border:1px solid #dbe3f4;border-radius:14px;padding:16px 18px;
+  }
+  .result .big{font-size:30px;font-weight:800;color:var(--green-d);line-height:1.1}
+  .result .big small{font-size:15px;font-weight:600;color:var(--muted)}
+  .result .rl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
+  .result-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+  .result-split .rs{background:#fff;border:1px solid #dbe3f4;border-radius:11px;padding:11px 13px;text-align:center}
+  .result-split .rs .n{font-size:20px;font-weight:800;color:var(--green-d)}
+  .result-split .rs .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .note{font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+
+  /* Refeeding */
+  .rf-list{display:flex;flex-direction:column;gap:9px;margin-bottom:6px}
+  .rf-item{
+    display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid var(--line);
+    border-radius:11px;cursor:pointer;transition:.2s;background:#fbfdfc;
+  }
+  .rf-item:hover{border-color:#c3d0ea;background:#f5f8fc}
+  .rf-item input{margin-top:3px;width:17px;height:17px;accent-color:var(--red);flex-shrink:0;cursor:pointer}
+  .rf-item .rt{font-size:13.5px;color:#33405c}
+  .rf-item .rt b{color:var(--ink)}
+  .rf-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:10px 0 2px}
+  .rf-result{
+    margin-top:16px;border-radius:14px;padding:16px 18px;border:1px solid;transition:.3s;
+  }
+  .rf-result.low{background:var(--green-l);border-color:#dbe3f4}
+  .rf-result.high{background:var(--amber-l);border-color:#eecfa0}
+  .rf-result.vhigh{background:var(--red-l);border-color:#eec3bf}
+  .rf-result .rfh{font-size:16px;font-weight:800;margin-bottom:5px}
+  .rf-result.low .rfh{color:var(--green-d)}
+  .rf-result.high .rfh{color:#8a5a10}
+  .rf-result.vhigh .rfh{color:#8a2f28}
+  .rf-result p{font-size:13.5px;color:#3a445c;margin:0}
+  .rf-result .startdose{margin-top:10px;font-size:14px;font-weight:700;color:var(--ink);background:#fff;border-radius:9px;padding:8px 12px;display:inline-block}
+
+  /* Adult/ped specific callout */
+  body[data-aud="adult"] .ped-only{display:none !important}
+  body[data-aud="pediatric"] .adult-only{display:none !important}
+  body[data-aud="pediatric"] .adult-hide{display:none !important}
+  .aud-note{
+    background:#eef5ff;border:1px solid #cfe0f5;border-radius:14px;padding:16px 20px;
+    margin-bottom:24px;display:flex;gap:13px;align-items:flex-start;
+  }
+  .aud-note.ped{background:#fff2f6;border-color:#f5cfdd}
+  .aud-note .ai{font-size:22px;flex-shrink:0}
+  .aud-note h4{font-size:15px;margin-bottom:3px;color:var(--ink)}
+  .aud-note p{font-size:13.5px;color:var(--muted);margin:0}
+
+  /* Refs */
+  .refs{margin-top:50px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:var(--shadow)}
+  .refs h3{font-size:15px;color:var(--green-d);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+  .refs ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+  .refs li{font-size:12.5px;color:var(--muted);padding-left:16px;position:relative;line-height:1.45}
+  .refs li::before{content:"§";position:absolute;left:0;color:var(--teal);font-weight:700}
+  .disclaimer{margin-top:20px;font-size:12px;color:#8a998f;text-align:center;line-height:1.6;max-width:820px;margin-left:auto;margin-right:auto}
+
+  footer.pg{text-align:center;margin-top:34px;font-size:12px;color:#9aa89f}
+
+  @media(max-width:760px){
+    h1{font-size:26px}
+    .grid2{grid-template-columns:1fr}
+    .calc-grid{grid-template-columns:1fr}
+    .refs ul{grid-template-columns:1fr}
+    .step-meta .kcal-chip{display:none}
+    .controls-inner{gap:10px}
+    .result-split{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body data-aud="adult" data-dir="esc">
+<div class="accent-top"></div>
+
+<header class="top" data-anchor="general" data-label="ზოგადი / სათაური">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span>GSPEN · კლინიკური კვების ინსტრუმენტი · ESPEN / ASPEN / ESPGHAN</span>
+    <h1>კვებითი მხარდაჭერის ესკალაცია და დეესკალაცია</h1>
+    <p class="sub">ინტერაქტიული ინსტრუმენტი — ორალური კვებიდან პარენტერალურამდე და უკუპროცესი. საფეხურები, გადაწყვეტილების წერტილები, ენერგიისა და ცილის კალკულატორები და refeeding სინდრომის რისკის შეფასება.</p>
+    <div class="review-note"><b>სამუშაო (სარეცენზიო) ვერსია</b> — ჩაწერე შენი სახელი და ჩართე ქვემოთ მარჯვნივ „<b>კომენტარის რეჟიმი</b>"; დააწკაპუნე ნებისმიერ ბლოკზე „კომენტარი" და დაამატე შენიშვნა. ბოლოს დააჭირე „<b>ექსპორტი</b>" — ტექსტი დაკოპირდება და ფაილიც ჩამოიტვირთება, გამომიგზავნე.</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap controls-inner">
+    <div class="ctrl-group">
+      <span class="ctrl-label">მიმართულება</span>
+      <div class="seg dir">
+        <button id="btnEsc" class="active" onclick="setDir('esc')">↑ ესკალაცია</button>
+        <button id="btnDeesc" onclick="setDir('deesc')">↓ დეესკალაცია</button>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">პაციენტი</span>
+      <div class="seg aud">
+        <button id="btnAdult" class="active" onclick="setAud('adult')">ზრდასრული</button>
+        <button id="btnPed" onclick="setAud('pediatric')">პედიატრია</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Direction banner -->
+  <div id="dirBanner" class="dir-banner">
+    <div class="dir-icon" id="dirIcon"></div>
+    <div>
+      <h3 id="dirTitle">ესკალაცია — ნაკლებად ინვაზიურიდან უფრო ინვაზიურისკენ</h3>
+      <p id="dirText">დაიწყე ყოველთვის ყველაზე მარტივი და ფიზიოლოგიური გზით. გადადი შემდეგ საფეხურზე მხოლოდ მაშინ, როცა წინა ვერ ფარავს მოთხოვნის ≥50–60%-ს ან უკუჩვენებაა. „თუ ნაწლავი მუშაობს — გამოიყენე ის."</p>
+    </div>
+  </div>
+
+  <!-- Audience note -->
+  <div class="aud-note adult-only" id="audNoteAdult">
+    <span class="ai">‍</span>
+    <div>
+      <h4>ზრდასრული პაციენტი</h4>
+      <p>სამიზნე ენერგია ≈ 25–30 kcal/კგ/დღე, ცილა 1.0–1.5 გ/კგ/დღე. მძიმე გამოფიტვისას სამიზნეს მიაღწიე ნელა refeeding სინდრომის თავიდან ასაცილებლად.</p>
+    </div>
+  </div>
+  <div class="aud-note ped ped-only" id="audNotePed">
+    <span class="ai"></span>
+    <div>
+      <h4>პედიატრიული პაციენტი</h4>
+      <p>მიზანი — ენტერალური/ორალური ავტონომიის მიღწევა. კვება ხდება წონაზე (მლ/კგ) დაფუძნებით; PN-ის მოხსნა თანდათან, EN-ის მატების პროპორციულად. ერთ ჯერზე მხოლოდ ერთი ცვლილება.</p>
+    </div>
+  </div>
+
+  <!-- ENTRY: screening → diagnosis → intervention -->
+  <div class="entry" data-anchor="entry" data-label="სკრინინგი → დიაგნოზი (MUST / GLIM)">
+    <h2>დაწყებამდე — სკრინინგი, დიაგნოზი, ჩარევა</h2>
+    <div class="esub">ესკალაციის კიბემდე: ჯერ დაადგინე ვის სჭირდება ჩარევა და დაუსვი დიაგნოზი.</div>
+    <div class="flow">
+      <div class="fstep"><div class="fn">1 · სკრინინგი</div><div class="ft"><b>ყველა</b> პაციენტს მიღებისას — ვალიდირებული ხელსაწყოთი (<b>MUST</b> ან <b>NRS-2002</b>).</div></div>
+      <div class="farrow">→</div>
+      <div class="fstep"><div class="fn">2 · მიმართვა</div><div class="ft">რისკის დადასტურებისას → <b>დიეტოლოგთან</b> მიმართვა და დეტალური შეფასება.</div></div>
+      <div class="farrow">→</div>
+      <div class="fstep"><div class="fn">3 · დიაგნოზი</div><div class="ft">დიეტოლოგი ადასტურებს მალნუტრიციას <b>GLIM</b>-ის კრიტერიუმებით.</div></div>
+      <div class="farrow">→</div>
+      <div class="fstep"><div class="fn">4 · ჩარევა</div><div class="ft">დიაგნოზის მიხედვით — დაიწყე ქვემოთ მოცემული <b>ესკალაციის კიბე</b>.</div></div>
+    </div>
+
+    <details class="disc">
+      <summary>MUST — მალნუტრიციის სკრინინგი (კალკულატორი)</summary>
+      <div class="disc-body">
+        <p>MUST აფასებს სამ კომპონენტს: <b>BMI</b>, <b>უნებლიე წონის კლება</b> და <b>მწვავე დაავადების ეფექტი</b>. შეავსე და მიიღე რისკის კატეგორია და ქმედება.</p>
+        <div class="mini-calc">
+          <div class="mc-grid">
+            <div><label>ახლანდელი წონა (კგ)</label><input id="muW" type="number" value="60" min="1" max="300" oninput="calcMUST()"></div>
+            <div><label>სიმაღლე (სმ)</label><input id="muH" type="number" value="168" min="1" max="230" oninput="calcMUST()"></div>
+            <div><label>ჩვეული / წინა წონა (კგ) — 3–6 თვის წინ</label><input id="muPrev" type="number" value="0" min="0" max="400" placeholder="თუ ცნობილია" oninput="calcMUST()"></div>
+          </div>
+          <div class="mc-note" id="muWLcalc" style="margin-top:9px"></div>
+          <label style="margin-top:9px;display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:600;color:#33405c">
+            <input id="muAcute" type="checkbox" onchange="calcMUST()" style="width:auto;margin-top:3px;accent-color:var(--green)">
+            <span>პაციენტი მწვავედ ავად არის <b>და</b> ≥5 დღე არ მიუღია / ვერ მიიღებს საკვებს</span>
+          </label>
+          <div class="must-res low" id="muRes"><div class="mh">დაბალი რისკი (0)</div><p>რუტინული მოვლა; გაიმეორე სკრინინგი.</p></div>
+          <div class="mc-note">BMI: <b id="muBMI">—</b> · ჯამური ქულა: <b id="muScore">0</b> (BMI + წონის კლება + მწვავე ეფექტი)</div>
+        </div>
+        <p class="src"><b>წყარო:</b> MUST — Malnutrition Universal Screening Tool (BAPEN; Stratton et al. 2004); Langley-Evans 2015. ქულა: BMI &gt;20=0 / 18.5–20=1 / &lt;18.5=2; წონის კლება &lt;5%=0 / 5–10%=1 / &gt;10%=2; მწვავე ეფექტი=2.</p>
+      </div>
+    </details>
+
+    <details class="disc">
+      <summary>GLIM — მალნუტრიციის დიაგნოზი</summary>
+      <div class="disc-body">
+        <p><b>ორეტაპიანი:</b> ჯერ სკრინინგი (MUST / NRS-2002 / MNA-SF); დადებითის შემთხვევაში → GLIM. საჭიროა <b>მინიმუმ 1 ფენოტიპური + 1 ეტიოლოგიური</b> კრიტერიუმი. მონიშნე, რაც პაციენტს აქვს:</p>
+        <div class="mini-calc">
+          <div class="glim-cat">ფენოტიპური კრიტერიუმი</div>
+          <div class="glim-fields">
+            <div><label>წონის უნებლიე კლება</label><select id="glWL" onchange="calcGLIM()">
+              <option value="0">არა</option>
+              <option value="1">ზომიერი — 5–10% (6 თვე) ან 10–20% (მეტ ხანში)</option>
+              <option value="2">მძიმე — &gt;10% (6 თვე) ან &gt;20% (მეტ ხანში)</option>
+            </select></div>
+            <div><label>დაბალი BMI</label><select id="glBMI" onchange="calcGLIM()">
+              <option value="0">არა</option>
+              <option value="1">ზომიერი — &lt;20 (&lt;70წ) ან &lt;22 (≥70წ)</option>
+              <option value="2">მძიმე — &lt;18.5 (&lt;70წ) ან &lt;20 (≥70წ)</option>
+            </select></div>
+            <div><label>კუნთოვანი მასის კლება (DXA/BIA/CT/ულტრაბგერა/ანთროპომეტრია)</label><select id="glMM" onchange="calcGLIM()">
+              <option value="0">არა</option>
+              <option value="1">მსუბუქ-ზომიერი დეფიციტი</option>
+              <option value="2">მძიმე დეფიციტი</option>
+            </select></div>
+          </div>
+          <div class="glim-cat" style="margin-top:14px">ეტიოლოგიური კრიტერიუმი</div>
+          <label class="glim-chk"><input id="glIntake" type="checkbox" onchange="calcGLIM()"><span>მიღების/შეწოვის კლება (≤50% მოთხოვნის &gt;1 კვ., ან ნებისმიერი კლება &gt;2 კვ., ან ქრონიკული GI მდგომარეობა)</span></label>
+          <label class="glim-chk"><input id="glInflam" type="checkbox" onchange="calcGLIM()"><span>ანთება / დაავადების ტვირთი (მწვავე ან ქრონიკული)</span></label>
+          <div class="must-res low" id="glRes"></div>
+        </div>
+        <p class="src"><b>წყარო:</b> GLIM — Cederholm et al. 2019; ESPEN+UEG 2022/2023; ESPEN Surgery 2025; ESPEN Polymorbid 2024 (R1–R2: screen → GLIM). სიმძიმე ფასდება ფენოტიპური კრიტერიუმებით.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- LADDER -->
+  <div class="ladder" id="ladder"></div>
+
+  <!-- ===== CALCULATORS ===== -->
+  <div class="section-title">
+    <span class="st-badge"></span>
+    <h2>კალკულატორები</h2>
+    <span class="line"></span>
+  </div>
+
+  <div class="calc-grid">
+
+    <!-- Energy & Protein -->
+    <div class="calc" data-anchor="calc-energy" data-label="კალკულატორი: ენერგია და ცილა">
+      <h3>ენერგია და ცილა</h3>
+      <div class="sub">დღიური სამიზნის სწრაფი გამოთვლა სხეულის წონაზე</div>
+      <div class="field">
+        <label>სხეულის წონა (კგ)</label>
+        <input type="number" id="epWeight" value="65" min="1" max="300" oninput="calcEP()">
+      </div>
+      <div class="field">
+        <label>ენერგიის კოეფიციენტი: <span class="slider-val" id="epKcalVal">27 kcal/კგ</span></label>
+        <div class="slider-row">
+          <input type="range" id="epKcal" min="15" max="35" value="27" step="1" oninput="calcEP()">
+        </div>
+      </div>
+      <div class="field">
+        <label>ცილის კოეფიციენტი: <span class="slider-val" id="epProtVal">1.2 გ/კგ</span></label>
+        <div class="slider-row">
+          <input type="range" id="epProt" min="0.8" max="2.0" value="1.2" step="0.1" oninput="calcEP()">
+        </div>
+      </div>
+      <div class="result">
+        <div class="rl">დღიური სამიზნე</div>
+        <div class="big" id="epKcalOut">1755 <small>kcal/დღე</small></div>
+        <div class="result-split">
+          <div class="rs"><div class="n" id="epProtOut">78 გ</div><div class="l">ცილა/დღე</div></div>
+          <div class="rs"><div class="n" id="epKcalKg">27</div><div class="l">kcal/კგ</div></div>
+        </div>
+      </div>
+      <div class="note">ზოგადი დიაპაზონი: 25–30 kcal/კგ და 1.0–1.5 გ ცილა/კგ (ESPEN). ონკოლოგიაში 1.2–1.5 გ/კგ; თირკმლის უკმარისობისას (eGFR&lt;30, დიალიზის გარეშე) 0.8 გ/კგ.</div>
+    </div>
+
+    <!-- BMI-based energy -->
+    <div class="calc" data-anchor="calc-bmi" data-label="კალკულატორი: BMI-ის მიხედვით">
+      <h3>ენერგია BMI-ის მიხედვით</h3>
+      <div class="sub">ASPEN-ის მიდგომა — რაც დაბალია BMI, მით მაღალია kcal/კგ</div>
+      <div class="row2">
+        <div class="field">
+          <label>წონა (კგ)</label>
+          <input type="number" id="bmiW" value="52" min="1" oninput="calcBMI()">
+        </div>
+        <div class="field">
+          <label>სიმაღლე (სმ)</label>
+          <input type="number" id="bmiH" value="168" min="1" oninput="calcBMI()">
+        </div>
+      </div>
+      <div class="result">
+        <div class="rl">გამოთვლილი BMI</div>
+        <div class="big"><span id="bmiOut">18.4</span> <small>კგ/მ²</small></div>
+        <div class="result-split">
+          <div class="rs"><div class="n" id="bmiRange">31–35</div><div class="l">kcal/კგ დიაპაზონი</div></div>
+          <div class="rs"><div class="n" id="bmiKcal">1612–1820</div><div class="l">kcal/დღე</div></div>
+        </div>
+      </div>
+      <div class="note" id="bmiNote">BMI&lt;15: 36–45 · 15–19: 31–35 · 20–29: 26–30 · &gt;30: 15–25 kcal/კგ. BMI&lt;18.5 → refeeding რისკი: დაიწყე სამიზნის 25–50%-ით.</div>
+    </div>
+
+  </div>
+
+  <!-- Refeeding -->
+  <div class="section-title">
+    <span class="st-badge"></span>
+    <h2>Refeeding სინდრომის რისკი</h2>
+    <span class="line"></span>
+  </div>
+
+  <div class="calc" style="margin-bottom:6px" data-anchor="calc-refeeding" data-label="Refeeding რისკის შეფასება">
+    <h3>NICE-ის რისკის კრიტერიუმები</h3>
+    <div class="sub">მონიშნე ყველა, რაც პაციენტს ეხება — შედეგი და საწყისი დოზა ავტომატურად განახლდება</div>
+
+    <div class="rf-cat">მაღალი რისკი — ერთი კრიტერიუმი საკმარისია</div>
+    <div class="rf-list" id="rfMajor"></div>
+    <div class="rf-cat">დამატებითი რისკი — ორი კრიტერიუმი</div>
+    <div class="rf-list" id="rfMinor"></div>
+
+    <div class="rf-result low" id="rfResult">
+      <div class="rfh" id="rfHead">დაბალი რისკი</div>
+      <p id="rfText">კრიტერიუმები არ არის მონიშნული. სტანდარტული დაწყება შესაძლებელია, თანდათანობითი მიდგომით.</p>
+      <div class="startdose" id="rfDose">საწყისი: სრული სამიზნის ~50% და მატება 3–5 დღეში</div>
+    </div>
+    <div class="note">დაწყებამდე და პირველ დღეებში აკონტროლე კალიუმი, ფოსფატი, მაგნიუმი; საჭიროებისას თიამინი დაწყებამდე. მაღალი რისკისას ESPEN/NICE გვირჩევს 5–15 kcal/კგ-ით დაწყებას და 5–10 დღეში საფეხურებრივ მატებას.</div>
+  </div>
+
+  <!-- References -->
+  <div class="refs" data-anchor="refs" data-label="წყაროები">
+    <h3>წყაროები</h3>
+    <ul>
+      <li>ESPEN / UEG — Medical nutrition therapy in malabsorption (Lenti et al., 2025): ONS → EN → PN საფეხურები.</li>
+      <li>ESPEN Guideline on Clinical Nutrition in Surgery (Update 2025): supplemental PN &lt;50% სამიზნის 3–4 დღეში; refeeding სიფრთხილე.</li>
+      <li>ESPEN Guideline on Nutrition in Cancer Patients (2017): counselling → ONS → EN → PN.</li>
+      <li>ESPEN ICU practical guideline (2023): PN არ დაიწყო, სანამ ყველა EN-სტრატეგია არ ამოიწურა.</li>
+      <li>ESPEN polymorbid inpatients (2023/24): 30 kcal/კგ სიფრთხილით, ცილა 1.0–1.5 გ/კგ.</li>
+      <li>ASPEN IBD Nutrition Therapy (2017): BMI-ზე დაფუძნებული ენერგია; refeeding.</li>
+      <li>ESPGHAN/ESPEN/ESPR pediatric PN — weaning (2018): PN ↓ EN ↑ პროპორციულად.</li>
+      <li>UpToDate — Postoperative PN / SBS (2026): PN-ის მოხსნა >60–80% ენტერალურ დაფარვაზე.</li>
+      <li>BIFA Top Tips 12 (2020): საწყისი ჰიპოკალორიული PN 10–20 kcal/კგ.</li>
+      <li>NICE — refeeding სინდრომის რისკის კრიტერიუმები.</li>
+      <li>ESPEN Micronutrient Guideline (2022), R16.6: ორალური/ენტერალური გზა, სანამ ნაწლავი მუშაობს.</li>
+      <li>ESPEN Geriatrics — Guideline (2019) &amp; Practical (2022): counselling → food fortification → ONS; R23; energy ~30 kcal/კგ.</li>
+      <li>ESPEN Dementia update (2024): food/drink fortification.</li>
+      <li>ESPEN Hospital Nutrition (2021): Food First (BAPEN); protein-energy enriched diet; 6-ჯერადი კვება.</li>
+      <li>ESPEN Polymorbid inpatients — Practical (2024), R8 &amp; R26: 25–30 kcal/კგ; food fortification +250–450 kcal.</li>
+      <li>ESPEN COVID Expert Statements — Statement 5: ONS ≥400 kcal + ≥30 გ ცილა/დღე.</li>
+      <li>ESPEN Liver disease (2019), R24: ONS პირველი რიგის, ღამის დანამატად.</li>
+      <li>Harris–Benedict განტოლება (UpToDate 2026) — BMR-ის შეფასება.</li>
+      <li>Nutrition, Weight &amp; Digestive Health — Clinician's Desk Reference (2022): ფუნქციური GI ტრაქტი, EN ჩვენება.</li>
+      <li>Introduction to Human Nutrition (2009); Present Knowledge in Nutrition (2020/21); Langley-Evans (2015): დიეტური შეფასების მეთოდები (24სთ/3/7-დღიანი დღიური).</li>
+      <li>MUST — Malnutrition Universal Screening Tool (BAPEN; Stratton et al. 2004): BMI + წონის კლება + მწვავე დაავადების ეფექტი.</li>
+      <li>GLIM — Global Leadership Initiative on Malnutrition (Cederholm et al. 2019): ფენოტიპური + ეტიოლოგიური კრიტერიუმები.</li>
+      <li>ESPEN Polymorbid — Practical (2024), R1–R2: screen (NRS-2002/MUST) → GLIM → treatment plan.</li>
+      <li>ESPEN ICU — Practical Guideline (2023): enteral feeding intolerance; ინტრააბდომინური წნევა; GRV.</li>
+      <li>ESPEN Surgery — Update (2025): ადრეული ორალური/ენტერალური კვება; GLIM.</li>
+      <li>ESPEN Pancreatitis (2020): EN და IAP ≥15 mmHg სიფრთხილე.</li>
+    </ul>
+    <div class="disclaimer">
+      ეს ინსტრუმენტი კლინიკური გადაწყვეტილების მხარდასაჭერია და არ ცვლის ინდივიდუალურ სამედიცინო შეფასებას. ყოველი პაციენტის კვებითი გეგმა უნდა შეესაბამებოდეს მის კლინიკურ მდგომარეობას, ლაბორატორიულ მაჩვენებლებსა და მკურნალი გუნდის გადაწყვეტილებას.
+    </div>
+  </div>
+
+  <footer class="pg">GSPEN — საქართველოს ენტერალური, პარენტერალური კვების და მეტაბოლიზმის ასოციაცია</footer>
+
+</div>
+
+<!-- ===== REVIEW TOOLBAR ===== -->
+<div class="review-toolbar" id="reviewBar">
+  <input class="rt-name" id="rtName" placeholder="შენი სახელი" oninput="rSetName(this.value)">
+  <button class="rt-btn primary" id="rtToggle" onclick="toggleReview()">კომენტარის რეჟიმი</button>
+  <span class="rt-count" id="rtCount">0 კომენტარი</span>
+  <button class="rt-btn" onclick="exportComments()">ექსპორტი</button>
+  <button class="rt-btn" onclick="document.getElementById('rtImport').click()">იმპორტი</button>
+  <input type="file" id="rtImport" accept=".json,application/json" style="display:none" onchange="importComments(this)">
+</div>
+
+<!-- comment editor -->
+<div class="ceditor" id="cEditor">
+  <h4>კომენტარი — <b id="ceLabel"></b></h4>
+  <textarea id="ceText" placeholder="ჩაწერე შენიშვნა ან შესწორება..."></textarea>
+  <div class="cea">
+    <button class="rt-btn" onclick="closeEditor()">გაუქმება</button>
+    <button class="rt-btn primary" onclick="saveComment()">დამატება</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ DATA ============ */
+const STEPS = [
+  {
+    id:"oral", color:"var(--oral)", num:"1", lvl:"საფეხური 1 · ყველაზე ფიზიოლოგიური",
+    title:"დიეტური კონსულტაცია და საკვების გამდიდრება",
+    en:"Dietary counselling & food fortification",
+    kcal:"ბუნებრივი საკვები",
+    indication:[
+      "პირველი ნაბიჯი ყველასთვის, ვისაც შენარჩუნებული აქვს <b>უსაფრთხო ყლაპვა</b> და <b>ფუნქციური (მოქმედი) კუჭ-ნაწლავის ტრაქტი</b> — ანუ შეუძლია ჭამა და საკვების შეწოვა",
+      "მადის დაქვეითება ან ნაწილობრივ შემცირებული მიღება; გამოფიტვის რისკი",
+      "მალაბსორბციისას — მაღალცილოვანი, მაღალკალორიული, დაბალ-/მოდიფიცირებულცხიმიანი დიეტა სტეატორეის შესამცირებლად"
+    ],
+    up:[
+      "მიღება რჩება <b>მოთხოვნის 60%-ზე დაბლა</b> საკვების გამდიდრების მიუხედავად → დაამატე ONS (მე-2 საფეხური)",
+      "წონის კლება გრძელდება <span class=\"hl\">დიეტოლოგის კონსულტაციისა და დიეტის კორექციის</span> შემდეგაც"
+    ],
+    down:[
+      "ეს არის საბოლოო მიზანი — დაბრუნება ჩვეულ საკვებზე",
+      "PN/EN-ის მოხსნის შემდეგ სრული ორალური ავტონომია"
+    ],
+    monitor:["წონა, მიღების დღიური","სიმპტომების მართვა (გულისრევა, მუკოზიტი)","საკვების ტექსტურა/სიხშირე"],
+    monitorFreq:"დამოკიდებულია რისკზე — სტაბილურ ამბულატორიულ პაციენტს ვაკვირდებით ვიზიტებზე (ყოველ 1–4 კვირაში), მაღალი რისკის ან ჰოსპიტალიზებულ პაციენტს კი ბევრად ხშირად.",
+    example:"საკვების გამდიდრება: კარაქი, ზეთი, ნაღები, რძის ფხვნილი, კვერცხი კერძებში; 5–6 მცირე კვება; მაღალცილოვანი დამატებები.",
+    flag:null, pedNote:"ბავშვებში — კალორიულად მკვრივი, ასაკის შესაბამისი საკვები; დიდი მოცულობის მოცვის ნაცვლად მკვრივი პორციები."
+  },
+  {
+    id:"ons", color:"var(--ons)", num:"2", lvl:"საფეხური 2 · მედიკამენტური კვების პირველი ნაბიჯი",
+    title:"ორალური კვებითი დანამატები (ONS)",
+    en:"Oral Nutritional Supplements",
+    kcal:"~300 kcal / 12 გ ცილა ერთ პორციაზე",
+    indication:[
+      "როცა გამდიდრებული დიეტა ვერ აღწევს კვებით მიზნებს",
+      "ფუნქციური კუჭ-ნაწლავის ტრაქტი და უსაფრთხო ყლაპვა",
+      "ცილოვანი/ენერგეტიკული დეფიციტის შევსება, ქსოვილის აღდგენა"
+    ],
+    up:[
+      "მძიმე ანორექსია, ყლაპვის ან ობსტრუქცია/მოტორიკის პრობლემა ზღუდავს ONS-ს",
+      "ORAL + ONS მაინც &lt;მოთხოვნის 60%"
+    ],
+    down:[
+      "EN-იდან გადმოსვლისას — sip feeds როცა GI ფუნქცია გაუმჯობესდა",
+      "შემდეგ თანდათან სრულ ორალურ დიეტაზე"
+    ],
+    monitor:["მიღებული პორციები/დღე","გემოვნებით მორგება (მადის შენარჩუნება)","ტოლერანტობა (გულისრევა, სისავსე)"],
+    monitorFreq:"პორციების მიღება აღირიცხება ყოველდღიურად; წონა და ტოლერანტობა — რეგულარულ ვიზიტებზე. მიღების გაუარესებისას შეფასება ხშირდება.",
+    example:"პოლიმერული ფორმულა ყველაზე პალატაბელურია; ელემენტური/ნახევრად-ელემენტური — მძიმე აქტიური დაავადებისას. მაღალცილოვანი ONS — ჭრილობებისა და სიმსივნის დროს.",
+    flag:null, pedNote:"პედიატრიაში — ასაკზე მორგებული ფორმულები; ხშირად ღამის sip feeds წონის მატებისთვის."
+  },
+  {
+    id:"en", color:"var(--en)", num:"3", lvl:"საფეხური 3 · ხელოვნური კვება, ნაწლავის გზა",
+    title:"ენტერალური (ზონდით) კვება — EN",
+    en:"Enteral Tube Feeding",
+    kcal:"1–2.4 kcal/მლ ფორმულა",
+    indication:[
+      "ორალური კვება არასაკმარისია ან შეუძლებელია, მაგრამ GI ტრაქტი მუშაობს",
+      "საჭიროა ხელმისაწვდომი GI გზა, ადეკვატური მოტორიკა და შეწოვის უნარი",
+      "„თუ ნაწლავი მუშაობს — გამოიყენე ის“ — EN უპირატესია PN-ზე"
+    ],
+    up:[
+      "EN ვერ აწვდის მოთხოვნის &gt;60%-ს &gt;72 სთ, მაქსიმალური მართვის მიუხედავად",
+      "EN-ის უკუჩვენება/აუტანლობა → supplemental ან total PN"
+    ],
+    down:[
+      "PN-იდან — EN ნორმალური კონცენტრაციით (არ განზავდეს)",
+      "მინიმალური EN შენარჩუნდეს ნაწლავის ლორწოვანის მთლიანობისთვის",
+      "ტოლერანტობისას → ONS/ორალურზე გადასვლა"
+    ],
+    monitor:["გასტრიკული/სტომის გამონადენი, დიარეა","ასპირაციის რისკი","EN-ის მიწოდებული % სამიზნის მიმართ"],
+    monitorFreq:"აქტიური მიწოდებისას — ცვლის მიხედვით (გამონადენი, ტოლერანტობა); მძიმე ან კრიტიკულ პაციენტში ელექტროლიტები ყოველდღიურად, განსაკუთრებით refeeding რისკის დროს.",
+    example:"გასტრიკული ან პოსტპილორული. მძიმე გამოფიტვისას მატება ნელა — ფოსფატის, კალიუმის, მაგნიუმის კონტროლით (refeeding).",
+    flag:{type:"warn",text:"დაიწყე დაბალი სიჩქარით და გაზარდე თანდათან 48 სთ-ში, ლოკალური პროტოკოლით — მკვეთრი მატება refeeding რისკია."},
+    pedNote:"ბავშვებში — უწყვეტი ინფუზია 4–24 სთ ტუმბოთი; მოცულობა იზრდება ტოლერანტობით (მძიმე IF-ში 1 მლ/კგ/24სთ-მდე ნელა)."
+  },
+  {
+    id:"spn", color:"var(--spn)", num:"4", lvl:"საფეხური 4 · კომბინირებული",
+    title:"დამატებითი პარენტერალური კვება (Supplemental PN)",
+    en:"Supplemental Parenteral Nutrition",
+    kcal:"ავსებს EN/ორალურის დანაკლისს",
+    indication:[
+      "ორალური და/ან EN ვერ ფარავს მოთხოვნის &lt;50%-ს 3–4 დღეში → დაემატოს PN",
+      "EN ვერ აწვდის &gt;60%-ს ენერგიის/ცილის — supplemental PN",
+      "მიზანი — მიაღწიო სამიზნეს, მაგრამ არ გადააჭარბო (overfeeding-ის თავიდან აცილება)"
+    ],
+    up:[
+      "EN სრულად შეუძლებელი/უკუჩვენება → total PN",
+      "GI გზა სრულად არ ფუნქციონირებს"
+    ],
+    down:[
+      "EN/ორალურის მატებისას PN პროპორციულად შემცირდეს",
+      "მოიხსნას, როცა ენტერალურად იფარება &gt;60% (მოკლე კურსი)"
+    ],
+    monitor:["ორივე გზის ჯამური ნუტრიენტი (overfeeding-ის თავიდან)","ტრიგლიცერიდები, გლუკოზა","ელექტროლიტები, სითხის ბალანსი"],
+    monitorFreq:"ელექტროლიტები, გლუკოზა და ტრიგლიცერიდები — ხშირად (ხშირად ყოველდღიურად), განსაკუთრებით PN-ის დაწყებისა და დოზის ცვლილებისას.",
+    example:"როცა EN და supplemental PN ერთად მიდის, დააბალანსე ორივე გზის კალორია, რომ არ მოხდეს გადაჭარბება.",
+    flag:{type:"warn",text:"PN არ დაიწყო, სანამ EN-ის ტოლერანტობის გასაუმჯობესებელი ყველა გონივრული სტრატეგია არ ამოიწურა (ESPEN ICU)."},
+    pedNote:"პედიატრიაში — PN მცირდება EN-ის მატების პროპორციულად ან ოდნავ მეტად; თუ სტრატეგია ჩავარდა — სცადე ხელახლა უფრო ნელა."
+  },
+  {
+    id:"tpn", color:"var(--tpn)", num:"5", lvl:"საფეხური 5 · სრული ინტრავენური კვება",
+    title:"სრული პარენტერალური კვება (Total PN)",
+    en:"Total Parenteral Nutrition",
+    kcal:"სრული მოთხოვნის ინტრავენური დაფარვა",
+    indication:[
+      "ნაწლავის უკმარისობა (IF) — შეწოვის მძიმე დარღვევა",
+      "EN-ის უკუჩვენება: ობსტრუქცია/ილეუსი, მძიმე შოკი, ნაწლავის იშემია, მაღალდებიტიანი ფისტულა, მძიმე სისხლდენა",
+      "უკუჩვენებისას PN დაიწყოს რაც შეიძლება მალე, განსაკუთრებით მძიმედ გამოფიტულებში"
+    ],
+    up:[
+      "ეს არის ესკალაციის მწვერვალი — მაქსიმალური მხარდაჭერა",
+      "IF-ში შესაძლოა გახდეს ხანგრძლივი/მუდმივი (მაგ. მოკლე ნაწლავი)"
+    ],
+    down:[
+      "როცა EN ტოლერანტულია — PN დაიწყე მოხსნა, EN-ის პროპორციულად",
+      "მოკლე კურსი: მოხსენ &gt;60% ენტერალურ დაფარვაზე; გრძელი (&gt;1 თვე): &gt;80%",
+      "შეინარჩუნე მინიმალური EN ნაწლავის ტროფიკისთვის"
+    ],
+    monitor:["ღვიძლის ფუნქცია, ქოლესტაზი (ხანგრძლივ PN-ზე)","ცენტრალური კათეტერის ინფექცია","მიკროელემენტები/ვიტამინები, ელექტროლიტები"],
+    monitorFreq:"refeeding რისკის დროს ელექტროლიტები ყოველდღიურად 5–7 დღე; ღვიძლის ფუნქცია, კათეტერი და მიკროელემენტები — რეგულარულად, PN-ის ხანგრძლივობის მიხედვით.",
+    example:"საწყისი ჰიპოკალორიული PN 10–20 kcal/კგ refeeding რისკის დროს; პირველ კვირაში ~70–80% სამიზნის, შემდეგ სრულ მოთხოვნამდე.",
+    flag:{type:"stop",text:"PN რეზერვირებულია ინტესტინური უკმარისობისთვის ან EN-ის უკუჩვენებისთვის. მიღება ორალურად/ONS-ით შეძლებისდაგვარად შენარჩუნდეს (მაგ. ზედა GI სტენოზისას)."},
+    pedNote:"ბავშვებში — მთავარი პრიორიტეტი ენტერალური ავტონომიაა; ქოლესტაზის რისკი პირდაპირ PN-ის ხანგრძლივობაზეა დამოკიდებული. ღამის PN-ის თანდათანობითი მოხსნა."
+  }
+];
+
+const RF_MAJOR = [
+  {t:"<b>BMI &lt; 16</b> კგ/მ²"},
+  {t:"<b>უნებლიე წონის დაკლება &gt; 15%</b> ბოლო 3–6 თვეში"},
+  {t:"<b>ძალიან მცირე ან ნულოვანი მიღება &gt; 10 დღე</b>"},
+  {t:"<b>დაბალი კალიუმი, ფოსფატი ან მაგნიუმი</b> კვებამდე"}
+];
+const RF_MINOR = [
+  {t:"<b>BMI &lt; 18.5</b> კგ/მ²"},
+  {t:"<b>უნებლიე წონის დაკლება &gt; 10%</b> ბოლო 3–6 თვეში"},
+  {t:"<b>მცირე ან ნულოვანი მიღება &gt; 5 დღე</b>"},
+  {t:"ალკოჰოლის ბოროტად გამოყენება ან წამლები: ინსულინი, ქიმიოთერაპია, ანტაციდები, დიურეტიკები"}
+];
+
+/* ============ CONFIG — შეცვალე ეს ბმულები რეალურ URL-ებზე ============ */
+const CFG = {
+  // შენი კალორიების აპლიკაციის ბმული (ვაშლის ლოგოთი). ჩასვი აქ.
+  calorieApp: "#REPLACE-WITH-YOUR-CALORIE-APP-URL",
+  // საკვების დღიურების Word ფაილები — ატვირთე HTML-ის გვერდით და ჩაწერე ბმულები
+  diary24h: "dghiurebi/kvebis-dghiuri-24saati.docx",
+  diary3d:  "dghiurebi/kvebis-dghiuri-3dghe.docx",
+  diary7d:  "dghiurebi/kvebis-dghiuri-7dghe.docx",
+  portionManual: "dghiurebi/porciebis-manuali.docx"
+};
+
+/* ============ SOURCES per step/block ============ */
+const SRC = {
+  oral:{
+    ind:"ESPEN Micronutrient Guideline 2022 (R16.6); Nutrition, Weight &amp; Digestive Health — Clinician's Desk Reference 2022; Present Knowledge in Nutrition 2020.",
+    up:"ESPEN Guideline on Nutrition in Cancer Patients 2017 (60%-ის წესი); ESPEN Geriatrics 2019 (R23); კონსულტაცია ტარდება ტრენინგგავლილი დიეტოლოგის/ნუტრიციოლოგის მიერ (Nutrition Care Process).",
+    down:"ESPGHAN/ESPEN/ESPR pediatric PN weaning 2018; UpToDate 2026.",
+    mon:"ESPEN Geriatrics 2019 (ენერგიის ადეკვატურობა კონტროლდება წონის მჭიდრო მონიტორინგით)."
+  },
+  ons:{
+    ind:"ESPEN Geriatrics 2019 (R23); ESPEN COVID Expert Statements (Statement 5: ONS ≥400 kcal + ≥30 გ ცილა/დღე, ≥1 თვე).",
+    up:"ESPEN Cancer 2017 (ORAL+ONS &lt;60% → EN).",
+    down:"ESPEN Cancer 2017; ESPEN Liver 2019 (R24, ღამის ONS).",
+    mon:"ESPEN COVID Statements (compliance-ის შემოწმება; ეფექტის შეფასება ~თვეში ერთხელ)."
+  },
+  en:{
+    ind:"ESPEN Micronutrient 2022 (R16.6, „როცა ნაწლავი მუშაობს“); ASPEN/SCCM (early EN 24–48 სთ); Present Knowledge in Nutrition 2020.",
+    up:"ESPEN ICU practical guideline 2023 (PN, როცა EN ვერ ფარავს).",
+    down:"ESPEN ICU 2023 (მინიმალური EN ლორწოვანის ტროფიკისთვის).",
+    mon:"Present Knowledge in Nutrition 2020 (მჭიდრო მონიტორინგი; ასპირაცია, ტოლერანტობა)."
+  },
+  spn:{
+    ind:"ESPEN Surgery Guideline (Update 2025); ESPEN ICU 2023 (supplemental PN, როცა &lt;50% იფარება 3–4 დღეში).",
+    up:"ESPEN ICU 2023 (total PN, როცა EN უკუჩვენებაა/შეუძლებელი).",
+    down:"ESPEN Surgery 2025 (PN მცირდება EN-ის მატების პროპორციულად).",
+    mon:"ESPEN (ჯამური ენერგიის ბალანსი — overfeeding-ის თავიდან აცილება)."
+  },
+  tpn:{
+    ind:"ESPEN Micronutrient 2022 (R16.6: malabsorption/short bowel → PN); ESPEN Acute Intestinal Failure.",
+    up:"ESPEN Chronic Intestinal Failure (ხანგრძლივი/სახლის PN).",
+    down:"UpToDate 2026 (PN-ის მოხსნა &gt;60–80% ენტერალურ დაფარვაზე); BIFA Top Tips 12.",
+    mon:"ESPEN Home PN (ღვიძლის ფუნქცია, კათეტერის ინფექცია, მიკროელემენტები)."
+  }
+};
+function srcLine(txt){ return txt?`<p class="src"><b>წყარო:</b> ${txt}</p>`:""; }
+
+/* ============ STEP-1 EXPANDABLE PANELS (sourced) ============ */
+function funcGiDetails(){
+  return `
+  <details class="disc">
+    <summary>ფუნქციური კუჭ-ნაწლავის ტრაქტის ნიშნები</summary>
+    <div class="disc-body">
+      <p>„ფუნქციური (მოქმედი) GI ტრაქტი" ნიშნავს, რომ ნაწლავს შეუძლია საკვების <b>მიღება, გატარება და შეწოვა</b>. პრაქტიკული ნიშნები:</p>
+      <ul>
+        <li>უსაფრთხო ყლაპვა ასპირაციის გარეშე (ეჭვისას — ყლაპვის/ლოგოპედის შეფასება)</li>
+        <li>გულისრევა/ღებინება არ არის მოურჩენადი; მადა ნაწილობრივ მაინც შენარჩუნებული</li>
+        <li>ნაწლავის გამტარობა დაცულია — მუცელი რბილი, გაზები/დეფეკაცია არის, ობსტრუქციის/ილეუსის გარეშე</li>
+        <li>დიარეა/სტეატორეა და მუცლის ტკივილი კონტროლირებადია</li>
+        <li>ლაბორატორია და წონა მალაბსორბციის მძიმე სურათს არ აჩვენებს</li>
+      </ul>
+      <p><b>როდის არ არის ორალური გზა უსაფრთხო/შესაძლებელი →</b> პროქსიმალური ობსტრუქცია (თავ-კისრის ან საყლაპავის სიმსივნე, კუჭიდან გამოსავლის ობსტრუქცია), ნევროლოგიური დარღვევა (ინსულტი, დემენცია, პარკინსონი), ცნობიერების დაქვეითება. ასეთ დროს გადადი EN-ზე ან PN-ზე.</p>
+      ${srcLine("ESPEN Micronutrient Guideline 2022 (R16.6); Nutrition, Weight &amp; Digestive Health — Clinician's Desk Reference 2022; Present Knowledge in Nutrition 2020.")}
+    </div>
+  </details>
+  <details class="disc">
+    <summary>ქირურგიის შემდეგ — როდის შეიძლება ორალური/ენტერალური კვება</summary>
+    <div class="disc-body">
+      <p>უმეტესი ოპერაციის (მათ შორის კუჭ-ნაწლავის) შემდეგ რეკომენდებულია <b>ადრეული ორალური ან ენტერალური კვება</b> — ხშირად პირველსავე დღეს; რუტინული ხანგრძლივი უზმოობა საჭირო არ არის.</p>
+      <p><b>სიფრთხილე / უკუჩვენება (გადადე ან PN):</b> ანასტომოზის გაჟონვა ან მაღალი რისკი, ნაწლავის ობსტრუქცია/ილეუსი, ნაწლავის იშემია, დიფუზური პერიტონიტი, ჰემოდინამიკური არასტაბილურობა (მაღალდოზიანი ვაზოპრესორები), მოურჩენადი ღებინება.</p>
+      <p><b>ორალური გზა შეუძლებელია:</b> ზედა GI ობსტრუქცია (თავ-კისრის/საყლაპავის სიმსივნე, კუჭიდან გამოსავლის ობსტრუქცია) → ზონდით (საჭიროებისას პოსტპილორული) ან PN.</p>
+      ${srcLine("ESPEN Guideline on Clinical Nutrition in Surgery (Update 2025); Present Knowledge in Nutrition 2020 (EN-ის უკუჩვენებები).")}
+    </div>
+  </details>
+  <details class="disc">
+    <summary>ICU — GI ფუნქციის შეფასება (ნუ დაენდობი მარტო ნაწლავის ხმას)</summary>
+    <div class="disc-body">
+      <p>კრიტიკულ პაციენტში ნაწლავის ფუნქციის შეფასება <b>მარტო ნაწლავის ხმაზე ან გასტრიკულ ნარჩენ მოცულობაზე (GRV) არ უნდა დაეყრდნოს</b> — ისინი არასანდოა.</p>
+      <p><b>შეაფასე კომპლექსურად:</b> ენტერალური აუტანლობის ნიშნები (მუცლის შებერვა, დისკომფორტი, ღებინება, რეფლუქსი, დიარეა), მუცლის ყოველდღიური გასინჯვა, საჭიროებისას მუცლის რენტგენი. აუტანლობა მხოლოდ კუჭის ფუნქციით არ განისაზღვრება.</p>
+      <p><b>ინტრააბდომინური წნევა (IAP):</b> გაითვალისწინე EN-ის დაწყება/გაგრძელებისას. IAP ≥15 mmHg — EN სიფრთხილით; მკვეთრი მატებისას შეამცირე; IAP &gt;20 mmHg ან აბდომინური კომპარტმენტ-სინდრომი — EN დროებით შეაჩერე.</p>
+      <p><b>GRV:</b> ASPEN არ გირჩევს GRV-ის მარტო გამოყენებას EN-ის შესაჩერებლად; 200–500 მლ ყურადღების ღირსია, მაგრამ სხვა ნიშნების გარეშე EN არ ჩერდება.</p>
+      ${srcLine("ESPEN ICU practical guideline 2023 (EFI; ინტრააბდომინური წნევა); Clinician's Desk Reference 2022 &amp; UpToDate 2026 (GRV); ESPEN Pancreatitis 2020 (IAP ≥15 mmHg).")}
+    </div>
+  </details>`;
+}
+function hpnDetails(){
+  return `
+  <details class="disc">
+    <summary>სახლის პარენტერალური კვება (HPN)</summary>
+    <div class="disc-body">
+      <p><b>HPN (Home Parenteral Nutrition)</b> — ხანგრძლივი PN სახლის პირობებში, <b>ქრონიკული ნაწლავის უკმარისობისას (CIF)</b>, როცა ორალური/ენტერალური გზა ვერ უზრუნველყოფს საკმარის ნუტრიენტს, სითხესა და ელექტროლიტს, პარენტერალური მხარდაჭერა კი სახლში შესაძლებელია.</p>
+      <p><b>ტიპური ჩვენება:</b> მოკლე ნაწლავი, ობსტრუქცია/ფსევდოობსტრუქცია, მაღალდებიტიანი ფისტულა, ნაწლავის ლორწოვანის ვრცელი დაავადება ან წარუმატებელი EN. CIF-ის შექცევადობა მხოლოდ ~20–50%-ია — ნაწილს HPN მუდმივად სჭირდება.</p>
+      <p><b>წინაპირობა (გაწერამდე):</b> მეტაბოლურად სტაბილური; ცენტრალური ვენური კათეტერი (CVAD); პაციენტის/ოჯახის ტრენინგი NST-ის მიერ (ასეპტიკა, კათეტერის მოვლა, ტუმბო, გართულებების ამოცნობა); ადეკვატური საშინაო გარემო; ინფორმირებული თანხმობა. სასურველია წინასწარ EN-ის ცდა.</p>
+      <p><b>მართვა და მიზანი:</b> ადრეული მიმართვა IF/რეაბილიტაციის ცენტრში — HPN-იდან მოხსნის შანსის გაზრდის, გართულებების პრევენციისა და საჭიროებისას ნაწლავის ტრანსპლანტაციის შესაფასებლად. მთავარი მიზანი — <b>ცხოვრების ხარისხის მაქსიმიზაცია</b>.</p>
+      <p><b>მონიტორინგი:</b> სითხის ბალანსი (ყველაზე ხშირად, განსაკუთრებით მაღალდებიტიან სტომაზე), კათეტერთან დაკავშირებული ინფექცია (CRBSI), ღვიძლი/IFALD, ელექტროლიტები, მიკროელემენტები (6–12 თვე), ძვლის მდგომარეობა. სტაბილურ პაციენტს ~3 თვის ინტერვალით.</p>
+      ${srcLine("ESPEN Guideline on Chronic Intestinal Failure in adults 2024 (R2–R12); ESPEN HPN 2020; ESPEN CIF Practical 2021; BIFA HPS position 2026; Clinician's Desk Reference 2022.")}
+    </div>
+  </details>`;
+}
+function dietitianNote(){
+  return `<div class="hl-note"><b>დიეტოლოგი აუცილებელია:</b> მოთხოვნის გამოთვლა, რეალური მიღების შეფასება, საკვების გამდიდრება და ONS-ის დანიშვნა უნდა განახორციელოს კვალიფიციურმა <span class="hl">დიეტოლოგმა / ნუტრიციოლოგმა</span> (Nutrition Care Process).</div>`;
+}
+function onsDetails(){
+  return `
+  <details class="disc">
+    <summary>რა არის ONS და სად არის საჭირო</summary>
+    <div class="disc-body">
+      <p><b>ONS (Oral Nutritional Supplements)</b> — მზა, ენერგიითა და ცილით მკვრივი სასმელები/პროდუქტები, რომლებიც ავსებენ ჩვეულ საკვებს, როცა დიეტა და გამდიდრება ვეღარ ფარავს მოთხოვნას.</p>
+      <p><b>სად არის საჭირო:</b> გამდიდრებული დიეტის მიუხედავად მიღება რჩება მიზნის ქვემოთ; მალნუტრიცია ან მისი მაღალი რისკი; პერიოპერაციული/ონკოლოგიური გამოფიტვა; ხანდაზმულთა ანორექსია.</p>
+      <p><b>დოზა:</b> როგორც წესი ≥400 kcal/დღე და ≥30 გ ცილა/დღე, მინიმუმ 1 თვე; ეფექტი ფასდება ~თვეში ერთხელ. კარგად მუშაობს საღამოს/ღამის sip feed-ად.</p>
+      <p><b>60%-ის წესი:</b> თუ ORAL ± ONS ხანგრძლივად (&gt;1–2 კვირა) ვერ აღწევს მოთხოვნის <b>60%</b>-ს, მიჰყევი ესკალაციას — EN.</p>
+      ${srcLine("ESPEN Geriatrics 2019 (R23); ESPEN COVID Statement 5; ESPEN Cancer 2017 (60%-ის წესი); ESPEN Liver 2019 (R24).")}
+    </div>
+  </details>`;
+}
+function practicalPanel(){
+  return `
+  <div class="disc-title">პრაქტიკული ხელსაწყოები</div>
+
+  <details class="disc">
+    <summary>ალგორითმი: გამოთვალე → შეაფასე → გაზარდე → გაამდიდრე</summary>
+    <div class="disc-body">
+      <ol>
+        <li><b>გამოთვალე მოთხოვნა.</b> ენერგია ≈ 25–30 kcal/კგ/დღე; ცილა 1.0–1.5 გ/კგ/დღე. ქვემოთ მინი-კალკულატორი (Harris–Benedict) დაგეხმარება.</li>
+        <li><b>შეაფასე რეალური მიღება.</b> აწარმოე კვების დღიური (იხ. „როგორ გავიგოთ…") და დათვალე მიღებული კალორია/ცილა.</li>
+        <li><b>თუ მიღება &lt; მოთხოვნა →</b> ჯერ გაზარდე ბუნებრივი საკვების რაოდენობა/სიხშირე — 5–6 მცირე კვება, „ცოტ-ცოტა და ხშირად".</li>
+        <li><b>თუ მოცულობას ვეღარ ზრდის →</b> <b>გაამდიდრე</b> საკვები (იხ. „გამდიდრების მეთოდები") — იმავე ულუფიდან მეტი ენერგია/ცილა.</li>
+        <li><b>თუ გამდიდრებული დიეტაც ვერ აღწევს მიზანს (მიღება &lt;60%) →</b> დაამატე <b>ONS</b> (მე-2 საფეხური).</li>
+      </ol>
+
+      <div class="mini-calc">
+        <div class="mc-grid">
+          <div><label>წონა (კგ)</label><input type="number" id="p1w" value="65" min="1" max="300" oninput="calcP1()"></div>
+          <div><label>სიმაღლე (სმ)</label><input type="number" id="p1h" value="168" min="1" max="230" oninput="calcP1()"></div>
+          <div><label>ასაკი</label><input type="number" id="p1a" value="45" min="1" max="120" oninput="calcP1()"></div>
+          <div><label>სქესი</label><select id="p1sex" onchange="calcP1()"><option value="female">ქალი</option><option value="male">კაცი</option></select></div>
+          <div><label>აქტივობა</label><select id="p1act" onchange="calcP1()"><option value="1.2">წოლითი (1.2)</option><option value="1.3" selected>პალატის რეჟიმი (1.3)</option><option value="1.5">მსუბუქად აქტიური (1.5)</option><option value="1.7">აქტიური (1.7)</option></select></div>
+          <div><label>სტრესის ფაქტორი</label><select id="p1str" onchange="calcP1()"><option value="1">არ არის (1.0)</option><option value="1.1">მსუბუქი (1.1)</option><option value="1.2">ზომიერი (1.2)</option><option value="1.3">მძიმე (1.3)</option></select></div>
+        </div>
+        <div class="mc-out">
+          <div class="mc-box"><div class="n" id="p1kcal">—</div><div class="l">kcal/დღე (სამიზნე)</div></div>
+          <div class="mc-box"><div class="n" id="p1prot">—</div><div class="l">ცილა/დღე (1.2 გ/კგ)</div></div>
+        </div>
+        <div class="mc-note" id="p1note"></div>
+      </div>
+
+      <a class="applink" id="p1app" href="${CFG.calorieApp}" target="_blank" rel="noopener">პროდუქტების კალორიების დათვლა — ჩემი აპლიკაცია</a>
+      ${srcLine("ESPEN Polymorbid practical guideline 2024 (R8: 25–30 kcal/კგ, საწყისი შეფასება; საჭიროა დიეტოლოგის ჩართვა); Harris–Benedict (UpToDate 2026); ESPEN Cancer 2017.")}
+    </div>
+  </details>
+
+  <details class="disc">
+    <summary>საკვების გამდიდრების (fortification) მეთოდები</summary>
+    <div class="disc-body">
+      <p>გამდიდრება = იმავე მოცულობის საკვებში მეტი ენერგიისა და ცილის ჩადება. პაციენტი მეტს ვერ ჭამს, მაგრამ იმავე ულუფიდან მეტ კალორიას იღებს.</p>
+      <p><b>ბუნებრივი პროდუქტებით:</b> ზეთი/კარაქი, ნაღები, სრულცხიმიანი (full-fat) რძე, რძის ფხვნილი კერძებში, ყველი, კვერცხი, თხილეული/თესლი, თხილის კარაქი, მაიონეზი/სოუსები.</p>
+      <p><b>სპეციალური დანამატებით:</b> მალტოდექსტრინი (ენერგია), ცილის ფხვნილი — whey/casein (ცილა) — წვნიან/რძიან კერძებში.</p>
+      <p><b>სტრატეგია (Food First, BAPEN):</b> ჭამე „ცოტა და ხშირად"; აირჩიე სრულცხიმიანი/კალორიული პროდუქტები; 6-ჯერადი კვება (3 ძირითადი + 3 სნექი); წყლის ნაცვლად კალორიული სასმელი (რძიანი, სმუზი).</p>
+      <p><b>რას ელოდები:</b> გამდიდრება საშუალოდ +250–450 kcal/დღე და +12–16 გ ცილა/დღე იძლევა.</p>
+      ${srcLine("ESPEN Geriatrics 2019/2022 (#20); ESPEN Dementia 2024; ESPEN Hospital 2021 (Food First/BAPEN); ESPEN Polymorbid 2023 (R26; Mills et al. მეტა-ანალიზი).")}
+    </div>
+  </details>
+
+  <details class="disc">
+    <summary>როგორ გავიგოთ, იღებს თუ არა ადეკვატურ კალორიას</summary>
+    <div class="disc-body">
+      <p>შეადარე <b>რეალური მიღება</b> გამოთვლილ <b>მოთხოვნას</b>. მიღების შესაფასებელი მეთოდები:</p>
+      <div class="meth">
+        <div class="m"><b>24-საათიანი გახსენება (recall)</b> — <span>სწრაფი და მარტივი; ასახავს მხოლოდ 1 დღეს, არა ჩვეულ მიღებას. კარგია სწრაფი სკრინინგისთვის.</span></div>
+        <div class="m"><b>3-დღიანი დღიური</b> — <span>2 სამუშაო + 1 დასვენების დღე; ბალანსი სიზუსტესა და დატვირთვას შორის. რეკომენდებული ამბულატორიაში.</span></div>
+        <div class="m"><b>7-დღიანი დღიური</b> — <span>ყველაზე სანდო ენერგიისა და მაკრო/მიკროსთვის; მოითხოვს მოტივაციას (სიზუსტე პირველ 2–3 დღეს მაღალია).</span></div>
+        <div class="m"><b>ფოტო-დღიური</b> — <span>პაციენტი უღებს კერძს ფოტოს ჭამის წინ და შემდეგ; ამცირებს მეხსიერების შეცდომას. კარგია ბავშვებთან/ხანდაზმულებთან, პორციების ატლასთან ერთად.</span></div>
+        <div class="m"><b>პორციის საზომი</b> — <span>საყოფაცხოვრებო ერთეულები (ჩ/კ, ჭიქა), პორციების ფოტო-ატლასი ან აწონა (ყველაზე ზუსტი).</span></div>
+      </div>
+      <p><b>ინტერპრეტაცია:</b> საშუალო მიღება &lt; მოთხოვნის ~75% → აქტიური ჩარევა; &lt;60% ხანგრძლივად → ხელოვნური კვების ჩვენება.</p>
+      <p><b>ყურადღება:</b> პაციენტების ~20–25% არასწორად აფასებს მიღებას (under-/over-reporting), ამიტომ ერთი დღე არ არის საკმარისი ინდივიდის ჩვეული მიღების შესაფასებლად — საჭიროა ≥2–3 დღე.</p>
+      <div class="dl-row">
+        <a class="dlbtn" href="${CFG.diary24h}" download>24-საათიანი დღიური</a>
+        <a class="dlbtn" href="${CFG.diary3d}" download>3-დღიანი დღიური</a>
+        <a class="dlbtn" href="${CFG.diary7d}" download>7-დღიანი დღიური</a>
+        <a class="dlbtn" href="${CFG.portionManual}" download>პორციების მანუალი</a>
+      </div>
+      ${srcLine("Introduction to Human Nutrition 2009; Present Knowledge in Nutrition 2020; Langley-Evans — Nutrition, Health &amp; Disease 2015.")}
+    </div>
+  </details>`;
+}
+
+/* ============ RENDER LADDER ============ */
+function chevSVG(){
+  return '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+}
+function buildLadder(){
+  const dir = document.body.dataset.dir;
+  const order = dir === "esc" ? STEPS : [...STEPS].slice().reverse();
+  const ladder = document.getElementById("ladder");
+  ladder.innerHTML = "";
+  order.forEach((s, i) => {
+    const step = document.createElement("div");
+    step.className = "step";
+    step.dataset.anchor = "step-"+s.id;
+    step.dataset.label = "საფეხური "+s.num+" — "+s.title;
+    step.innerHTML = `
+      <div class="accent" style="background:${s.color}"></div>
+      <div class="step-head" onclick="this.parentElement.classList.toggle('open');toggleBody(this)">
+        <div class="step-num" style="background:${s.color}">${s.num}</div>
+        <div class="step-titles">
+          <div class="lvl">${s.lvl}</div>
+          <h3>${s.title}</h3>
+          <div class="en">${s.en}</div>
+        </div>
+        <div class="step-meta">
+          <span class="kcal-chip">${s.kcal}</span>
+          <button class="cbtn cbtn-inline" type="button" onclick="event.stopPropagation();openEditor('step-${s.id}', this.closest('.step').dataset.label)"><span class="cnt zero">0</span></button>
+          ${chevSVG()}
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-body-inner">
+          ${s.id==='oral'?'<div class="act-line"><b>ამ საფეხურის ჩარევა:</b> დიეტური კონსულტაცია · <b>საკვების გამდიდრება (fortification)</b> · კვების სიხშირის ↑ (5–6-ჯერ, „ცოტ-ცოტა და ხშირად") · საჭიროებისას ONS.</div>':""}
+          <div class="grid2">
+            <div class="info-block h-ind">
+              <h4>ჩვენება</h4>
+              <ul>${s.indication.map(x=>`<li>${x}</li>`).join("")}</ul>
+              ${s.id==='oral'?funcGiDetails():""}
+              ${s.id==='tpn'?hpnDetails():""}
+              ${srcLine(SRC[s.id]&&SRC[s.id].ind)}
+            </div>
+            <div class="info-block ${dir==='esc'?'h-up':'h-down'}">
+              <h4>${dir==='esc'?'ესკალაცია — როდის ავიდე შემდეგ საფეხურზე':'დეესკალაცია — როდის ჩამოვიდე ან მოვხსნა'}</h4>
+              <p class="blk-intro">${dir==='esc'
+                ? '„ზემოთ ასვლა" ნიშნავს შემდეგ, უფრო ინტენსიურ საფეხურზე გადასვლას — მაშინ, როცა მიმდინარე გზა ვეღარ ფარავს საჭიროებას:'
+                : '„ქვემოთ ჩამოსვლა" ნიშნავს ნაკლებად ინვაზიურ საფეხურზე დაბრუნებას, როცა პაციენტი უმჯობესდება:'}</p>
+              <ul>${(dir==='esc'?s.up:s.down).map(x=>`<li>${x}</li>`).join("")}</ul>
+              ${(dir==='esc'&&s.id==='oral')?dietitianNote()+onsDetails():""}
+              ${srcLine(dir==='esc'?(SRC[s.id]&&SRC[s.id].up):(SRC[s.id]&&SRC[s.id].down))}
+            </div>
+          </div>
+          <div class="info-block h-mon" style="margin-top:18px">
+            <h4>მონიტორინგი</h4>
+            <ul>${s.monitor.map(x=>`<li>${x}</li>`).join("")}</ul>
+            ${s.monitorFreq?`<p class="blk-freq"><b>სიხშირე:</b> ${s.monitorFreq}</p>`:""}
+            ${srcLine(SRC[s.id]&&SRC[s.id].mon)}
+          </div>
+          ${s.id==='oral'?practicalPanel():""}
+          <div class="example-box"><b>მაგალითი:</b> ${s.example}</div>
+          <div class="example-box ped-only" style="border-color:#f0cdd9;background:#fff6f9"><b>პედიატრია:</b> ${s.pedNote}</div>
+          ${s.flag?`<div class="flag ${s.flag.type==='stop'?'stop':''}"><span class="fi">${s.flag.type==='stop'?'':''}</span><span>${s.flag.text}</span></div>`:""}
+        </div>
+      </div>`;
+    ladder.appendChild(step);
+    if(i < order.length-1){
+      const c = document.createElement("div");
+      c.className = "connector";
+      c.innerHTML = `<span>${dir==='esc'?'▼':'▲'}</span>`;
+      ladder.appendChild(c);
+    }
+  });
+  if(document.getElementById("p1w")) calcP1();
+  ensureCommentButtons();
+  renderComments();
+}
+function toggleBody(head){
+  const step = head.parentElement;
+  const body = head.nextElementSibling;
+  if(step.classList.contains("open")){
+    body.style.maxHeight = body.scrollHeight + 40 + "px";
+    // once expanded, release the constraint so nested disclosures can grow freely
+    body.addEventListener("transitionend", function te(){
+      if(step.classList.contains("open")) body.style.maxHeight = "none";
+      body.removeEventListener("transitionend", te);
+    });
+    if(document.getElementById("p1w")) calcP1();
+  } else {
+    body.style.maxHeight = body.scrollHeight + "px";
+    requestAnimationFrame(()=>{ body.style.maxHeight = "0px"; });
+  }
+}
+
+/* ============ DIRECTION / AUDIENCE ============ */
+function setDir(d){
+  document.body.dataset.dir = d;
+  document.getElementById("btnEsc").classList.toggle("active", d==="esc");
+  document.getElementById("btnDeesc").classList.toggle("active", d==="deesc");
+  const banner = document.getElementById("dirBanner");
+  const icon = document.getElementById("dirIcon");
+  const title = document.getElementById("dirTitle");
+  const text = document.getElementById("dirText");
+  if(d==="esc"){
+    banner.classList.remove("deesc");
+    icon.textContent="";
+    title.textContent="ესკალაცია — ნაკლებად ინვაზიურიდან უფრო ინვაზიურისკენ";
+    text.innerHTML='დაიწყე ყოველთვის ყველაზე მარტივი და ფიზიოლოგიური გზით. გადადი შემდეგ საფეხურზე მხოლოდ მაშინ, როცა წინა ვერ ფარავს მოთხოვნის ≥50–60%-ს ან უკუჩვენებაა. „თუ ნაწლავი მუშაობს — გამოიყენე ის."';
+  } else {
+    banner.classList.add("deesc");
+    icon.textContent="";
+    title.textContent="დეესკალაცია — უფრო ინვაზიურიდან ფიზიოლოგიურისკენ";
+    text.innerHTML='მოხსენი მხარდაჭერა თანდათან, ტოლერანტობის მიხედვით. PN ↓ მცირდება EN/ორალურის ↑ მატების პროპორციულად. სრული განთავისუფლება — როცა პაციენტი წონას, კვებასა და ჰიდრატაციას ინარჩუნებს ორალურად.';
+  }
+  buildLadder();
+}
+function setAud(a){
+  document.body.dataset.aud = a;
+  document.getElementById("btnAdult").classList.toggle("active", a==="adult");
+  document.getElementById("btnPed").classList.toggle("active", a==="pediatric");
+  buildLadder();
+}
+
+/* ============ CALC: Energy/Protein ============ */
+function calcEP(){
+  const w = parseFloat(document.getElementById("epWeight").value)||0;
+  const k = parseFloat(document.getElementById("epKcal").value);
+  const p = parseFloat(document.getElementById("epProt").value);
+  document.getElementById("epKcalVal").textContent = k+" kcal/კგ";
+  document.getElementById("epProtVal").textContent = p.toFixed(1)+" გ/კგ";
+  document.getElementById("epKcalOut").innerHTML = Math.round(w*k).toLocaleString()+' <small>kcal/დღე</small>';
+  document.getElementById("epProtOut").textContent = Math.round(w*p)+" გ";
+  document.getElementById("epKcalKg").textContent = k;
+}
+
+/* ============ CALC: BMI ============ */
+function calcBMI(){
+  const w = parseFloat(document.getElementById("bmiW").value)||0;
+  const h = (parseFloat(document.getElementById("bmiH").value)||0)/100;
+  const bmi = h>0 ? w/(h*h) : 0;
+  document.getElementById("bmiOut").textContent = bmi.toFixed(1);
+  let lo,hi;
+  if(bmi<15){lo=36;hi=45;}
+  else if(bmi<20){lo=31;hi=35;}
+  else if(bmi<30){lo=26;hi=30;}
+  else {lo=15;hi=25;}
+  document.getElementById("bmiRange").textContent = lo+"–"+hi;
+  document.getElementById("bmiKcal").textContent = Math.round(w*lo).toLocaleString()+"–"+Math.round(w*hi).toLocaleString();
+  const note = document.getElementById("bmiNote");
+  if(bmi<18.5){
+    note.innerHTML='BMI&lt;18.5 → refeeding რისკი. დაიწყე სამიზნის 25–50%-ით და მიაღწიე 100%-ს 3–5 დღეში; დაასწორე ელექტროლიტები დაწყებამდე.';
+    note.style.color='#8a5a10';
+  } else {
+    note.innerHTML='BMI&lt;15: 36–45 · 15–19: 31–35 · 20–29: 26–30 · &gt;30: 15–25 kcal/კგ.';
+    note.style.color='';
+  }
+}
+
+/* ============ REFEEDING ============ */
+function buildRF(){
+  const maj = document.getElementById("rfMajor");
+  const min = document.getElementById("rfMinor");
+  RF_MAJOR.forEach((r,i)=>{
+    maj.innerHTML += `<label class="rf-item"><input type="checkbox" data-cat="major" onchange="calcRF()"><span class="rt">${r.t}</span></label>`;
+  });
+  RF_MINOR.forEach((r,i)=>{
+    min.innerHTML += `<label class="rf-item"><input type="checkbox" data-cat="minor" onchange="calcRF()"><span class="rt">${r.t}</span></label>`;
+  });
+}
+function calcRF(){
+  const major = [...document.querySelectorAll('#rfMajor input:checked')].length;
+  const minor = [...document.querySelectorAll('#rfMinor input:checked')].length;
+  const res = document.getElementById("rfResult");
+  const head = document.getElementById("rfHead");
+  const text = document.getElementById("rfText");
+  const dose = document.getElementById("rfDose");
+  let level;
+  // NICE: 1 major OR 2 minor = high risk; 2+ major OR (major+multiple minor) = very high
+  if(major>=2){
+    level="vhigh";
+  } else if(major===1 || minor>=2){
+    level="high";
+  } else {
+    level="low";
+  }
+  res.className = "rf-result "+level;
+  if(level==="low"){
+    head.textContent="დაბალი რისკი";
+    text.textContent="მკაფიო refeeding კრიტერიუმი არ არის მონიშნული. სტანდარტული, თანდათანობითი დაწყება შესაძლებელია ელექტროლიტების კონტროლით.";
+    dose.textContent="საწყისი: სრული სამიზნის ~50% და მატება 3–5 დღეში";
+  } else if(level==="high"){
+    head.textContent="მაღალი რისკი (1 მაღალი ან 2 დამატებითი კრიტერიუმი)";
+    text.innerHTML="მაღალი refeeding რისკი. დაასწორე K/PO₄/Mg დაწყებამდე, მიეცი თიამინი, აკონტროლე ელექტროლიტები ყოველდღიურად 5–7 დღე.";
+    dose.textContent="საწყისი: 10 kcal/კგ/დღე → საფეხურებრივი მატება 4–7 დღეში სრულამდე";
+  } else {
+    head.textContent="ძალიან მაღალი რისკი (≥2 მაღალი კრიტერიუმი)";
+    text.innerHTML="ძალიან მაღალი რისკი. დაიწყე ძალიან ფრთხილად, თიამინითა და ელექტროლიტების აქტიური კორექციით; მჭიდრო მონიტორინგი.";
+    dose.textContent="საწყისი: 5 kcal/კგ/დღე → ნელი მატება 5–10 დღეში, ელექტროლიტების ყოველდღიური კონტროლით";
+  }
+}
+
+/* ============ CALC: Step-1 mini (Harris–Benedict) ============ */
+function calcP1(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value:"";};
+  const w=parseFloat(g("p1w"))||0, h=parseFloat(g("p1h"))||0, a=parseFloat(g("p1a"))||0;
+  const sex=g("p1sex"), act=parseFloat(g("p1act"))||1.3, str=parseFloat(g("p1str"))||1.0;
+  // Harris–Benedict (UpToDate 2026)
+  const bmr = sex==="male"
+    ? 66.5 + 13.8*w + 5*h - 6.76*a
+    : 655.1 + 9.6*w + 1.85*h - 4.68*a;
+  const kcal = Math.max(0, Math.round(bmr*act*str));
+  const prot = Math.round(w*1.2);
+  const kEl=document.getElementById("p1kcal"), pEl=document.getElementById("p1prot"), nEl=document.getElementById("p1note");
+  if(kEl) kEl.textContent = kcal? kcal.toLocaleString() : "—";
+  if(pEl) pEl.textContent = prot? prot+" გ" : "—";
+  if(nEl) nEl.innerHTML = (w&&kcal)
+    ? "≈ <b>"+Math.round(kcal/w)+" kcal/კგ</b> · ჯვარედინი შემოწმება 25–30 kcal/კგ = "+Math.round(w*25).toLocaleString()+"–"+Math.round(w*30).toLocaleString()+" kcal. ეს საწყისი ორიენტირია — დააზუსტე დიეტოლოგთან."
+    : "";
+}
+
+/* ============ CALC: MUST screening ============ */
+function calcMUST(){
+  const g=id=>document.getElementById(id);
+  if(!g("muW")) return;
+  const w=parseFloat(g("muW").value)||0, h=(parseFloat(g("muH").value)||0)/100;
+  const prev=parseFloat(g("muPrev").value)||0;
+  // ავტომატური წონის კლება: (ჩვეული − ახლანდელი) / ჩვეული × 100
+  let lostKg=0, wl=0;
+  if(prev>0 && w>0 && prev>w){ lostKg = prev - w; wl = lostKg/prev*100; }
+  const wlEl=g("muWLcalc");
+  if(wlEl){
+    wlEl.innerHTML = (prev>0 && w>0)
+      ? (prev>w
+          ? 'დაკლებული: <b>'+lostKg.toFixed(1)+' კგ</b> · წონის კლება: <b>'+wl.toFixed(1)+'%</b>'
+          : 'წონა არ დაკლებულა (ჩვეული ≤ ახლანდელი) → 0 ქულა')
+      : 'ჩაწერე ჩვეული/წინა წონა, რომ პროცენტი ავტომატურად დაითვალოს.';
+  }
+  const bmi = h>0 ? w/(h*h) : 0;
+  const s1 = bmi>=20 ? 0 : (bmi>=18.5 ? 1 : 2);   // >30 obese also scores 0 (covered by >=20)
+  const s2 = wl<5 ? 0 : (wl<=10 ? 1 : 2);
+  const s3 = g("muAcute").checked ? 2 : 0;
+  const total = s1+s2+s3;
+  g("muBMI").textContent = bmi ? bmi.toFixed(1) : "—";
+  g("muScore").textContent = total;
+  const res=g("muRes");
+  let lvl, head, txt;
+  if(total===0){ lvl="low"; head="დაბალი რისკი (0)"; txt="რუტინული მოვლა; გაიმეორე სკრინინგი (სტაციონარში ყოველკვირეულად, საზოგადოებაში პერიოდულად)."; }
+  else if(total===1){ lvl="med"; head="საშუალო რისკი (1)"; txt="დააკვირდი — ჩაინიშნე 3-დღიანი მიღების დღიური; თუ არ უმჯობესდება, ჩართე დიეტოლოგი."; }
+  else { lvl="high"; head="მაღალი რისკი (≥2)"; txt="ჩართე დიეტოლოგი / ნუტრიციული გუნდი; დაუდგინე დიაგნოზი (GLIM) და დაიწყე ჩარევა — გადადი ესკალაციის კიბეზე."; }
+  res.className = "must-res "+lvl;
+  res.innerHTML = '<div class="mh">'+head+'</div><p>'+txt+'</p>';
+}
+
+/* ============ GLIM diagnosis (checklist) ============ */
+function calcGLIM(){
+  const g=id=>document.getElementById(id);
+  if(!g("glWL")) return;
+  const ph=[+g("glWL").value, +g("glBMI").value, +g("glMM").value];
+  const phenoMet = ph.some(v=>v>0);
+  const etioMet = g("glIntake").checked || g("glInflam").checked;
+  const res=g("glRes");
+  let lvl, head, txt;
+  if(phenoMet && etioMet){
+    const severe = ph.some(v=>v===2);
+    if(severe){ lvl="high"; head="მალნუტრიცია დადასტურდა — მძიმე (Stage 2)"; }
+    else { lvl="med"; head="მალნუტრიცია დადასტურდა — ზომიერი (Stage 1)"; }
+    txt="სრულდება ≥1 ფენოტიპური + ≥1 ეტიოლოგიური კრიტერიუმი. სიმძიმე — ფენოტიპური კრიტერიუმებით. დაიწყე ჩარევა ესკალაციის კიბით.";
+  } else {
+    lvl="low"; head="მალნუტრიცია არ დასტურდება (GLIM-ით)";
+    const need=[]; if(!phenoMet) need.push("ფენოტიპური"); if(!etioMet) need.push("ეტიოლოგიური");
+    txt="საჭიროა მინიმუმ 1 ფენოტიპური + 1 ეტიოლოგიური. აკლია: "+need.join(" და ")+" კრიტერიუმი. განაგრძე მონიტორინგი/სკრინინგი.";
+  }
+  res.className="must-res "+lvl;
+  res.innerHTML='<div class="mh">'+head+'</div><p>'+txt+'</p>';
+}
+
+/* ============ REVIEW / COMMENTS ============ */
+const REVIEW = { name:"", comments:[] };
+const RKEY = "gspenReviewV1";
+function rLoad(){ try{ const s=localStorage.getItem(RKEY); if(s){ const o=JSON.parse(s); REVIEW.name=o.name||""; REVIEW.comments=Array.isArray(o.comments)?o.comments:[]; } }catch(e){} }
+function rSave(){ try{ localStorage.setItem(RKEY, JSON.stringify(REVIEW)); }catch(e){} }
+function rId(){ return "c"+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function rSetName(v){ REVIEW.name=v; rSave(); }
+function esc(s){ return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function toast(msg){ const t=document.getElementById("toast"); if(!t) return; t.textContent=msg; t.classList.add("show"); clearTimeout(window.__tt); window.__tt=setTimeout(()=>t.classList.remove("show"),2200); }
+
+function toggleReview(){
+  const on=document.body.classList.toggle("review-on");
+  const b=document.getElementById("rtToggle");
+  b.textContent = on ? "რეჟიმი ჩართულია" : "კომენტარის რეჟიმი";
+  b.classList.toggle("amber", on); b.classList.toggle("primary", !on);
+  if(!on) closeEditor();
+  else toast("დააწკაპუნე ბლოკზე „კომენტარი“");
+}
+
+let curAnchor=null, curLabel=null;
+function openEditor(anchor,label){
+  if(!document.body.classList.contains("review-on")) return;
+  curAnchor=anchor; curLabel=label||anchor;
+  document.getElementById("ceLabel").textContent=curLabel;
+  document.getElementById("ceText").value="";
+  document.getElementById("cEditor").classList.add("open");
+  document.getElementById("ceText").focus();
+}
+function closeEditor(){ document.getElementById("cEditor").classList.remove("open"); curAnchor=null; }
+function saveComment(){
+  const txt=document.getElementById("ceText").value.trim();
+  if(!txt||!curAnchor){ closeEditor(); return; }
+  const nm=(document.getElementById("rtName").value.trim())||REVIEW.name||"ანონიმური";
+  REVIEW.name=document.getElementById("rtName").value.trim()||REVIEW.name;
+  REVIEW.comments.push({id:rId(),anchor:curAnchor,label:curLabel,name:nm,text:txt,ts:Date.now()});
+  rSave(); closeEditor(); renderComments();
+  toast("კომენტარი დაემატა");
+}
+function delComment(id){ REVIEW.comments=REVIEW.comments.filter(c=>c.id!==id); rSave(); renderComments(); }
+
+function ensureCommentButtons(){
+  document.querySelectorAll("[data-anchor]").forEach(el=>{
+    if((el.dataset.anchor||"").indexOf("step-")===0) return; // steps carry an inline button
+    if(el.querySelector(":scope > .cbtn")) return;
+    const a=el.dataset.anchor, label=el.dataset.label||a;
+    const btn=document.createElement("button");
+    btn.className="cbtn abs"; btn.type="button";
+    btn.innerHTML='კომენტარი <span class="cnt zero">0</span>';
+    btn.addEventListener("click",e=>{ e.stopPropagation(); openEditor(a,label); });
+    el.appendChild(btn);
+  });
+}
+function renderComments(){
+  document.querySelectorAll(".cnote").forEach(n=>n.remove());
+  const byA={}; REVIEW.comments.forEach(c=>{ (byA[c.anchor]=byA[c.anchor]||[]).push(c); });
+  document.querySelectorAll("[data-anchor]").forEach(el=>{
+    const a=el.dataset.anchor, list=byA[a]||[];
+    const badge=el.querySelector(":scope .cbtn .cnt") || el.querySelector(".cbtn .cnt");
+    if(badge){ badge.textContent=list.length; badge.classList.toggle("zero", list.length===0); }
+    if(list.length){
+      const note=document.createElement("div");
+      note.className="cnote";
+      note.innerHTML='<h5>კომენტარები — '+esc(el.dataset.label||a)+'</h5>'+
+        list.map(c=>'<div class="ci"><span><b>'+esc(c.name)+':</b> '+esc(c.text)+'</span><button class="cdel" onclick="delComment(\''+c.id+'\')">წაშლა</button></div>').join("");
+      el.parentNode.insertBefore(note, el.nextSibling);
+    }
+  });
+  const cc=document.getElementById("rtCount"); if(cc) cc.textContent=REVIEW.comments.length+" კომენტარი";
+}
+function exportComments(){
+  if(!REVIEW.comments.length){ toast("კომენტარები ჯერ არ არის"); return; }
+  const byA={}; REVIEW.comments.forEach(c=>{ (byA[c.anchor]=byA[c.anchor]||[]).push(c); });
+  let txt="GSPEN ინსტრუმენტი — კომენტარები\n"+(REVIEW.name?("რეცენზენტი: "+REVIEW.name+"\n"):"")+"\n";
+  Object.keys(byA).forEach(a=>{ txt+="["+(byA[a][0].label||a)+"]\n"; byA[a].forEach(c=>{ txt+=" - "+c.name+": "+c.text+"\n"; }); txt+="\n"; });
+  try{ if(navigator.clipboard) navigator.clipboard.writeText(txt); }catch(e){}
+  const data=JSON.stringify({name:REVIEW.name,comments:REVIEW.comments},null,2);
+  const safe=(REVIEW.name||"").replace(/[^\x00-\x7F]/g,"").replace(/\s+/g,"_").replace(/[^\w-]/g,"");
+  const fn="gspen-komentarebi"+(safe?("-"+safe):"")+".json";
+  try{
+    const blob=new Blob([data],{type:"application/json"}); const u=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=u; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(u);
+  }catch(e){}
+  toast("დაკოპირდა ტექსტად + ჩამოიტვირთა (.json)");
+}
+function importComments(input){
+  const f=input.files&&input.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{
+    const o=JSON.parse(r.result); const arr=Array.isArray(o)?o:(o.comments||[]);
+    let added=0; arr.forEach(c=>{ if(c&&c.id&&c.anchor&&!REVIEW.comments.some(x=>x.id===c.id)){ REVIEW.comments.push(c); added++; } });
+    rSave(); renderComments(); toast(added+" კომენტარი დაემატა (იმპორტი)");
+  }catch(e){ toast("ფაილი ვერ წაიკითხა"); } input.value=""; };
+  r.readAsText(f);
+}
+
+/* ============ INIT ============ */
+rLoad();
+buildLadder();
+buildRF();
+calcEP();
+calcBMI();
+calcRF();
+calcMUST();
+calcGLIM();
+if(document.getElementById("rtName")) document.getElementById("rtName").value=REVIEW.name;
+ensureCommentButtons();
+renderComments();
+
+/* ============ AUTO-HEIGHT FOR IFRAME EMBED (WordPress) ============ */
+(function(){
+  function sendHeight(){
+    var h = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+    // Signal parent page (WordPress) so it can resize the iframe
+    try{ parent.postMessage({gspenNutritionTool:true, height:h}, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  document.addEventListener("transitionend", sendHeight);
+  document.addEventListener("click", function(){ setTimeout(sendHeight, 60); setTimeout(sendHeight, 520); });
+  document.addEventListener("input", function(){ setTimeout(sendHeight, 60); });
+  if(window.ResizeObserver){
+    try{ new ResizeObserver(function(){ sendHeight(); }).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 300);
+  setTimeout(sendHeight, 1200);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NRS-2002 — ნუტრიციული რისკის სკრინინგი — GSPEN</title>
+<meta name="description" content="NRS-2002 კალკულატორი — ჰოსპიტალიზებული პაციენტის ნუტრიციული რისკის სკრინინგი.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl active" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>MUST · NRS-2002 · GLIM</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / <a href="kalkulatorebi.html">კალკულატორები</a> / NRS-2002</div>
+    <span class="kicker">სასკრინინგო ინსტრუმენტი</span>
+    <h1>NRS-2002 — ნუტრიციული რისკის სკრინინგი</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="tc-intro"><b>რისთვის გამოიყენება:</b> NRS-2002 (Nutritional Risk Screening) ESPEN-ის რეკომენდებული ინსტრუმენტია <b>ჰოსპიტალიზებული</b> პაციენტების ნუტრიციული რისკის შესაფასებლად. ის აერთიანებს კვებითი სტატუსის დარღვევას, დაავადების სიმძიმეს (გაზრდილ მოთხოვნას) და ასაკს — ჯამი ≥3 ნიშნავს, რომ პაციენტს ნუტრიციული ზრუნვის გეგმა სჭირდება.</div>
+
+    <div class="tcalc">
+      <h3>ნაბიჯი 1 — წინასწარი სკრინინგი</h3>
+      <div class="tc-grid">
+        <label class="tc-chk full"><input type="checkbox" class="pre" onchange="calcNRS()"><span>BMI &lt; 20.5</span></label>
+        <label class="tc-chk full"><input type="checkbox" class="pre" onchange="calcNRS()"><span>პაციენტს ბოლო 3 თვეში წონა დაუკლია</span></label>
+        <label class="tc-chk full"><input type="checkbox" class="pre" onchange="calcNRS()"><span>ბოლო კვირაში საკვების მიღება შემცირებული აქვს</span></label>
+        <label class="tc-chk full"><input type="checkbox" class="pre" onchange="calcNRS()"><span>პაციენტი მძიმედ არის (მაგ. ინტენსიური თერაპია)</span></label>
+      </div>
+      <div class="tc-note" id="nPreNote">თუ ერთი პასუხი მაინც „კი"-ა — გადადი სრულ სკრინინგზე (ნაბიჯი 2). თუ ყველა „არა"-ა, გაიმეორე სკრინინგი ყოველკვირეულად.</div>
+
+      <h3>ნაბიჯი 2 — სრული სკრინინგი</h3>
+      <div class="tc-grid">
+        <div class="tc-field full"><label>ა) კვებითი სტატუსის დარღვევა</label>
+          <select id="nA" onchange="calcNRS()">
+            <option value="0">არ არის (0) — ნორმალური კვებითი სტატუსი</option>
+            <option value="1">მსუბუქი (1) — წონის კლება &gt;5% 3 თვეში, ან მიღება მოთხოვნის 50–75%</option>
+            <option value="2">ზომიერი (2) — წონის კლება &gt;5% 2 თვეში, ან BMI 18.5–20.5 + გაუარესებული ზოგადი მდგომარეობა, ან მიღება 25–50%</option>
+            <option value="3">მძიმე (3) — წონის კლება &gt;5% 1 თვეში (&gt;15% 3 თვეში), ან BMI &lt;18.5 + გაუარესებული მდგომარეობა, ან მიღება 0–25%</option>
+          </select>
+        </div>
+        <div class="tc-field full"><label>ბ) დაავადების სიმძიმე (მოთხოვნის ზრდა)</label>
+          <select id="nB" onchange="calcNRS()">
+            <option value="0">არ არის (0) — ნორმალური კვებითი მოთხოვნა</option>
+            <option value="1">მსუბუქი (1) — მაგ. მენჯ-ბარძაყის მოტეხილობა, ქრონიკული დაავადება გამწვავებით (ციროზი, COPD), ჰემოდიალიზი, დიაბეტი, ონკოლოგია</option>
+            <option value="2">ზომიერი (2) — მაგ. დიდი აბდომინური ქირურგია, ინსულტი, მძიმე პნევმონია, ჰემატოლოგიური ავთვისებიანი დაავადება</option>
+            <option value="3">მძიმე (3) — მაგ. თავის ტრავმა, ძვლის ტვინის ტრანსპლანტაცია, კრიტიკული პაციენტი (APACHE II &gt;10)</option>
+          </select>
+        </div>
+        <label class="tc-chk full"><input id="nAge" type="checkbox" onchange="calcNRS()"><span>ასაკი ≥ 70 წელი (+1 ქულა)</span></label>
+      </div>
+      <div class="tc-res low" id="nRes"><div class="rh">ჯამი: 0 — რისკი არ არის</div><p>გაიმეორე სკრინინგი ყოველკვირეულად.</p></div>
+    </div>
+
+    <div class="tc-src"><b>წყარო:</b> NRS-2002 — Kondrup J et al. ESPEN guidelines for nutrition screening 2002. Clinical Nutrition, 2003.</div>
+    <div class="tc-src" style="margin-top:8px">ეს ინსტრუმენტი კლინიკური გადაწყვეტილების მხარდასაჭერია და არ ცვლის ინდივიდუალურ სამედიცინო შეფასებას.</div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+function calcNRS(){
+  var pre=[].slice.call(document.querySelectorAll(".pre:checked")).length;
+  document.getElementById("nPreNote").innerHTML = pre>0
+    ? '<b style="color:#8a2f28">მინიმუმ ერთი „კი" — გააგრძელე სრული სკრინინგი (ნაბიჯი 2).</b>'
+    : 'თუ ერთი პასუხი მაინც „კი"-ა — გადადი სრულ სკრინინგზე (ნაბიჯი 2). თუ ყველა „არა"-ა, გაიმეორე სკრინინგი ყოველკვირეულად.';
+  var a=+document.getElementById("nA").value, b=+document.getElementById("nB").value;
+  var age=document.getElementById("nAge").checked?1:0;
+  var t=a+b+age;
+  var res=document.getElementById("nRes");
+  if(t>=3){
+    res.className="tc-res high";
+    res.innerHTML='<div class="rh">ჯამი: '+t+' — ნუტრიციული რისკი დადასტურებულია (≥3)</div><p>დაიწყე ნუტრიციული ზრუნვის გეგმა: გამოთვალე მოთხოვნა, შეაფასე მიღება და საჭიროებისას გადადი კვებითი მხარდაჭერის ესკალაციაზე. ჩართე დიეტოლოგი.</p>';
+  } else {
+    res.className="tc-res "+(t>0?"med":"low");
+    res.innerHTML='<div class="rh">ჯამი: '+t+' — რისკი ჯერ არ დასტურდება (&lt;3)</div><p>გაიმეორე სკრინინგი ყოველკვირეულად. თუ პაციენტს დიდი ოპერაცია ელოდება, განიხილე პრევენციული ნუტრიციული გეგმა.</p>';
+  }
+}
+calcNRS();
+</script>
+</body>
+</html>

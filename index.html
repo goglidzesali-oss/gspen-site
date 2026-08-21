@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSPEN — საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</title>
+<meta name="description" content="GSPEN — კლინიკური კვების ეროვნული ასოციაცია საქართველოში. ვებინარები, სტატიები, ნუტრიციული ხელსაწყოები, გაწევრიანება.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .hero{background:radial-gradient(900px 500px at 92% 0%, #f6ece9 0%, transparent 55%), radial-gradient(800px 500px at -5% 100%, #eef1f8 0%, transparent 55%), #fff;border-bottom:1px solid var(--line)}
+  .hero-in{display:grid;grid-template-columns:1.08fr .92fr;gap:50px;align-items:center;padding:74px 0 78px}
+  .hero .kicker{display:block;margin-bottom:20px}
+  .hero h1{font-size:42px;line-height:1.14;font-weight:800;color:var(--navy);letter-spacing:-.6px}
+  .hero p.lead{font-size:18px;color:var(--muted);margin:22px 0 30px;max-width:520px}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero .btn{padding:15px 28px;font-size:15.5px}
+  .hero-visual{position:relative;border-radius:26px;background:linear-gradient(150deg,var(--navy),#243664);min-height:380px;box-shadow:var(--sh-h);overflow:hidden;transition:.24s cubic-bezier(.2,.7,.2,1)}
+  .hero-visual:hover{transform:translateY(-4px);box-shadow:0 26px 56px rgba(20,30,60,.2)}
+  .hv-rubric{color:var(--navy);font-size:13.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .hv-rubric::after{content:"";width:36px;height:3px;border-radius:3px;background:var(--red)}
+  .hv-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s;pointer-events:none;z-index:2;display:block}
+  .hv-slide.active{opacity:1;pointer-events:auto}
+  .hv-bg{position:absolute;inset:0}
+  .hv-bg img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .hv-webbg{background:linear-gradient(150deg,#1b2950,#243664)}
+  .hv-webbg::before{content:"";position:absolute;inset:0;background:radial-gradient(320px 320px at 16% 20%, rgba(211,63,52,.28), transparent 62%)}
+  .hv-webbg .hv-portrait{position:absolute;right:0;top:0;height:100%;width:auto;max-width:64%;object-fit:cover;object-position:center top;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}
+  .hv-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,36,73,0) 35%,rgba(16,24,50,.88) 100%)}
+  .hv-slide .hv-card{position:absolute;left:26px;right:26px;bottom:54px;background:rgba(16,26,58,.55);backdrop-filter:blur(8px)}
+  .hv-dots{position:absolute;bottom:22px;left:32px;z-index:3;display:flex;gap:8px}
+  .hv-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:.25s}
+  .hv-dots span.on{background:var(--red);width:26px;border-radius:100px}
+  .hero-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(300px 300px at 80% 20%, rgba(211,63,52,.35), transparent 60%)}
+  .hero-visual .hv-drop{position:absolute;right:-30px;top:-30px;opacity:.14}
+  .hero-visual .hv-drop svg{width:260px;height:320px}
+  .hv-card{position:relative;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:20px 22px;color:#fff}
+  .hv-card .q{font-size:16px;line-height:1.5;font-weight:500}
+  .hv-card .a{font-size:13px;color:#c3cbe4;margin-top:8px}
+  .hv-go{margin-top:14px;font-weight:700;color:#fff;font-size:13.5px;display:inline-flex;align-items:center;gap:6px}
+  .hero-visual:hover .hv-go{color:#ffd9d4}
+  .mission{padding:74px 0;text-align:center}
+  .mission .kicker{display:block;margin-bottom:14px}
+  .mission h2{font-size:24px;font-weight:700;color:var(--muted);max-width:860px;margin:0 auto;line-height:1.5}
+  .mission h2 b{color:var(--navy);font-weight:800}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px;text-align:left}
+  .pillar{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px}
+  .pillar .ic{width:50px;height:50px;border-radius:14px;background:var(--navy-l);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .pillar h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:7px}
+  .pillar p{font-size:14px;color:var(--muted)}
+  .member{background:linear-gradient(120deg,var(--navy),#243766);border-radius:28px;padding:52px 48px;color:#fff;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;position:relative;overflow:hidden}
+  .member::after{content:"";position:absolute;right:-70px;top:-70px;width:280px;height:280px;border:1.5px solid rgba(255,255,255,.1);border-radius:50%}
+  .member .kicker{color:#f0a59f;display:block;margin-bottom:12px}
+  .member h2{font-size:31px;font-weight:800;letter-spacing:-.5px;position:relative}
+  .member p{color:#c8cfe6;font-size:16px;max-width:620px;margin-top:10px;position:relative}
+  .member .btn{padding:16px 32px;font-size:16px;position:relative}
+  @media(max-width:960px){ .hero-in{grid-template-columns:1fr;gap:34px;padding:48px 0} .pillars{grid-template-columns:1fr 1fr} .member{grid-template-columns:1fr} }
+  @media(max-width:620px){ .pillars{grid-template-columns:1fr} .hero h1{font-size:30px} }
+  .newsc{position:relative}
+  .ntrack{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 10px;scrollbar-width:none}
+  .ntrack::-webkit-scrollbar{display:none}
+  .ntrack .media-card{flex:0 0 min(345px,84vw);scroll-snap-align:start}
+  .cnav{position:absolute;top:-64px;right:0;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--navy);font-size:22px;font-weight:700;cursor:pointer;transition:.2s;z-index:5;line-height:1}
+  .cnav.prev{right:52px}
+  .cnav:hover{background:var(--red);border-color:var(--red);color:#fff}
+</style>
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/>
+        <rect x="36" y="66" width="8" height="3"/><rect x="38.5" y="63.5" width="3" height="8"/><rect x="76" y="66" width="8" height="3"/><rect x="78.5" y="63.5" width="3" height="8"/><rect x="36" y="121" width="8" height="3"/><rect x="38.5" y="118.5" width="3" height="8"/><rect x="76" y="121" width="8" height="3"/><rect x="78.5" y="118.5" width="3" height="8"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl active" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>MUST · NRS-2002 · GLIM</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="kicker">GSPEN · პროფესიული ასოციაცია</span>
+      <h1>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</h1>
+      <p class="lead">ვმუშაობთ იმისთვის, რომ ყველა მიიღოს <b style="color:var(--navy)">დროული, უსაფრთხო და შესაბამისი</b> ნუტრიციული დახმარება.</p>
+      <div class="cta"><a class="btn red" href="wevroba.html">გახდი წევრი</a><a class="btn ghost" href="resursebi.html">რესურსების ნახვა</a></div>
+    </div>
+    <div>
+    <div class="hv-rubric">სიახლეები</div>
+    <div class="hero-visual" id="heroNews">
+      <a class="hv-slide active" href="proeqtebi.html?p=0">
+        <div class="hv-bg"><svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+          <defs>
+            <linearGradient id="hpjbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2950"/><stop offset="1" stop-color="#243664"/></linearGradient>
+            <radialGradient id="hpjglow" cx="0.82" cy="0.18" r="0.6"><stop offset="0" stop-color="#d33f34" stop-opacity="0.35"/><stop offset="1" stop-color="#d33f34" stop-opacity="0"/></radialGradient>
+            <pattern id="hpjdots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" opacity="0.10"/></pattern>
+            <linearGradient id="hfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#182449" stop-opacity="0"/><stop offset="1" stop-color="#141d3c" stop-opacity="0.9"/></linearGradient>
+          </defs>
+          <rect width="640" height="440" fill="url(#hpjbg)"/><rect width="640" height="440" fill="url(#hpjglow)"/><rect width="640" height="440" fill="url(#hpjdots)"/>
+          <path d="M488 30 C488 30 593 185 593 248 A105 105 0 1 1 383 248 C383 185 488 30 488 30 Z" fill="none" stroke="#ffffff" stroke-width="10" opacity="0.10"/>
+          <g opacity="0.9"><rect x="66" y="172" width="32" height="72" rx="8" fill="#ffffff" opacity="0.16"/><rect x="114" y="140" width="32" height="104" rx="8" fill="#ffffff" opacity="0.26"/><rect x="162" y="102" width="32" height="142" rx="8" fill="#d33f34" opacity="0.85"/><rect x="210" y="66" width="32" height="178" rx="8" fill="#ffffff" opacity="0.38"/></g>
+          <polyline points="50,110 118,94 178,64 240,40 300,28" fill="none" stroke="#d33f34" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="300" cy="28" r="8" fill="#d33f34"/><circle cx="300" cy="28" r="15" fill="none" stroke="#d33f34" stroke-width="2" opacity="0.45"/>
+          <rect width="640" height="440" fill="url(#hfade)"/>
+        </svg></div>
+        <div class="hv-card"><div class="q" style="font-size:13px;color:#f0a59f;font-weight:800;text-transform:uppercase;letter-spacing:.8px">მიმდინარე პროექტი</div><div class="q" style="margin-top:6px">პირველი ჰოსპიტალური მალნუტრიციის აუდიტი საქართველოში</div><div class="a">შემოუერთდი მონაწილე კლინიკებს და გახდი კვლევის თანაავტორი</div><div class="hv-go">გაიგე მეტი →</div></div>
+      </a>
+      <a class="hv-slide" href="webinarebi.html?w=0">
+        <div class="hv-bg hv-webbg"><img class="hv-portrait" src="assets/webinar-ibd.jpg" alt=""><div class="hv-shade"></div></div>
+        <div class="hv-card"><div class="q" style="font-size:13px;color:#f0a59f;font-weight:800;text-transform:uppercase;letter-spacing:.8px">ვებინარი · 26 აგვისტო, 20:00</div><div class="q" style="margin-top:6px">ნაწლავის ანთებითი დაავადებები და კვება</div><div class="a">სალომე გოგლიძე, კლინიკური ნუტრიციოლოგი — მონაწილეობა უფასოა, საჭიროა რეგისტრაცია</div><div class="hv-go">რეგისტრაცია →</div></div>
+      </a>
+      <div class="hv-dots"><span class="on" onclick="heroGo(0)"></span><span onclick="heroGo(1)"></span></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<div class="wrap">
+  <div class="mission">
+    <span class="kicker">რა არის GSPEN</span>
+    <h2><b>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</b> — პროფესიული საზოგადოება, რომელიც მუშაობს იმისთვის, რომ ყველა ინდივიდმა მიიღოს <b>დროული, უსაფრთხო და შესაბამისი ნუტრიციული დახმარება</b>.</h2>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">განყოფილებები</span><div class="top"><h2>რესურსები და ინსტრუმენტები</h2><a class="more" href="resursebi.html">ყველა <svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
+    <div class="grid">
+      <a class="card" href="webinarebi.html"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="2" y="5" width="14" height="14" rx="2.5"/><path d="M16 10l6-3v10l-6-3z"/></svg></div><h3>ვებინარები</h3><p>ჩაწერილი და მომავალი ვებინარები კლინიკურ კვებაზე — ვიდეოს ბიბლიოთეკა.</p><span class="arrow">ნახვა →</span></a>
+      <a class="card" href="statiebi.html"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M14 2H6.5A2.5 2.5 0 0 0 4 4.5v15A2.5 2.5 0 0 0 6.5 22h11a2.5 2.5 0 0 0 2.5-2.5V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="17" x2="13" y2="17"/></svg></div><h3>სტატიები</h3><p>ბლოგი და პუბლიკაციები კლინიკურ კვებაზე — GSPEN-ის გუნდისგან.</p><span class="arrow">კითხვა →</span></a>
+      <a class="card" href="instrumentebi.html"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2.5"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="15" x2="16" y2="18"/></svg></div><h3>ნუტრიციული ხელსაწყოები</h3><p>ესკალაცია/დეესკალაცია, კალკულატორები, სკრინინგი (MUST/GLIM).</p><span class="arrow">გახსნა →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER band -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="member">
+      <div><span class="kicker">გაწევრიანება</span><h2>გახდი GSPEN-ის წევრი</h2><p>შემოგვიერთდი პროფესიულ საზოგადოებაში და მიიღე წვდომა ვებინარებზე, რესურსებზე და ღონისძიებებზე.</p></div>
+      <a class="btn red" href="wevroba.html">რეგისტრაცია <svg class="i" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div class="top"><h2>რა ხდება GSPEN-ში</h2><a class="more" href="proeqtebi.html">ყველა პროექტი →</a></div></div>
+    <div class="newsc"><button class="cnav prev" onclick="newsScroll(-1)" aria-label="უკან">‹</button><button class="cnav next" onclick="newsScroll(1)" aria-label="წინ">›</button><div class="ntrack" id="latestGrid">
+      <a class="media-card" href="proeqtebi.html?p=0"><div class="thumb"><svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+        <defs>
+          <linearGradient id="pjbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2950"/><stop offset="1" stop-color="#243664"/></linearGradient>
+          <radialGradient id="pjglow" cx="0.82" cy="0.2" r="0.6"><stop offset="0" stop-color="#d33f34" stop-opacity="0.35"/><stop offset="1" stop-color="#d33f34" stop-opacity="0"/></radialGradient>
+          <pattern id="pjdots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#ffffff" opacity="0.10"/></pattern>
+        </defs>
+        <rect width="640" height="360" fill="url(#pjbg)"/><rect width="640" height="360" fill="url(#pjglow)"/><rect width="640" height="360" fill="url(#pjdots)"/>
+        <path d="M480 40 C480 40 585 195 585 258 A105 105 0 1 1 375 258 C375 195 480 40 480 40 Z" fill="none" stroke="#ffffff" stroke-width="10" opacity="0.10"/>
+        <g opacity="0.9"><rect x="70" y="230" width="34" height="70" rx="8" fill="#ffffff" opacity="0.16"/><rect x="122" y="196" width="34" height="104" rx="8" fill="#ffffff" opacity="0.26"/><rect x="174" y="156" width="34" height="144" rx="8" fill="#d33f34" opacity="0.85"/><rect x="226" y="116" width="34" height="184" rx="8" fill="#ffffff" opacity="0.38"/></g>
+        <polyline points="52,150 130,132 196,96 262,66 330,52" fill="none" stroke="#d33f34" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="330" cy="52" r="9" fill="#d33f34"/><circle cx="330" cy="52" r="16" fill="none" stroke="#d33f34" stroke-width="2" opacity="0.45"/>
+        <g stroke="#ffffff" stroke-width="4" opacity="0.55" stroke-linecap="round"><line x1="536" y1="240" x2="536" y2="276"/><line x1="518" y1="258" x2="554" y2="258"/></g>
+      </svg><span class="badge"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:6px"></span>მიმდინარე პროექტი</span></div><div class="mc-body"><div class="date">2026</div><h4>პირველი ჰოსპიტალური მალნუტრიციის აუდიტი საქართველოში</h4><p>GSPEN იწყებს ეროვნულ კვლევას მალნუტრიციის გავრცელების შესაფასებლად. გაიგე, როგორ მიიღო მონაწილეობა და გახდე ავტორი →</p></div></a>
+      <a class="media-card" href="webinarebi.html?w=0"><div class="thumb"><img src="assets/webinar-ibd-banner.jpg" alt="" loading="lazy"><span class="badge">ვებინარი</span></div><div class="mc-body"><div class="date">26 აგვისტო · 20:00</div><h4>ვებინარი: ნაწლავის ანთებითი დაავადებები და კვება</h4><p>სალომე გოგლიძე, კლინიკური ნუტრიციოლოგი — დარეგისტრირდი და მიიღე შეხვედრის ბმული →</p></div></a>
+      <a class="media-card" href="vin-vart.html"><div class="thumb"><svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+        <defs>
+          <linearGradient id="wwbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdf6f2"/><stop offset="1" stop-color="#f6e3dd"/></linearGradient>
+        </defs>
+        <rect width="640" height="360" fill="url(#wwbg)"/>
+        <path d="M120 -30 C120 -30 235 135 235 205 A115 115 0 1 1 5 205 C5 135 120 -30 120 -30 Z" fill="none" stroke="#d33f34" stroke-width="9" opacity="0.14"/>
+        <circle cx="330" cy="185" r="150" fill="none" stroke="#182449" stroke-width="1.5" opacity="0.12"/>
+        <circle cx="330" cy="185" r="108" fill="none" stroke="#182449" stroke-width="1.5" opacity="0.16" stroke-dasharray="3 7"/>
+        <g><circle cx="330" cy="118" r="30" fill="#182449"/><circle cx="330" cy="118" r="30" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.5"/></g>
+        <g><circle cx="252" cy="238" r="30" fill="#d33f34"/><circle cx="252" cy="238" r="30" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.5"/></g>
+        <g><circle cx="408" cy="238" r="30" fill="#28376b"/><circle cx="408" cy="238" r="30" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.5"/></g>
+        <g stroke="#182449" stroke-width="2.5" opacity="0.35"><line x1="330" y1="148" x2="262" y2="212"/><line x1="330" y1="148" x2="398" y2="212"/><line x1="282" y1="238" x2="378" y2="238"/></g>
+        <g fill="#ffffff"><path d="M330 106 a12 12 0 1 1 0.1 0 M316 132 c0-9 28-9 28 0 v4 h-28 z"/><path d="M252 226 a12 12 0 1 1 0.1 0 M238 252 c0-9 28-9 28 0 v4 h-28 z"/><path d="M408 226 a12 12 0 1 1 0.1 0 M394 252 c0-9 28-9 28 0 v4 h-28 z"/></g>
+        <g stroke="#d33f34" stroke-width="3.5" opacity="0.55" stroke-linecap="round"><line x1="560" y1="80" x2="560" y2="108"/><line x1="546" y1="94" x2="574" y2="94"/></g>
+      </svg><span class="badge">ჩვენ შესახებ</span></div><div class="mc-body"><div class="date">GSPEN</div><h4>ვინ ვართ ჩვენ</h4><p>კლინიკური კვების ეროვნული ასოციაცია — მისია, პრინციპები და მმართველობითი ორგანო →</p></div></a>
+    </div></div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="logo"><svg viewBox="0 0 120 150" style="width:38px;height:48px"><defs><clipPath id="d2"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/><g clip-path="url(#d2)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg><span class="lt"><b class="lat">GSPEN</b><span>Georgian Association for Parenteral, Enteral Nutrition and Metabolism</span></span></div>
+        <p class="fabout">საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია — კლინიკური კვების ეროვნული წარმომადგენლობითი ორგანო საქართველოში.</p>
+      </div>
+      <div><h5>ასოციაცია</h5><a class="fl" href="wesdeba.html">წესდება</a><a class="fl" href="wevroba.html">გაწევრიანება</a><a class="fl" href="vin-vart.html">გუნდი</a></div>
+      <div><h5>რესურსები</h5><a class="fl" href="webinarebi.html">ვებინარები</a><a class="fl" href="statiebi.html">სტატიები</a><a class="fl" href="instrumentebi.html">ხელსაწყოები</a><a class="fl" href="kalkulatorebi.html">კალკულატორები</a></div>
+      <div><h5>კონტაქტი</h5><a class="fl" href="mailto:pensocietygspen@gmail.com">pensocietygspen@gmail.com</a><span class="fl">თბილისი, საქართველო</span></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 GSPEN — საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+var hvIdx = 0, hvTimer = null;
+function heroGo(i){
+  var slides = document.querySelectorAll("#heroNews .hv-slide");
+  var dots = document.querySelectorAll("#heroNews .hv-dots span");
+  if(!slides.length) return;
+  hvIdx = i % slides.length;
+  slides.forEach(function(s,k){ s.classList.toggle("active", k===hvIdx); });
+  dots.forEach(function(d,k){ d.classList.toggle("on", k===hvIdx); });
+  clearInterval(hvTimer);
+  hvTimer = setInterval(function(){ heroGo(hvIdx+1); }, 6000);
+}
+heroGo(0);
+function newsScroll(dir){
+  var t = document.getElementById("latestGrid");
+  if(t) t.scrollBy({left: dir*367, behavior:"smooth"});
+}
+</script>
+</body>
+</html>

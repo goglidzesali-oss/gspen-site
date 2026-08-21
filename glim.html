@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLIM — მალნუტრიციის დიაგნოზი — GSPEN</title>
+<meta name="description" content="GLIM კალკულატორი — მალნუტრიციის დიაგნოზის საერთაშორისო კრიტერიუმები.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl active" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>MUST · NRS-2002 · GLIM</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / <a href="kalkulatorebi.html">კალკულატორები</a> / GLIM</div>
+    <span class="kicker">დიაგნოსტიკური კრიტერიუმები</span>
+    <h1>GLIM — მალნუტრიციის დიაგნოზი</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="tc-intro"><b>რისთვის გამოიყენება:</b> GLIM (Global Leadership Initiative on Malnutrition) მალნუტრიციის <b>დიაგნოზის</b> საერთაშორისო კონსენსუს-კრიტერიუმებია. გამოიყენება ორ ეტაპად: ჯერ სკრინინგი (MUST ან NRS-2002), დადებითი შედეგის შემთხვევაში კი — დიაგნოზის დადასტურება: საჭიროა <b>მინიმუმ 1 ფენოტიპური + 1 ეტიოლოგიური</b> კრიტერიუმი. ფენოტიპური კრიტერიუმები სიმძიმესაც განსაზღვრავს (Stage 1 ზომიერი / Stage 2 მძიმე).</div>
+
+    <div class="tcalc">
+      <h3>ფენოტიპური კრიტერიუმები (მინიმუმ 1 საჭიროა)</h3>
+      <div class="tc-grid">
+        <div class="tc-field full"><label>წონის უნებლიე კლება</label>
+          <select id="gWL" onchange="calcGLIM()">
+            <option value="0">არა</option>
+            <option value="1">ზომიერი — 5–10% ბოლო 6 თვეში, ან 10–20% მეტ ხანში</option>
+            <option value="2">მძიმე — &gt;10% ბოლო 6 თვეში, ან &gt;20% მეტ ხანში</option>
+          </select>
+        </div>
+        <div class="tc-field full"><label>დაბალი BMI</label>
+          <select id="gBMI" onchange="calcGLIM()">
+            <option value="0">არა</option>
+            <option value="1">ზომიერი — &lt;20 (&lt;70 წ.) ან &lt;22 (≥70 წ.)</option>
+            <option value="2">მძიმე — &lt;18.5 (&lt;70 წ.) ან &lt;20 (≥70 წ.)</option>
+          </select>
+        </div>
+        <div class="tc-field full"><label>კუნთოვანი მასის კლება (DXA/BIA/CT/ულტრაბგერა/ანთროპომეტრია)</label>
+          <select id="gMM" onchange="calcGLIM()">
+            <option value="0">არა</option>
+            <option value="1">მსუბუქ-ზომიერი დეფიციტი</option>
+            <option value="2">მძიმე დეფიციტი</option>
+          </select>
+        </div>
+      </div>
+      <h3>ეტიოლოგიური კრიტერიუმები (მინიმუმ 1 საჭიროა)</h3>
+      <div class="tc-grid">
+        <label class="tc-chk full"><input id="gIntake" type="checkbox" onchange="calcGLIM()"><span>მიღების/შეწოვის კლება — ≤50% მოთხოვნის &gt;1 კვირა, ან ნებისმიერი კლება &gt;2 კვირა, ან ქრონიკული GI მდგომარეობა</span></label>
+        <label class="tc-chk full"><input id="gInflam" type="checkbox" onchange="calcGLIM()"><span>ანთება / დაავადების ტვირთი (მწვავე ან ქრონიკული)</span></label>
+      </div>
+      <div class="tc-res low" id="gRes"><div class="rh">მალნუტრიცია არ დასტურდება</div><p>საჭიროა მინიმუმ 1 ფენოტიპური + 1 ეტიოლოგიური კრიტერიუმი.</p></div>
+    </div>
+
+    <div class="tc-src"><b>წყარო:</b> GLIM — Cederholm T et al. Clinical Nutrition, 2019; ESPEN Polymorbid — Practical 2024 (R1–R2: სკრინინგი → GLIM → ზრუნვის გეგმა).</div>
+    <div class="tc-src" style="margin-top:8px">ეს ინსტრუმენტი კლინიკური გადაწყვეტილების მხარდასაჭერია და არ ცვლის ინდივიდუალურ სამედიცინო შეფასებას.</div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+function calcGLIM(){
+  var ph=[+document.getElementById("gWL").value,+document.getElementById("gBMI").value,+document.getElementById("gMM").value];
+  var phenoMet=ph.some(function(v){return v>0;});
+  var etioMet=document.getElementById("gIntake").checked||document.getElementById("gInflam").checked;
+  var res=document.getElementById("gRes");
+  if(phenoMet&&etioMet){
+    var severe=ph.some(function(v){return v===2;});
+    res.className="tc-res "+(severe?"high":"med");
+    res.innerHTML='<div class="rh">მალნუტრიცია დადასტურდა — '+(severe?"მძიმე (Stage 2)":"ზომიერი (Stage 1)")+'</div><p>სრულდება ≥1 ფენოტიპური + ≥1 ეტიოლოგიური კრიტერიუმი; სიმძიმე განისაზღვრება ფენოტიპური კრიტერიუმებით. დაიწყე ნუტრიციული ჩარევა — კვებითი მხარდაჭერის ესკალაციის კიბით.</p>';
+  } else {
+    var need=[]; if(!phenoMet)need.push("ფენოტიპური"); if(!etioMet)need.push("ეტიოლოგიური");
+    res.className="tc-res low";
+    res.innerHTML='<div class="rh">მალნუტრიცია არ დასტურდება (GLIM-ით)</div><p>აკლია: '+need.join(" და ")+' კრიტერიუმი. განაგრძე მონიტორინგი და გაიმეორე სკრინინგი.</p>';
+  }
+}
+calcGLIM();
+</script>
+</body>
+</html>

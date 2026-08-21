@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>გახდი წევრი — GSPEN</title>
+<meta name="description" content="გაწევრიანება GSPEN-ში: კატეგორიები, საწევრო გადასახადი და განაცხადის წარდგენა.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .app-form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;margin-top:26px;box-shadow:var(--sh)}
+  .app-form h3{font-size:18px;color:var(--navy);margin-bottom:4px}
+  .app-form .fsub{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+  .af-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .af-field{display:flex;flex-direction:column;gap:6px}
+  .af-field.full{grid-column:1/-1}
+  .af-field label{font-size:13px;font-weight:700;color:#33405c}
+  .af-field input,.af-field select,.af-field textarea{padding:12px 14px;border:1px solid var(--line);border-radius:11px;font-family:inherit;font-size:14.5px;background:#fbfdfc;color:var(--ink)}
+  .af-field input:focus,.af-field select:focus,.af-field textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(24,36,73,.1);background:#fff}
+  .af-field textarea{min-height:80px;resize:vertical}
+  .stu-note{display:none;grid-column:1/-1;background:#fff6e6;border:1px solid #f0d9a8;border-radius:11px;padding:12px 15px;font-size:13.5px;color:#7a5216}
+  .stu-note.show{display:block}
+  .af-err{display:none;color:var(--red-d);font-size:13px;font-weight:600;margin-top:10px}
+  .af-err.show{display:block}
+  .af-actions{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .af-hint{font-size:12.5px;color:var(--muted)}
+  @media(max-width:620px){.af-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს ენტერალური, პარენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>MUST · NRS-2002 · GLIM</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn navy" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <span class="kicker">გაწევრიანება</span>
+    <h1>გახდი GSPEN-ის წევრი</h1>
+    <p class="sub">შემოუერთდი კლინიკური კვების პროფესიულ საზოგადოებას — მიიღე წვდომა ვებინარებზე, რესურსებზე, ღონისძიებებზე და ხმის უფლება საერთო კრებაზე.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">კატეგორიები</span><div class="top"><h2>წევრობის კატეგორიები</h2></div></div>
+    <div class="tiers">
+      <div class="tier featured">
+        <span class="t-badge">ძირითადი</span>
+        <h3>აქტიური წევრი</h3>
+        <div class="price">50 ₾ <small>/ წელი</small></div>
+        <ul>
+          <li>MD, RN, RD, PharmD, PhD კვალიფიკაცია</li>
+          <li>ხმის უფლება საერთო კრებაზე</li>
+          <li>წვდომა ვებინარებსა და რესურსებზე</li>
+          <li>ESPEN-თან თანამშრომლობის შესაძლებლობები</li>
+        </ul>
+        <a class="btn red" href="#gantskhadeba" data-cat="active">გაწევრიანება</a>
+      </div>
+      <div class="tier">
+        <span class="t-badge">შეღავათიანი</span>
+        <h3>სტუდენტი / რეზიდენტი</h3>
+        <div class="price">20 ₾ <small>/ წელი</small></div>
+        <ul>
+          <li>სამედიცინო, საექთნო ან დიეტოლოგიის პროგრამის სტუდენტები</li>
+          <li>ხმის უფლება საერთო კრებაზე</li>
+          <li>წვდომა ვებინარებსა და რესურსებზე</li>
+          <li>საჭიროა სტუდენტობის დამადასტურებელი საბუთი (ცნობა ან სტუდბილეთი)</li>
+        </ul>
+        <a class="btn navy" href="#gantskhadeba" data-cat="student">გაწევრიანება</a>
+      </div>
+      <div class="tier">
+        <span class="t-badge">საპატიო</span>
+        <h3>საპატიო წევრი</h3>
+        <div class="price">— <small>უფასო</small></div>
+        <ul>
+          <li>განსაკუთრებული წვლილი კლინიკური კვების განვითარებაში</li>
+          <li>წარადგენს საბჭო, ამტკიცებს საერთო კრება</li>
+          <li>გათავისუფლებული საწევროსგან</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <span class="t-badge">ინდუსტრია</span>
+        <h3>კორპორატიული წევრი</h3>
+        <div class="price">შეთანხმებით</div>
+        <ul>
+          <li>ფარმაცევტული / კვების ინდუსტრიის კომპანიები</li>
+          <li>GSPEN-ის მისიის მხარდაჭერა</li>
+          <li>სამეცნიერო პოლიტიკაზე გავლენის გარეშე</li>
+        </ul>
+        <a class="btn navy" href="#gantskhadeba" data-cat="corporate">დაგვიკავშირდი</a>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:14px">* საწევრო გადასახადების ოდენობა დგინდება საბჭოს მიერ და ექვემდებარება საერთო კრების რატიფიცირებას (წესდება, მუხლი 4.3).</p>
+  </div>
+</section>
+
+<section id="gantskhadeba" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">როგორ გავწევრიანდე</span><div class="top"><h2>სამი მარტივი ნაბიჯი</h2></div></div>
+    <div class="steps">
+      <div class="step-b"><div class="sn">ნაბიჯი 1</div><h4>შეავსე განაცხადი</h4><p>შეავსე ქვემოთ მოცემული ფორმა — „გაგზავნაზე" დაჭერისას გაიხსნება შენი ელფოსტა მზა ტექსტით. სტუდენტმა/რეზიდენტმა წერილს მიაბი სტუდენტობის დამადასტურებელი საბუთი.</p></div>
+      <div class="step-b"><div class="sn">ნაბიჯი 2</div><h4>გადაიხადე საწევრო</h4><p>გადმორიცხე წლიური საწევრო ქვემოთ მითითებულ ანგარიშზე. დანიშნულებაში ჩაწერე: „საწევრო — სახელი გვარი".</p></div>
+      <div class="step-b"><div class="sn">ნაბიჯი 3</div><h4>მიიღე დადასტურება</h4><p>მდივანი განიხილავს განაცხადს და ელფოსტაზე მიიღებ წევრობის დადასტურებას. წევრობა ძალაში შედის გადახდისთანავე.</p></div>
+    </div>
+
+    <div class="app-form" id="appFormBox">
+      <h3>განაცხადის ფორმა</h3>
+      <div class="fsub">შეავსე ველები — „გაგზავნა" ღილაკი ავტომატურად შეადგენს წერილს GSPEN-ის მდივნისთვის.</div>
+      <div class="af-grid">
+        <div class="af-field">
+          <label for="fCat">წევრობის კატეგორია</label>
+          <select id="fCat" onchange="catChanged()">
+            <option value="აქტიური წევრი (50 ₾/წელი)">აქტიური წევრი — 50 ₾/წელი</option>
+            <option value="სტუდენტი/რეზიდენტი (20 ₾/წელი)">სტუდენტი / რეზიდენტი — 20 ₾/წელი</option>
+            <option value="კორპორატიული წევრი">კორპორატიული წევრი</option>
+          </select>
+        </div>
+        <div class="af-field"><label for="fName">სახელი და გვარი *</label><input id="fName" type="text" placeholder="მაგ. ნინო ბერიძე"></div>
+        <div class="af-field"><label for="fMail">ელფოსტა *</label><input id="fMail" type="email" placeholder="მაგ. nino@example.com"></div>
+        <div class="af-field"><label for="fProf">პროფესია / კვალიფიკაცია *</label><input id="fProf" type="text" placeholder="მაგ. ექიმი, დიეტოლოგი, სტუდენტი…"></div>
+        <div class="af-field full"><label for="fWork">სამუშაო ადგილი / სასწავლებელი</label><input id="fWork" type="text" placeholder="მაგ. კლინიკა, უნივერსიტეტი…"></div>
+        <div class="stu-note" id="stuNote">📎 <b>სტუდენტებისთვის:</b> გახსნილ წერილს აუცილებლად მიაბი სტუდენტობის დამადასტურებელი საბუთი — ცნობა სასწავლებლიდან ან სტუდბილეთის ფოტო. საბუთის გარეშე შეღავათიანი საწევრო ვერ დადასტურდება.</div>
+        <div class="af-field full"><label for="fMsg">კომენტარი (არასავალდებულო)</label><textarea id="fMsg" placeholder="დამატებითი ინფორმაცია…"></textarea></div>
+      </div>
+      <div class="af-err" id="afErr">გთხოვ, შეავსე სავალდებულო ველები (სახელი, ელფოსტა, პროფესია).</div>
+      <div class="af-actions">
+        <button class="btn red" onclick="sendApplication()">გაგზავნა ✉</button>
+        <span class="af-hint">ღილაკი გახსნის შენს საფოსტო აპლიკაციას მზა წერილით — უბრალოდ დააჭირე გაგზავნას (სტუდენტებმა — საბუთის მიბმის შემდეგ).</span>
+      </div>
+    </div>
+
+    <div class="bank-box">
+      <h3>საბანკო რეკვიზიტები</h3>
+      <table>
+        <tr><td>მიმღები</td><td>ა(ა)იპ საქართველოს პარენტერული, ენტერული კვების და მეტაბოლიზმის ასოციაცია</td></tr>
+        <tr><td>ბანკი</td><td>[ბანკის დასახელება — დასაზუსტებელია]</td></tr>
+        <tr><td>ანგარიშის ნომერი (IBAN)</td><td>[GE00XX0000000000000000 — დასაზუსტებელია]</td></tr>
+        <tr><td>დანიშნულება</td><td>საწევრო გადასახადი — სახელი, გვარი</td></tr>
+      </table>
+      <div class="warn">⚠ რეკვიზიტები შეივსება ასოციაციის საბანკო ანგარიშის გახსნის შემდეგ.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+function catChanged(){
+  var v = document.getElementById("fCat").value;
+  document.getElementById("stuNote").classList.toggle("show", v.indexOf("სტუდენტი")===0);
+}
+document.querySelectorAll("[data-cat]").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var map = {active:0, student:1, corporate:2};
+    var sel = document.getElementById("fCat");
+    var idx = map[btn.getAttribute("data-cat")];
+    if(sel && idx!==undefined){ sel.selectedIndex = idx; catChanged(); }
+  });
+});
+function sendApplication(){
+  var name = document.getElementById("fName").value.trim();
+  var mail = document.getElementById("fMail").value.trim();
+  var prof = document.getElementById("fProf").value.trim();
+  var work = document.getElementById("fWork").value.trim();
+  var msg  = document.getElementById("fMsg").value.trim();
+  var cat  = document.getElementById("fCat").value;
+  var err  = document.getElementById("afErr");
+  if(!name || !mail || !prof){ err.classList.add("show"); return; }
+  err.classList.remove("show");
+  var isStudent = cat.indexOf("სტუდენტი")===0;
+  var body = "წევრობის განაცხადი — GSPEN\n\n" +
+    "კატეგორია: " + cat + "\n" +
+    "სახელი, გვარი: " + name + "\n" +
+    "ელფოსტა: " + mail + "\n" +
+    "პროფესია/კვალიფიკაცია: " + prof + "\n" +
+    (work ? "სამუშაო ადგილი/სასწავლებელი: " + work + "\n" : "") +
+    (msg ? "\nკომენტარი: " + msg + "\n" : "") +
+    (isStudent ? "\n📎 ამ წერილს ვაბამ სტუდენტობის დამადასტურებელ საბუთს." : "");
+  location.href = "mailto:pensocietygspen@gmail.com?subject=" +
+    encodeURIComponent("წევრობის განაცხადი — " + name + " (" + cat + ")") +
+    "&body=" + encodeURIComponent(body);
+}
+catChanged();
+</script>
+</body>
+</html>

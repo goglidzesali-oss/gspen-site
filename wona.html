@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>იდეალური და კორეგირებული წონა — GSPEN</title>
+<meta name="description" content="GSPEN — იდეალური სხეულის წონის (IBW, Devine) და კორეგირებული წონის (AdjBW) კალკულატორი.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl active" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>სკრინინგი · ენერგია · წონა</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / <a href="kalkulatorebi.html">კალკულატორები</a> / წონა</div>
+    <span class="kicker">წონის კალკულატორი</span>
+    <h1>იდეალური და კორეგირებული წონა</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="tc-intro"><b>რისთვის გამოიყენება:</b> <b>იდეალური სხეულის წონა (IBW)</b> და <b>კორეგირებული წონა (AdjBW)</b> გამოიყენება ზოგიერთი მედიკამენტის წონაზე დაფუძნებული დოზირებისთვის და თირკმლის ფუნქციის ზოგიერთ შეფასებაში. ფორმულები გამოსადეგია ≥152.4 სმ (5 ფუტი) სიმაღლის პაციენტებში. AdjBW ითვალისწინებს ზოგიერთი წამლის არასრულ განაწილებას ცხიმოვან ქსოვილში სიმსუქნის დროს.</div>
+
+    <div class="tcalc">
+      <h3>მონაცემები</h3>
+      <div class="tc-grid">
+        <div class="tc-field"><label>სქესი</label><select id="bSex" onchange="calcBW()"><option value="m">მამრობითი</option><option value="f">მდედრობითი</option></select></div>
+        <div class="tc-field"><label>სიმაღლე (სმ)</label><input id="bH" type="number" value="170" min="100" max="230" oninput="calcBW()"></div>
+        <div class="tc-field full"><label>რეალური წონა (კგ)</label><input id="bW" type="number" value="90" min="1" max="400" oninput="calcBW()"></div>
+      </div>
+      <div class="tc-res low" id="bRes"></div>
+      <div class="tc-note">IBW: <b id="bIBW">—</b> · რეალური წონა IBW-ის: <b id="bPct">—</b></div>
+    </div>
+
+    <div class="tc-src"><b>ფორმულები:</b> IBW (Devine, 1974) — მამრობითი: 50 კგ + 2.3 კგ ყოველ ინჩზე 5 ფუტს ზემოთ; მდედრობითი: 45.5 კგ + 2.3 კგ ყოველ ინჩზე 5 ფუტს ზემოთ · AdjBW = IBW + 0.4 × (რეალური წონა − IBW), გამოიყენება, როცა რეალური წონა ≥120% IBW-ისა.</div>
+    <div class="tc-src" style="margin-top:8px"><b>შენიშვნა:</b> თუ რეალური წონა IBW-ზე ნაკლებია, დოზირებისთვის ზოგადად რეალური წონა გამოიყენება. IBW-სა და 120% IBW-ს შორის დიაპაზონში კორექციის ფაქტორი გაურკვეველია — AdjBW ამ შემთხვევაში არ ითვლება. გამოყენებამდე გადაამოწმე კლინიკური წამლის ცნობარი და დაწესებულების პროტოკოლები — რეკომენდაციები განსხვავდება.</div>
+    <div class="tc-src" style="margin-top:8px"><b>წყარო:</b> Devine BJ, Drug Intell Clin Pharm 1974 · Erstad BL, Intensive Care Med 2004 · Hanley MJ et al., Clin Pharmacokinet 2010. ეს ინსტრუმენტი კლინიკური გადაწყვეტილების მხარდასაჭერია და არ ცვლის ინდივიდუალურ სამედიცინო შეფასებას.</div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/i18n.js"></script>
+<script>
+function calcBW(){
+  var sex=document.getElementById("bSex").value;
+  var h=parseFloat(document.getElementById("bH").value)||0;
+  var w=parseFloat(document.getElementById("bW").value)||0;
+  var res=document.getElementById("bRes");
+  var ibwEl=document.getElementById("bIBW"), pctEl=document.getElementById("bPct");
+  if(!(h>0)||!(w>0)){ res.className="tc-res low"; res.innerHTML='<p>შეავსე სქესი, სიმაღლე და წონა.</p>'; ibwEl.textContent="—"; pctEl.textContent="—"; return; }
+  if(h<152.4){
+    res.className="tc-res med";
+    res.innerHTML='<div class="rh">სიმაღლე &lt;152.4 სმ</div><p>ეს ფორმულები გამოსადეგია მხოლოდ ≥152.4 სმ (5 ფუტი) სიმაღლის პაციენტებში.</p>';
+    ibwEl.textContent="—"; pctEl.textContent="—"; return;
+  }
+  var inches=h/2.54;
+  var ibw=(sex==="m"?50:45.5)+2.3*(inches-60);
+  var pct=w/ibw*100;
+  ibwEl.textContent=ibw.toFixed(1)+" კგ";
+  pctEl.textContent=Math.round(pct)+"%";
+  var kg=function(v){ return '<b>'+v.toFixed(1)+'</b> <span>კგ</span>'; };
+  var html='<p><span>იდეალური წონა (IBW):</span> '+kg(ibw)+'</p>';
+  if(w<ibw){
+    res.className="tc-res low";
+    html+='<p><span>კორეგირებული წონა (AdjBW):</span> <b>—</b></p>'+
+      '<p class="tc-mini">რეალური წონა IBW-ზე ნაკლებია — დოზირებისთვის ზოგადად გამოიყენება რეალური წონა.</p>';
+  } else if(w<1.2*ibw){
+    res.className="tc-res low";
+    html+='<p><span>კორეგირებული წონა (AdjBW):</span> <b>N/A</b></p>'+
+      '<p class="tc-mini">რეალური წონა IBW-ზე მეტია, მაგრამ 120%-ზე ნაკლები — ამ დიაპაზონში კორექციის ფაქტორი გაურკვეველია.</p>';
+  } else {
+    var adj=ibw+0.4*(w-ibw);
+    res.className="tc-res med";
+    html+='<p><span>კორეგირებული წონა (AdjBW):</span> '+kg(adj)+'</p>'+
+      '<p class="tc-mini">AdjBW = IBW + 0.4 × (რეალური წონა − IBW)</p>';
+  }
+  res.innerHTML=html;
+}
+calcBW();
+</script>
+</body>
+</html>

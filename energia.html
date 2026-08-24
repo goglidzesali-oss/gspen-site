@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ენერგიის მოთხოვნილება — კალორიების კალკულატორი — GSPEN</title>
+<meta name="description" content="GSPEN — ენერგიის მოთხოვნილების კალკულატორი: მიფლინ-სენ ჟეორი, ჰარის-ბენედიქტი, შოფილდი, ESPEN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>ასოციაციის მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl active" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>სკრინინგი · ენერგია · წონა</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / <a href="kalkulatorebi.html">კალკულატორები</a> / ენერგია</div>
+    <span class="kicker">კალორიების კალკულატორი</span>
+    <h1>ენერგიის მოთხოვნილება</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="tc-intro"><b>რისთვის გამოიყენება:</b> კალკულატორი ითვლის მოსვენებული ენერგოცვლის (REE) მოთხოვნილებას ოთხი ვალიდირებული მეთოდით და თვითონ გირჩევს შესაფერისს — <b>GSPEN-ის კლასიფიკაციით</b>: ბავშვებში (&lt;18 წ.) გამოიყენება მხოლოდ <b>შოფილდის</b> ფორმულა; ჰოსპიტალიზებულ პაციენტებში — <b>ESPEN-ის</b> წონაზე დაფუძნებული გათვლა (25–30 კკალ/კგ/დღეში); BMI ≥30-ის დროს უმჯობესია <b>მიფლინ-სენ ჟეორი</b>; BMI &lt;30-ის დროს გამოსადეგია სამივე ფორმულა (მიფლინ-სენ ჟეორი, ჰარის-ბენედიქტი, შოფილდი).</div>
+
+    <div class="tcalc">
+      <h3>მონაცემები</h3>
+      <div class="tc-grid">
+        <div class="tc-field"><label>ასაკი (წელი)</label><input id="eAge" type="number" value="45" min="0" max="110" oninput="calcEnergy()"></div>
+        <div class="tc-field"><label>სქესი</label><select id="eSex" onchange="calcEnergy()"><option value="m">მამრობითი</option><option value="f">მდედრობითი</option></select></div>
+        <div class="tc-field"><label>წონა (კგ)</label><input id="eW" type="number" value="70" min="1" max="400" oninput="calcEnergy()"></div>
+        <div class="tc-field"><label>სიმაღლე (სმ)</label><input id="eH" type="number" value="170" min="40" max="230" oninput="calcEnergy()"></div>
+        <label class="tc-chk full"><input id="eHosp" type="checkbox" onchange="calcEnergy()"><span><b>პაციენტი ჰოსპიტალიზებულია</b> — გამოყენებული იქნება ESPEN-ის გათვლა (25–30 კკალ/კგ/დღეში)</span></label>
+      </div>
+      <div class="tc-res low" id="eRes"></div>
+      <div class="tc-note">BMI: <b id="eBMI">—</b></div>
+    </div>
+
+    <div class="tc-src"><b>წყარო:</b> Mifflin MD, St Jeor ST et al., Am J Clin Nutr 1990 · Harris JA, Benedict FG, 1919 · Schofield WN, Hum Nutr Clin Nutr 1985 (WHO) · ESPEN — Gomes F et al., Clin Nutr 2018: ჰოსპიტალიზებული პაციენტები — 25–30 კკალ/კგ/დღეში.</div>
+    <div class="tc-src" style="margin-top:8px">შედეგი მოსვენებული ენერგოცვლაა (REE) — ჯამური დღიური მოთხოვნილება დგინდება აქტივობისა და სტრესის ფაქტორების გათვალისწინებით, კლინიკური შეფასების მიხედვით. ეს ინსტრუმენტი კლინიკური გადაწყვეტილების მხარდასაჭერია და არ ცვლის ინდივიდუალურ სამედიცინო შეფასებას.</div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/i18n.js"></script>
+<script>
+function schofield(sex, age, w){
+  var t;
+  if(sex==="m"){
+    if(age<3) t=[59.512,-30.4]; else if(age<10) t=[22.706,504.3]; else if(age<18) t=[17.686,658.2];
+    else if(age<30) t=[15.057,692.2]; else if(age<60) t=[11.472,873.1]; else t=[11.711,587.7];
+  } else {
+    if(age<3) t=[58.317,-31.1]; else if(age<10) t=[20.315,485.9]; else if(age<18) t=[13.384,692.6];
+    else if(age<30) t=[14.818,486.6]; else if(age<60) t=[8.126,845.6]; else t=[9.082,658.5];
+  }
+  return t[0]*w+t[1];
+}
+function calcEnergy(){
+  var age=parseFloat(document.getElementById("eAge").value);
+  var sex=document.getElementById("eSex").value;
+  var w=parseFloat(document.getElementById("eW").value)||0;
+  var h=parseFloat(document.getElementById("eH").value)||0;
+  var hosp=document.getElementById("eHosp").checked;
+  var res=document.getElementById("eRes");
+  var bmi=h>0?w/((h/100)*(h/100)):0;
+  document.getElementById("eBMI").textContent=bmi?bmi.toFixed(1):"—";
+  if(!(w>0)||!(h>0)||isNaN(age)){ res.className="tc-res low"; res.innerHTML='<p>შეავსე ასაკი, სქესი, წონა და სიმაღლე.</p>'; return; }
+  var mif=Math.round(10*w+6.25*h-5*age+(sex==="m"?5:-161));
+  var hb=Math.round(sex==="m" ? 66.47+13.75*w+5.003*h-6.755*age : 655.1+9.563*w+1.850*h-4.676*age);
+  var sch=Math.round(schofield(sex,age,w));
+  var kcal=function(v){ return '<b>'+v+'</b> <span>კკალ/დღეში</span>'; };
+  var html="";
+  if(age<18){
+    res.className="tc-res med";
+    html='<div class="rh">ბავშვი / მოზარდი — გამოიყენება მხოლოდ შოფილდის ფორმულა</div>'+
+      '<p><span>შოფილდი:</span> '+kcal(sch)+'</p>'+
+      '<p class="tc-mini">ბავშვებში REE ითვლება მხოლოდ შოფილდის ფორმულით (GSPEN-ის რეკომენდაცია).</p>';
+  } else if(hosp){
+    res.className="tc-res high";
+    html='<div class="rh">ჰოსპიტალიზებული პაციენტი — ESPEN-ის გათვლა</div>'+
+      '<p><span>ESPEN (25–30 კკალ/კგ/დღეში):</span> <b>'+Math.round(w*25)+'–'+Math.round(w*30)+'</b> <span>კკალ/დღეში</span></p>'+
+      '<p class="tc-mini">საორიენტაციოდ, REE მიფლინ-სენ ჟეორით:</p><p><span>მიფლინ-სენ ჟეორი:</span> '+kcal(mif)+'</p>'+
+      (bmi>=30?'<p class="tc-mini">BMI ≥30 — გათვლისთვის განიხილე კორეგირებული წონის გამოყენება (<a href="wona.html">წონის კალკულატორი</a>).</p>':"");
+  } else if(bmi>=30){
+    res.className="tc-res med";
+    html='<div class="rh">BMI ≥30 — უმჯობესია მიფლინ-სენ ჟეორი (GSPEN-ის რეკომენდაცია)</div>'+
+      '<p><span>მიფლინ-სენ ჟეორი:</span> '+kcal(mif)+' <span class="tc-badge">რეკომენდებული</span></p>'+
+      '<p><span>ჰარის-ბენედიქტი:</span> '+kcal(hb)+'</p>'+
+      '<p><span>შოფილდი:</span> '+kcal(sch)+'</p>';
+  } else {
+    res.className="tc-res low";
+    html='<div class="rh">BMI &lt;30 — გამოსადეგია სამივე ფორმულა</div>'+
+      '<p><span>მიფლინ-სენ ჟეორი:</span> '+kcal(mif)+'</p>'+
+      '<p><span>ჰარის-ბენედიქტი:</span> '+kcal(hb)+'</p>'+
+      '<p><span>შოფილდი:</span> '+kcal(sch)+'</p>';
+  }
+  res.innerHTML=html;
+}
+calcEnergy();
+</script>
+</body>
+</html>

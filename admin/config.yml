@@ -25,6 +25,27 @@ collections:
         name: "webinars"
         label: "ვებინარების სია"
         fields:
+          - name: "gate"
+            label: "⚙ ჩანაწერის წვდომის ფორმის კავშირი (ტექნიკური — ნუ შეცვლი)"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { name: "action", label: "action", widget: "string", required: false }
+              - { name: "f_email", label: "f_email", widget: "string", required: false }
+              - { name: "f_name", label: "f_name", widget: "string", required: false }
+              - { name: "f_prof", label: "f_prof", widget: "string", required: false }
+              - { name: "f_web", label: "f_web", widget: "string", required: false }
+          - name: "ask"
+            label: "⚙ შეკითხვების ფორმის კავშირი (ტექნიკური — ნუ შეცვლი)"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { name: "action", label: "action", widget: "string", required: false }
+              - { name: "f_q", label: "f_q", widget: "string", required: false }
+              - { name: "f_email", label: "f_email", widget: "string", required: false }
+              - { name: "f_web", label: "f_web", widget: "string", required: false }
           - name: "items"
             label: "ვებინარები"
             widget: "list"
@@ -35,11 +56,22 @@ collections:
               - { name: "time", label: "დრო", widget: "string", required: false, hint: "მაგ. 20:00" }
               - { name: "speaker", label: "მომხსენებელი", widget: "string", required: false }
               - { name: "description", label: "მოკლე აღწერა", widget: "text", required: false }
-              - { name: "details", label: "სრული აღწერა (მომავალი ვებინარისთვის)", widget: "text", required: false, hint: "ბულეტებისთვის ხაზი დაიწყე • სიმბოლოთი" }
-              - { name: "reg", label: "რეგისტრაციის ბმული", widget: "string", required: false, hint: "მაგ. Google Forms-ის ბმული" }
+              - { name: "details", label: "სრული აღწერა", widget: "text", required: false, hint: "ბულეტებისთვის ხაზი დაიწყე • სიმბოლოთი" }
+              - { name: "reg", label: "რეგისტრაციის ბმული", widget: "string", required: false, hint: "მაგ. Google Forms-ის ბმული (მომავალი ვებინარისთვის)" }
               - { name: "image", label: "ბანერის სურათი", widget: "image", required: false }
-              - { name: "youtube", label: "YouTube ბმული (ჩაწერისთვის)", widget: "string", required: false, hint: "ჩატარების შემდეგ ჩასვი ჩაწერის ბმული და მოხსენი „მომავალი" ჭდე" }
+              - { name: "youtube", label: "YouTube ბმული (ჩანაწერი)", widget: "string", required: false, hint: "ჩატარების შემდეგ ჩასვი ჩანაწერის ბმული და გამორთე მომავალის ჭდე — ვიდეო გეიტით გაიხსნება" }
+              - { name: "video", label: "სხვა ვიდეო-ბმული (მაგ. Drive preview)", widget: "string", required: false, hint: "გამოიყენება მხოლოდ თუ YouTube ცარიელია" }
               - { name: "upcoming", label: "მომავალი ვებინარია?", widget: "boolean", default: false, required: false }
+              - name: "qa"
+                label: "კითხვა–პასუხი"
+                widget: "list"
+                required: false
+                collapsed: true
+                summary: "{{fields.q}}"
+                hint: "Add ღილაკით ამატებ კითხვას, თითოეულის გვერდით წაშლის ღილაკით შლი, გადათრევით ალაგებ თანმიმდევრობას"
+                fields:
+                  - { name: "q", label: "კითხვა", widget: "text" }
+                  - { name: "a", label: "პასუხი", widget: "text", required: false, hint: "ცარიელი დატოვე და საიტზე გამოჩნდება: პასუხი მალე დაემატება" }
 
   - name: "articles"
     label: "სტატიები"

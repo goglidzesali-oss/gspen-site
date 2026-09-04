@@ -90,7 +90,8 @@
   </div>
 </div>
 
-<section>
+<!-- დროებით დამალულია (2026-09-04): წევრობის კატეგორიების სექცია — გასახსნელად წაშალე style="display:none" -->
+<section style="display:none">
   <div class="wrap">
     <div class="sec-head"><span class="kicker">კატეგორიები</span><div class="top"><h2>წევრობის კატეგორიები</h2></div></div>
     <div class="tiers">
@@ -146,11 +147,12 @@
 
 <section id="gantskhadeba" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">როგორ გავწევრიანდე</span><div class="top"><h2>სამი მარტივი ნაბიჯი</h2></div></div>
+    <div class="sec-head"><span class="kicker">როგორ გავწევრიანდე</span><div class="top"><h2>ორი მარტივი ნაბიჯი</h2></div></div>
     <div class="steps">
-      <div class="step-b"><div class="sn">ნაბიჯი 1</div><h4>შეავსე განაცხადი</h4><p>შეავსე ქვემოთ მოცემული ფორმა — „გაგზავნაზე" დაჭერისას გაიხსნება შენი ელფოსტა მზა ტექსტით. სტუდენტმა/რეზიდენტმა წერილს მიაბი სტუდენტობის დამადასტურებელი საბუთი.</p></div>
-      <div class="step-b"><div class="sn">ნაბიჯი 2</div><h4>გადაიხადე საწევრო</h4><p>გადმორიცხე წლიური საწევრო ქვემოთ მითითებულ ანგარიშზე. დანიშნულებაში ჩაწერე: „საწევრო — სახელი გვარი".</p></div>
-      <div class="step-b"><div class="sn">ნაბიჯი 3</div><h4>მიიღე დადასტურება</h4><p>მდივანი განიხილავს განაცხადს და ელფოსტაზე მიიღებ წევრობის დადასტურებას. წევრობა ძალაში შედის გადახდისთანავე.</p></div>
+      <div class="step-b"><div class="sn">ნაბიჯი 1</div><h4>შეავსე განაცხადი</h4><p>შეავსე ქვემოთ მოცემული ფორმა — „გაგზავნაზე" დაჭერისას გაიხსნება შენი ელფოსტა მზა ტექსტით.</p></div>
+      <!-- დროებით დამალულია (2026-09-04): საწევროს გადახდის ნაბიჯი — გასახსნელად წაშალე style="display:none", დააბრუნე ნომრები (2→3) და სათაური „სამი მარტივი ნაბიჯი" -->
+      <div class="step-b" style="display:none"><div class="sn">ნაბიჯი 2</div><h4>გადაიხადე საწევრო</h4><p>გადმორიცხე წლიური საწევრო ქვემოთ მითითებულ ანგარიშზე. დანიშნულებაში ჩაწერე: „საწევრო — სახელი გვარი".</p></div>
+      <div class="step-b"><div class="sn">ნაბიჯი 2</div><h4>მიიღე დადასტურება</h4><p>მდივანი განიხილავს განაცხადს და ელფოსტაზე მიიღებ წევრობის დადასტურებას.</p></div>
     </div>
 
     <div class="app-form" id="appFormBox">
@@ -160,8 +162,9 @@
         <div class="af-field">
           <label for="fCat">წევრობის კატეგორია</label>
           <select id="fCat" onchange="catChanged()">
-            <option value="აქტიური წევრი (50 ₾/წელი)">აქტიური წევრი — 50 ₾/წელი</option>
-            <option value="სტუდენტი/რეზიდენტი (20 ₾/წელი)">სტუდენტი / რეზიდენტი — 20 ₾/წელი</option>
+            <!-- დროებით (2026-09-04): ფასები ამოღებულია ჩამონათვალიდან -->
+            <option value="აქტიური წევრი">აქტიური წევრი</option>
+            <option value="სტუდენტი/რეზიდენტი">სტუდენტი / რეზიდენტი</option>
             <option value="კორპორატიული წევრი">კორპორატიული წევრი</option>
           </select>
         </div>
@@ -169,17 +172,19 @@
         <div class="af-field"><label for="fMail">ელფოსტა *</label><input id="fMail" type="email" placeholder="მაგ. nino@example.com"></div>
         <div class="af-field"><label for="fProf">პროფესია / კვალიფიკაცია *</label><input id="fProf" type="text" placeholder="მაგ. ექიმი, დიეტოლოგი, სტუდენტი…"></div>
         <div class="af-field full"><label for="fWork">სამუშაო ადგილი / სასწავლებელი</label><input id="fWork" type="text" placeholder="მაგ. კლინიკა, უნივერსიტეტი…"></div>
-        <div class="stu-note" id="stuNote">📎 <b>სტუდენტებისთვის:</b> გახსნილ წერილს აუცილებლად მიაბი სტუდენტობის დამადასტურებელი საბუთი — ცნობა სასწავლებლიდან ან სტუდბილეთის ფოტო. საბუთის გარეშე შეღავათიანი საწევრო ვერ დადასტურდება.</div>
+        <!-- დროებით დამალულია (2026-09-04): სტუდენტის საბუთის შენიშვნა — გასახსნელად წაშალე style="display:none" -->
+        <div class="stu-note" id="stuNote" style="display:none">📎 <b>სტუდენტებისთვის:</b> გახსნილ წერილს აუცილებლად მიაბი სტუდენტობის დამადასტურებელი საბუთი — ცნობა სასწავლებლიდან ან სტუდბილეთის ფოტო. საბუთის გარეშე შეღავათიანი საწევრო ვერ დადასტურდება.</div>
         <div class="af-field full"><label for="fMsg">კომენტარი (არასავალდებულო)</label><textarea id="fMsg" placeholder="დამატებითი ინფორმაცია…"></textarea></div>
       </div>
       <div class="af-err" id="afErr">გთხოვ, შეავსე სავალდებულო ველები (სახელი, ელფოსტა, პროფესია).</div>
       <div class="af-actions">
         <button class="btn red" onclick="sendApplication()">გაგზავნა ✉</button>
-        <span class="af-hint">ღილაკი გახსნის შენს საფოსტო აპლიკაციას მზა წერილით — უბრალოდ დააჭირე გაგზავნას (სტუდენტებმა — საბუთის მიბმის შემდეგ).</span>
+        <span class="af-hint">ღილაკი გახსნის შენს საფოსტო აპლიკაციას მზა წერილით — უბრალოდ დააჭირე გაგზავნას.</span>
       </div>
     </div>
 
-    <div class="bank-box">
+    <!-- დროებით დამალულია (2026-09-04): საბანკო რეკვიზიტები — გასახსნელად წაშალე style="display:none" -->
+    <div class="bank-box" style="display:none">
       <h3>საბანკო რეკვიზიტები</h3>
       <table>
         <tr><td>მიმღები</td><td>ა(ა)იპ საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის ასოციაცია</td></tr>
@@ -202,8 +207,9 @@
 <script src="assets/i18n.js"></script>
 <script>
 function catChanged(){
+  /* დროებით (2026-09-04): სტუდენტის შენიშვნა დამალულია — ძველი ქცევის დასაბრუნებლად ამოაკომენტარე ქვედა ხაზი
   var v = document.getElementById("fCat").value;
-  document.getElementById("stuNote").classList.toggle("show", v.indexOf("სტუდენტი")===0);
+  document.getElementById("stuNote").classList.toggle("show", v.indexOf("სტუდენტი")===0); */
 }
 document.querySelectorAll("[data-cat]").forEach(function(btn){
   btn.addEventListener("click", function(){
@@ -223,15 +229,14 @@ function sendApplication(){
   var err  = document.getElementById("afErr");
   if(!name || !mail || !prof){ err.classList.add("show"); return; }
   err.classList.remove("show");
-  var isStudent = cat.indexOf("სტუდენტი")===0;
+  /* დროებით (2026-09-04): სტუდენტის საბუთის სტრიქონი ამოღებულია წერილიდან */
   var body = "წევრობის განაცხადი — GSPEN\n\n" +
     "კატეგორია: " + cat + "\n" +
     "სახელი, გვარი: " + name + "\n" +
     "ელფოსტა: " + mail + "\n" +
     "პროფესია/კვალიფიკაცია: " + prof + "\n" +
     (work ? "სამუშაო ადგილი/სასწავლებელი: " + work + "\n" : "") +
-    (msg ? "\nკომენტარი: " + msg + "\n" : "") +
-    (isStudent ? "\n📎 ამ წერილს ვაბამ სტუდენტობის დამადასტურებელ საბუთს." : "");
+    (msg ? "\nკომენტარი: " + msg + "\n" : "");
   location.href = "mailto:pensocietygspen@gmail.com?subject=" +
     encodeURIComponent("წევრობის განაცხადი — " + name + " (" + cat + ")") +
     "&body=" + encodeURIComponent(body);

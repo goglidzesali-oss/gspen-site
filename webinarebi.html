@@ -28,44 +28,6 @@
   .reg-box{margin-top:26px;border-top:2px solid var(--red-l);padding-top:22px}
   .reg-box p{font-size:14px;color:var(--muted);margin-bottom:16px;max-width:560px}
   .reg-box .btn{padding:15px 30px;font-size:15.5px}
-
-  .thumb{position:relative}
-  .play-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(16,24,50,.28);transition:.2s}
-  .play-ov .pb{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:5px;box-shadow:0 8px 24px rgba(20,30,60,.3);transition:.2s}
-  .media-card:hover .play-ov .pb{transform:scale(1.1);background:var(--red);color:#fff}
-  .vplayer{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:18px;overflow:hidden;margin:22px 0 8px;box-shadow:var(--sh-h)}
-  .vplayer iframe{width:100%;height:100%;border:0}
-  .gate{margin:22px 0 8px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--sh)}
-  .gate .gtop{position:relative;aspect-ratio:16/7;overflow:hidden}
-  .gate .gtop img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.72)}
-  .gate .gtop .pb{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;padding-left:5px;box-shadow:0 8px 24px rgba(20,30,60,.4)}
-  .gate .gbody{padding:22px 26px 26px}
-  .gate h3{font-size:18px;color:var(--navy);margin-bottom:4px}
-  .gate .gsub{font-size:13.5px;color:var(--muted);margin-bottom:16px}
-  .gate .gg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-  .gate label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
-  .gate input,.gate select{width:100%;font-family:inherit;font-size:14px;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fbfcfe;color:var(--ink)}
-  .gate input:focus,.gate select:focus{outline:none;border-color:var(--navy)}
-  .gate .gerr{display:none;font-size:13px;color:var(--red-d);margin-top:10px}
-  .gate .btn{margin-top:16px}
-  @media(max-width:700px){.gate .gg{grid-template-columns:1fr}}
-  .qa-sec{margin-top:38px}
-  .qa-sec .gh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-  .qa-sec .gh h2{font-size:20px;font-weight:800;color:var(--navy);white-space:nowrap}
-  .qa-sec .gh .line{height:1px;background:var(--line);flex:1}
-  .qa-sec .qsub{font-size:13.5px;color:var(--muted);margin-bottom:18px}
-  .qa-sec .charter{max-width:none}
-  .qa-sec .art>summary h3{font-size:15px;font-weight:600;line-height:1.45}
-  .qa-sec .art>summary .n{width:34px;height:34px;font-size:14px;border-radius:10px}
-  .qa-pending{font-size:14px;color:var(--muted);font-style:italic}
-  .ask-box{margin-top:26px;background:var(--navy-l);border:1px solid #dbe3f4;border-radius:18px;padding:22px 26px}
-  .ask-box h3{font-size:16.5px;color:var(--navy);margin-bottom:4px}
-  .ask-box p{font-size:13.5px;color:#33405c;margin-bottom:14px}
-  .ask-box textarea{width:100%;min-height:90px;font-family:inherit;font-size:14px;padding:12px 14px;border:1.5px solid #dbe3f4;border-radius:12px;background:#fff;resize:vertical;color:var(--ink)}
-  .ask-box textarea:focus,.ask-box input:focus{outline:none;border-color:var(--navy)}
-  .ask-box .arow{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-  .ask-box input{flex:1;min-width:200px;font-family:inherit;font-size:14px;padding:11px 14px;border:1.5px solid #dbe3f4;border-radius:12px;background:#fff;color:var(--ink)}
-  .ask-ok{display:none;font-size:14px;font-weight:700;color:var(--navy);margin-top:12px}
 </style>
 </head>
 <body>
@@ -156,7 +118,7 @@
 </footer>
 
 <script type="application/json" id="webSeed">
-{"gate": {"action": "https://docs.google.com/forms/d/e/1FAIpQLScPxHFirxPKWTZ2zi7QrW5VwnXubPvz3ynQqqakxSHr0QKm9Q/formResponse", "f_email": "entry.43807712", "f_name": "entry.173855125", "f_prof": "entry.129828728", "f_web": "entry.1538210767"}, "ask": {"action": "https://docs.google.com/forms/d/e/1FAIpQLSeZE82orQ7IDDMKqh8elfAzTNFmeBL78nGvstU685f4lY1SoA/formResponse", "f_q": "entry.1479676305", "f_email": "entry.363199726", "f_web": "entry.1994974884"}, "items": [{"title": "ნაწლავის ანთებითი დაავადებები და კვება", "date": "2026-08-26", "time": "20:00", "youtube": "https://youtu.be/JXVgV3-E34g", "video": "", "speaker": "სალომე გოგლიძე — კლინიკური ნუტრიციოლოგი, GSPEN-ის პრეზიდენტი", "description": "ონლაინ ვებინარი კვების მართვაზე ნაწლავის ანთებითი დაავადებების (IBD) დროს ზრდასრულ პაციენტებში.", "details": "GSPEN-ის (საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის ასოციაცია) ორგანიზებით გაიმართა ვებინარი, რომელიც ეძღვნება ნაწლავის ანთებითი დაავადებების (IBD) დროს კვების მართვას ზრდასრულ პაციენტებში.\n\nვებინარზე დეტალურად განვიხილეთ:\n• დიეტა დაავადების რემისიის პერიოდში — სტაბილურობის შენარჩუნება და კლინიკური რეკომენდაციები;\n• სიმპტომების მართვა კვებით — პრაქტიკული გზები ყოველდღიური მდგომარეობის გაუმჯობესებისთვის;\n• დიეტური მიდგომები აქტიური დაავადების დროს;\n• კვებითი მხარდაჭერა და კვების შესაძლო გზები ქირურგიული ოპერაციის გარშემო პერიოდში.", "reg": "", "image": "assets/webinar-ibd-banner.jpg", "upcoming": false, "qa": [{"q": "კრონის დაავადება, ილეოსტომა და კვება — რა უნდა გავითვალისწინოთ?", "a": ""}, {"q": "რამდენად შედეგიანია სიმბიოტიკების/პრობიოტიკების მიღება რემისიის პერიოდში?", "a": ""}, {"q": "როგორ დავგეგმოთ ორსულობა წყლულოვანი კოლიტის დროს — რა რისკები არსებობს და რა უნდა გავითვალისწინოთ?", "a": ""}, {"q": "GLP-1 პრეპარატები (სემაგლუტიდი, ტირზეპატიდი) წყლულოვანი კოლიტის რემისიის დროს — როცა წონის კონტროლი გართულებულია?", "a": ""}, {"q": "უგლუტენო და ულაქტოზო დიეტა — რამდენად მართებულია, თუ ორივეს აუტანლობა დადასტურებულია?", "a": ""}, {"q": "აუცილებელია თუ არა შემანარჩუნებელი მედიკამენტის უწყვეტად მიღება? დასაშვებია თუ არა გარკვეული დროით შეწყვეტა?", "a": ""}, {"q": "მუდმივი შებერილობა და მუცლის ტკივილი, რომელსაც წამლები და დიეტა არ შველის — რისი ნიშანი შეიძლება იყოს?", "a": ""}, {"q": "როგორ განვასხვავოთ ნაწლავის ანთებითი დაავადების სიმპტომები ფუნქციური დარღვევებისგან და როდის არის საჭირო დამატებითი კვლევა?", "a": ""}, {"q": "კვების თავისებურებები დივერტიკულიტის დროს?", "a": ""}, {"q": "რეფლუქსის დროს რა ვადით უნდა ამოვიღოთ სავარაუდო ტრიგერები და როგორ დავაბრუნოთ ისინი რაციონში ზედმეტი შეზღუდვის გარეშე?", "a": ""}]}]}
+{"items": [{"title": "ნაწლავის ანთებითი დაავადებები და კვება", "date": "2026-08-26", "time": "20:00", "youtube": "", "speaker": "სალომე გოგლიძე — კლინიკური ნუტრიციოლოგი, GSPEN-ის პრეზიდენტი", "description": "ონლაინ ვებინარი კვების მართვაზე ნაწლავის ანთებითი დაავადებების (IBD) დროს ზრდასრულ პაციენტებში.", "details": "GSPEN-ის (საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის ასოციაცია) ორგანიზებით გაიმართება ვებინარი, რომელიც ეძღვნება ნაწლავის ანთებითი დაავადებების (IBD) დროს კვების მართვას ზრდასრულ პაციენტებში.\n\nვებინარზე დეტალურად განვიხილავთ:\n• დიეტა დაავადების რემისიის პერიოდში — სტაბილურობის შენარჩუნება და კლინიკური რეკომენდაციები;\n• სიმპტომების მართვა კვებით — პრაქტიკული გზები ყოველდღიური მდგომარეობის გაუმჯობესებისთვის;\n• დიეტური მიდგომები აქტიური დაავადების დროს;\n• კვებითი მხარდაჭერა და კვების შესაძლო გზები ქირურგიული ოპერაციის გარშემო პერიოდში.\n\nშეხვედრაზე ხაზი გაესვება დაავადების ნებისმიერ ეტაპზე საკვებიდან ენერგიისა და ნუტრიენტების ადეკვატური მიღების კრიტიკულ მნიშვნელობას. ასევე დეტალურად შევეხებით ზედმეტად ამკრძალავი (შეზღუდული) დიეტების უარყოფით გავლენასა და თანმდევ რისკებს ნაწლავის ანთებითი დაავადებების მქონე ზრდასრული ადამიანებისთვის.\n\nრეგისტრაციის შემდეგ მითითებულ ელფოსტაზე მიიღებთ შეხვედრის ბმულს. შეხვედრამდე — 26 აგვისტოს, 20:00 საათზე!", "reg": "https://forms.gle/XgNTtxXZjSFc8Ngu8", "image": "assets/webinar-ibd-banner.jpg", "upcoming": true}]}
 </script>
 <script src="assets/site.js"></script>
 <script src="assets/i18n.js"></script>
@@ -178,7 +140,7 @@ function detailsHtml(txt){
 function wbCard(w, i){
   var thumb = w.image ? '<img src="'+esc(w.image)+'" alt="" loading="lazy">' : (ytThumb(w.youtube) ? '<img src="'+esc(ytThumb(w.youtube))+'" alt="" loading="lazy">' : '');
   return '<a class="media-card" href="webinarebi.html?w='+i+'">' +
-    '<div class="thumb">'+thumb+((!w.upcoming&&(w.video||w.youtube))?'<span class="play-ov"><span class="pb">▶</span></span>':'')+'<span class="badge">'+(w.upcoming?"დაგეგმილი":"ჩანაწერი")+'</span></div>' +
+    '<div class="thumb">'+thumb+'<span class="badge">'+(w.upcoming?"დაგეგმილი":"ჩანაწერი")+'</span></div>' +
     '<div class="mc-body"><div class="date">'+esc(fmtDate(w.date))+(w.time?" · "+esc(w.time):"")+'</div><h4>'+esc(w.title)+'</h4><p>'+esc(w.description||"")+'</p></div></a>';
 }
 function renderWebinars(){
@@ -190,92 +152,6 @@ function renderWebinars(){
   document.getElementById("grpPlan").innerHTML = plan.join("") || '<div class="wb-empty">დაგეგმილი ვებინარი ამჟამად არ არის — მალე გამოცხადდება.</div>';
   document.getElementById("grpRec").innerHTML = rec.join("") || '<div class="wb-empty">ჩატარებული ვებინარების ჩანაწერები აქ განთავსდება.</div>';
 }
-
-var GATE = {action:"",f_email:"",f_prof:"",f_role:""};
-var ASK = {action:"",f_q:"",f_email:""};
-function hasAccess(){ try{ return localStorage.getItem("gspen_rec_access")==="1"; }catch(e){ return false; } }
-function grantAccess(){ try{ localStorage.setItem("gspen_rec_access","1"); }catch(e){} }
-function videoArea(w, i){
-  if(hasAccess()){
-    var src = w.youtube ? ("https://www.youtube-nocookie.com/embed/"+ytId(w.youtube)+"?rel=0") : w.video;
-    return '<div class="vplayer"><iframe src="'+esc(src)+'" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
-  }
-  return '<div class="gate" id="gateBox">' +
-    '<div class="gtop">'+(w.image?'<img src="'+esc(w.image)+'" alt="">':'')+'<span class="pb">▶</span></div>' +
-    '<div class="gbody">' +
-      '<h3>ჩანაწერის ნახვა უფასოა</h3>' +
-      '<div class="gsub">გასახსნელად მხოლოდ მოკლე ინფორმაცია გვჭირდება — ეს ასოციაციას ეხმარება, უკეთ დაგეგმოს მომავალი ვებინარები.</div>' +
-      '<div class="gg">' +
-        '<div><label>ელფოსტა *</label><input id="gEmail" type="email" placeholder="მაგ. nino@example.com"></div>' +
-        '<div><label>სახელი და გვარი *</label><input id="gName" type="text" placeholder="მაგ. ნინო ბერიძე"></div>' +
-        '<div><label>პროფესია / სპეციალობა *</label><input id="gProf" type="text" placeholder="მაგ. ექიმი, დიეტოლოგი…"></div>' +
-      '</div>' +
-      '<div class="gerr" id="gErr">გთხოვ, შეავსე სამივე ველი (ელფოსტა სწორი ფორმატით).</div>' +
-      '<button class="btn red" onclick="submitGate('+i+')">ჩანაწერის გახსნა ▶</button>' +
-    '</div></div>';
-}
-function postToForm(action, fields){
-  try{
-    var f = document.createElement("form");
-    f.action = action; f.method = "POST"; f.target = "gspen_sink"; f.style.display = "none";
-    var sink = document.getElementById("gspen_sink");
-    if(!sink){ sink = document.createElement("iframe"); sink.name = "gspen_sink"; sink.id = "gspen_sink"; sink.style.display = "none"; document.body.appendChild(sink); }
-    for(var k in fields){ if(fields[k]===undefined||fields[k]===null||k==="") continue;
-      var inp = document.createElement("input"); inp.type = "hidden"; inp.name = k; inp.value = fields[k]; f.appendChild(inp); }
-    document.body.appendChild(f); f.submit();
-    setTimeout(function(){ try{ document.body.removeChild(f); }catch(e){} }, 3000);
-  }catch(e){}
-}
-function submitGate(i){
-  var em = (document.getElementById("gEmail").value||"").trim();
-  var nm = (document.getElementById("gName").value||"").trim();
-  var pr = (document.getElementById("gProf").value||"").trim();
-  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) && nm && pr;
-  var err = document.getElementById("gErr");
-  if(!ok){ err.style.display = "block"; return; }
-  err.style.display = "none";
-  if(GATE.action && GATE.f_email){
-    var fields = {}; fields[GATE.f_web||"webinar"]=(WEBINARS[i]?WEBINARS[i].title:""); fields[GATE.f_email]=em; if(GATE.f_name)fields[GATE.f_name]=nm; if(GATE.f_prof)fields[GATE.f_prof]=pr;
-    postToForm(GATE.action, fields);
-  }
-  grantAccess();
-  renderWebinar(i);
-}
-function qaArea(w, i){
-  var out = "";
-  if(w.qa && w.qa.length){
-    out += '<div class="qa-sec"><div class="gh"><h2>კითხვა–პასუხი</h2><div class="line"></div></div>' +
-      '<div class="qsub">ვებინარის რეგისტრაციისას შემოსული კითხვები და მომხსენებლის პასუხები.</div>' +
-      '<div class="charter">' +
-      w.qa.map(function(x, n){
-        return '<details class="art"><summary><span class="n">'+(n+1)+'</span><h3>'+esc(x.q)+'</h3><span class="pm">+</span></summary>' +
-          '<div class="body">'+(x.a ? '<p>'+esc(x.a).replace(/\n/g,"<br>")+'</p>' : '<p class="qa-pending">პასუხი მალე დაემატება.</p>')+'</div></details>';
-      }).join("") + '</div></div>';
-  }
-  out += '<div class="ask-box"><h3>გაქვს შეკითხვა?</h3>' +
-    '<p>დასვი შეკითხვა ამ თემაზე — გადავამოწმებთ და პასუხი ზემოთ, კითხვა–პასუხის სექციაში დაემატება.</p>' +
-    '<textarea id="askQ" placeholder="შენი შეკითხვა…"></textarea>' +
-    '<div class="arow"><input id="askEmail" type="email" placeholder="ელფოსტა (არასავალდებულო — თუ გინდა პასუხი პირადადაც მიიღო)">' +
-    '<button class="btn navy" onclick="submitAsk('+i+')">გაგზავნა</button></div>' +
-    '<div class="ask-ok" id="askOk">მადლობა! შეკითხვა მიღებულია — პასუხს მალე დავამატებთ.</div></div>';
-  return out;
-}
-function submitAsk(i){
-  var q = (document.getElementById("askQ").value||"").trim();
-  if(!q){ document.getElementById("askQ").focus(); return; }
-  var em = (document.getElementById("askEmail").value||"").trim();
-  var w = WEBINARS[i];
-  if(ASK.action && ASK.f_q){
-    var fields = {}; fields[ASK.f_web||"webinar"]=(w?w.title:""); fields[ASK.f_q] = q; if(ASK.f_email && em) fields[ASK.f_email] = em;
-    postToForm(ASK.action, fields);
-  } else {
-    location.href = "mailto:pensocietygspen@gmail.com?subject=" + encodeURIComponent("შეკითხვა ვებინარზე: " + (w?w.title:"")) +
-      "&body=" + encodeURIComponent(q + (em ? "\n\nელფოსტა: " + em : ""));
-  }
-  document.getElementById("askQ").value = "";
-  document.getElementById("askOk").style.display = "block";
-}
-
 function renderWebinar(i){
   var w = WEBINARS[i];
   if(!w){ renderWebinars(); return; }
@@ -283,9 +159,7 @@ function renderWebinar(i){
   document.getElementById("webHero").style.display="none";
   document.getElementById("webDetail").style.display="";
   var actions = "";
-  if(!w.upcoming && (w.youtube || w.video)){
-    actions = videoArea(w, i) + qaArea(w, i);
-  } else if(w.upcoming && w.reg){
+  if(w.upcoming && w.reg){
     actions = '<div class="reg-box"><p>რეგისტრაციისას მიუთითებ ელფოსტას, სახელსა და გვარს, პროფესიას და, სურვილისამებრ, წინასწარ შეკითხვას მომხსენებლისთვის. შეხვედრის ბმული რეგისტრირებულ მონაწილეებს ელფოსტაზე გაეგზავნებათ.</p>' +
       '<a class="btn red" href="'+esc(w.reg)+'" target="_blank" rel="noopener">რეგისტრაცია →</a></div>';
   } else if(!w.upcoming && w.reg){
@@ -305,8 +179,6 @@ function renderWebinar(i){
   window.scrollTo(0,0);
 }
 loadContent("content/webinars.json","webSeed",function(data){
-  if(data.gate) GATE = data.gate;
-  if(data.ask) ASK = data.ask;
   WEBINARS = (data.items||[]).slice().sort(function(a,b){ return String(b.date||"").localeCompare(String(a.date||"")); });
   var m = location.search.match(/[?&]w=(\d+)/);
   if(m) renderWebinar(parseInt(m[1],10)); else renderWebinars();

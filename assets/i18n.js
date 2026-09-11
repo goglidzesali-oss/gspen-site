@@ -663,6 +663,7 @@ var M = {
 "რეფლუქსის დროს რა ვადით უნდა ამოვიღოთ სავარაუდო ტრიგერები და როგორ დავაბრუნოთ ისინი რაციონში ზედმეტი შეზღუდვის გარეშე?":"In reflux, how long should suspected triggers be removed, and how can they be reintroduced without over-restricting the diet?"
 ,
 /* ===== GLINTS article ===== */
+"როდის უნდა დაიწყოს ნუტრიციული თერაპია და მხარდაჭერა? — GLINTS: პირველი გლობალური კონსენსუსი":"When should nutritional therapy and support start? — GLINTS: the first global consensus",
 "მსოფლიოს კლინიკური კვების საზოგადოებების პირველი ერთიანი პასუხი კითხვაზე — როდის დავიწყოთ კვებითი ჩარევა →":"The first joint answer of the world's clinical nutrition societies to the question — when to start nutritional intervention →",
 "როდის უნდა დაიწყოს ნუტრიციული თერაპია? — GLINTS: პირველი გლობალური კონსენსუსი":"When should nutritional therapy start? — GLINTS: the first global consensus",
 "მსოფლიოს კლინიკური კვების საზოგადოებების პირველი ერთიანი პასუხი კითხვაზე — როდის დავიწყოთ კვებითი ჩარევა.":"The first joint answer of the world's clinical nutrition societies to the question — when to start nutritional intervention.",

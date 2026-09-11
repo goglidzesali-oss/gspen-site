@@ -231,3 +231,7 @@ footer p.fabout{font-size:13.5px;color:#9fa9ca;margin-top:16px;line-height:1.65;
   .topbar{height:58px}
   .mobile-nav a{padding:12px 4px;font-size:15px}
 }
+
+/* content hyperlinks — visibly blue */
+.article-body a, #pjBody a, .qa-sec .art .b a{color:#1a5fc4;text-decoration:underline;text-underline-offset:2px;font-weight:600}
+.article-body a:hover, #pjBody a:hover{color:#0f4494}

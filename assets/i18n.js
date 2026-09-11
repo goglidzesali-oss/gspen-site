@@ -663,6 +663,7 @@ var M = {
 "რეფლუქსის დროს რა ვადით უნდა ამოვიღოთ სავარაუდო ტრიგერები და როგორ დავაბრუნოთ ისინი რაციონში ზედმეტი შეზღუდვის გარეშე?":"In reflux, how long should suspected triggers be removed, and how can they be reintroduced without over-restricting the diet?"
 ,
 /* ===== GLINTS article ===== */
+"მსოფლიოს კლინიკური კვების საზოგადოებების პირველი ერთიანი პასუხი კითხვაზე — როდის დავიწყოთ კვებითი ჩარევა →":"The first joint answer of the world's clinical nutrition societies to the question — when to start nutritional intervention →",
 "როდის უნდა დაიწყოს ნუტრიციული თერაპია? — GLINTS: პირველი გლობალური კონსენსუსი":"When should nutritional therapy start? — GLINTS: the first global consensus",
 "მსოფლიოს კლინიკური კვების საზოგადოებების პირველი ერთიანი პასუხი კითხვაზე — როდის დავიწყოთ კვებითი ჩარევა.":"The first joint answer of the world's clinical nutrition societies to the question — when to start nutritional intervention.",
 "კლინიკურ პრაქტიკაში ერთ-ერთი ყველაზე ხშირი და, პარადოქსულად, ყველაზე ბუნდოვანი კითხვა ასე ჟღერს: როდის უნდა დავიწყოთ კვებითი ჩარევა? ამ კითხვას ახლა პირველად უპასუხა გლობალურმა კონსენსუსმა — GLINTS (Global Leadership Initiative on Indications to Nutritional Therapy and Support).":"One of the most frequent and, paradoxically, most ambiguous questions in clinical practice sounds like this: when should nutritional intervention start? This question has now been answered for the first time by a global consensus — GLINTS (Global Leadership Initiative on Indications to Nutritional Therapy and Support).",

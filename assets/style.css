@@ -235,3 +235,22 @@ footer p.fabout{font-size:13.5px;color:#9fa9ca;margin-top:16px;line-height:1.65;
 /* content hyperlinks — visibly blue */
 .article-body a, #pjBody a, .qa-sec .art .b a{color:#1a5fc4;text-decoration:underline;text-underline-offset:2px;font-weight:600}
 .article-body a:hover, #pjBody a:hover{color:#0f4494}
+
+/* Header fit — "ჩემი თეფში" nav item (2026-09) */
+@media(max-width:1560px) and (min-width:961px){
+  .logo .lt span{max-width:250px;line-height:1.35}
+}
+@media(max-width:1300px) and (min-width:961px){
+  nav.main{margin-left:2px}
+  nav.main a.nl{padding:9px 10px;font-size:14px}
+  .topbar{gap:10px}
+}
+@media(max-width:1180px) and (min-width:961px){
+  .logo .lt span{display:none}
+  nav.main a.nl{padding:8px 8px;font-size:13.5px}
+}
+@media(max-width:1240px) and (min-width:961px){
+  .nav-dd .dd.wide{min-width:480px;flex-wrap:wrap;row-gap:18px}
+  .nav-dd .dd.wide .dd-item{flex:1 1 40%}
+  .nav-dd .dd.wide .dd-item:nth-child(3){border-left:0;padding-left:0}
+}

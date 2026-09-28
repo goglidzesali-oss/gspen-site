@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ჩემი თეფში — კვების გეგმის კალკულატორი — GSPEN</title>
+<meta name="description" content="GSPEN — ჩემი თეფში: დღიური ენერგია და პორციები საკვები ჯგუფების მიხედვით, საკუთარი არჩევანის ჩაწერა და ამოსაბეჭდი კვების გეგმა.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YFJR8KTZMT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YFJR8KTZMT');
+</script>
+<style>
+.kg-sec{padding-top:10px}
+.kg-form{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 30px 24px;box-shadow:var(--sh)}
+.kg-form h3{font-size:19px;color:var(--navy);margin-bottom:16px}
+.kg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kg-grid .full{grid-column:1/-1}
+.kg-err{color:var(--red-d);font-size:13.5px;font-weight:600;min-height:20px;margin-top:12px}
+.kg-go{margin-top:6px;width:100%;justify-content:center;font-size:16px;padding:15px 20px;border:0;cursor:pointer;font-family:inherit}
+.kg-foot{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center}
+.kg-print-head{display:none}
+.kg-print-foot{display:none}
+
+.kg-sum{--ol:#6B7A34;--ol-d:#4E5A22;--ol-bg1:#F3F5E6;--ol-bg2:#E6EACF;display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:linear-gradient(135deg,var(--ol-bg1),var(--ol-bg2));color:#3C4420;border:1px solid #D8DDB8;border-radius:var(--r);overflow:hidden;margin:6px 0 34px;position:relative;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-sum:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(107,122,52,.13) 1.6px,transparent 1.6px);background-size:26px 26px;pointer-events:none}
+.kg-sum-main{padding:30px 34px;position:relative}
+.kg-sum-lbl{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ol)}
+.kg-sum-kcal{display:flex;align-items:baseline;gap:10px;margin:6px 0 8px}
+.kg-sum-kcal b{font-size:58px;font-weight:800;line-height:1;color:var(--ol-d);font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-sum-kcal span{font-size:20px;font-weight:700;color:var(--ol)}
+.kg-sum-meta{font-size:14px;color:#5B6340;line-height:1.7}
+.kg-sum-meta b{color:#2F3518}
+.kg-sum-side{padding:30px 34px;position:relative;background:rgba(255,255,255,.45);border-left:1px solid rgba(107,122,52,.15);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.kg-tabs{display:flex;gap:10px;flex-wrap:wrap}
+.kg-tab{flex:1;min-width:150px;border:1.5px solid #C9D09C;background:rgba(255,255,255,.7);color:#3C4420;border-radius:14px;padding:11px 14px;cursor:pointer;font-family:inherit;text-align:left;transition:.18s}
+.kg-tab:hover{border-color:var(--ol)}
+.kg-tab small{display:block;font-size:12px;opacity:.85;font-weight:600}
+.kg-tab b{font-size:19px;font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-tab.on{background:var(--ol);color:#fff;border-color:var(--ol);box-shadow:0 6px 16px rgba(78,90,34,.22)}
+.kg-sum-note{font-size:13px;color:#4A5230;line-height:1.6}
+.kg-sum-note b{color:#2F3518}
+.kg-sum-note .warn{display:block;background:#FCECEA;border:1px solid #F0B8B2;border-radius:10px;padding:9px 12px;color:#9E2F26;margin-top:6px}
+
+.kg-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:6px 0 18px}
+.kg-h h2{font-size:25px;font-weight:800;color:var(--navy);letter-spacing:-.4px}
+.kg-h-sub{font-size:14px;color:var(--muted)}
+
+.kg-plan{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-bottom:40px}
+.kg-pc{background:#fff;border:1px solid var(--line);border-top:4px solid var(--c);border-radius:20px;padding:18px 12px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-circ{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-circ svg{width:56%;height:56%;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.kg-pc h4{font-size:14px;font-weight:800;color:var(--navy);margin:12px 0 2px;line-height:1.3;height:3.9em;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
+.kg-srv{display:flex;align-items:baseline;gap:6px;justify-content:center;margin:0 0 6px;height:44px}
+.kg-srv b{font-size:34px;font-weight:800;font-family:"Poppins","Noto Sans Georgian",sans-serif;line-height:1.1}
+.kg-srv span{font-size:13px;font-weight:700;color:var(--muted)}
+.kg-pc p{font-size:12px;color:var(--muted);line-height:1.5;border-top:1px dashed var(--t2);padding-top:9px;width:100%;overflow-wrap:anywhere}
+
+.kg-dots{display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:4px;max-width:120px;min-height:26px;margin:0 auto 10px}
+.kg-dots .d{width:11px;height:11px;border-radius:50%;background:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-dots .d.h{background:var(--t2);position:relative;overflow:hidden}
+.kg-dots .d.h:before{content:"";position:absolute;left:0;top:0;bottom:0;width:50%;background:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-srv b{color:var(--c)}
+
+.kg-eq{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.kg-ep{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;break-inside:avoid;display:flex;flex-direction:column}
+.kg-ep-h{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--t);border-bottom:2px solid var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-ep-h .kg-circ{width:46px;height:46px}
+.kg-ep-t{flex:1;min-width:0}
+.kg-ep-t b{display:block;font-size:15px;color:var(--navy);line-height:1.3}
+.kg-ep-t span{font-size:12px;color:#5a6680;font-weight:600}
+.kg-ep-n{text-align:center;background:#fff;border-radius:12px;padding:5px 10px;min-width:62px}
+.kg-ep-n b{display:block;font-size:22px;line-height:1.1;color:var(--c);font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-ep-n span{font-size:10.5px;color:var(--muted);font-weight:700}
+.kg-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;padding:14px}
+.kg-ft{border:1.5px solid var(--t2);border-radius:14px;padding:10px 8px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff}
+.kg-fi{width:50px;height:50px;border-radius:50%;background:var(--t);display:flex;align-items:center;justify-content:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-fi svg{width:34px;height:34px;fill:none;stroke:var(--c);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.kg-fa{font-size:12px;color:var(--navy);line-height:1.35}
+.kg-fa b{font-size:16px;font-weight:800;color:var(--c);font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-fa span{font-weight:700}
+.kg-fa em{font-style:normal;color:var(--muted);font-weight:600}
+.kg-fa i{font-style:normal;color:var(--muted);margin:0 1px}
+.kg-fn{font-size:12px;color:#44506a;line-height:1.4}
+.kg-rb{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:0 16px 14px;font-size:12px;color:#44506a}
+.kg-rb-l{font-weight:700;color:var(--navy)}
+.kg-rb-i{display:inline-flex;align-items:center;gap:5px}
+.kg-rb-i i{width:12px;height:12px;border-radius:50%;display:inline-block;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+.kg-step{width:34px;height:34px;border-radius:50%;background:var(--red,#d33f34);color:#fff;font-weight:800;font-size:17px;display:inline-flex;align-items:center;justify-content:center;align-self:center;font-family:"Poppins","Noto Sans Georgian",sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-date{display:none}
+.kg-howto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:-4px 0 16px}
+.kg-howto div{display:flex;gap:10px;align-items:center;background:#fff;border:1px dashed #c9d0dc;border-radius:14px;padding:10px 14px;font-size:13px;color:#44506a}
+.kg-howto b{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+
+.kg-diary{margin-bottom:34px}
+.kg-dcols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.kg-dcol{display:flex;flex-direction:column;gap:16px}
+.kg-dg{background:#fff;border:1px solid var(--line);border-left:5px solid var(--c,#c9d0dc);border-radius:18px;padding:14px 16px;break-inside:avoid;transition:box-shadow .2s}
+.kg-dg.full{box-shadow:0 0 0 3px var(--t2)}
+.kg-dg-h{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.kg-dg-h .kg-circ{width:44px;height:44px}
+.kg-dg-h b{display:block;font-size:14.5px;color:var(--navy);line-height:1.3}
+.kg-dg-h span{font-size:12.5px;color:var(--muted);font-weight:700}
+.kg-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.kg-chip{border:1px solid var(--t2);background:var(--t);color:var(--navy);border-radius:999px;padding:5px 11px;font-size:12px;font-family:inherit;cursor:pointer;transition:.15s}
+.kg-chip:hover{background:var(--c);color:#fff;border-color:var(--c)}
+.kg-rows{display:flex;flex-direction:column;gap:8px}
+.kg-row{display:grid;grid-template-columns:34px 1fr 175px;gap:8px;align-items:center;border-radius:12px;transition:background .3s}
+.kg-row.flash{background:var(--t)}
+.kg-tk{position:relative;width:32px;height:32px;cursor:pointer}
+.kg-tk input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.kg-tk span{width:32px;height:32px;border-radius:50%;border:2px solid var(--c);color:var(--c);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;transition:.15s;font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-tk input:checked+span{background:var(--c);color:#fff;font-size:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-tk input:checked+span:after{content:"✓";font-size:16px}
+.kg-row input[type=text],.kg-notes input{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:14px;background:#fbfdfc;color:var(--ink)}
+.kg-row input[type=text]:focus,.kg-notes input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(24,36,73,.1);background:#fff}
+.kg-glasses{display:flex;flex-wrap:wrap;gap:6px}
+.kg-gl{position:relative;cursor:pointer;width:36px;height:40px}
+.kg-gl input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.kg-gl svg{width:36px;height:40px;fill:none;stroke:#4F93D2;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.kg-gl input:checked+svg path:first-child{fill:rgba(79,147,210,.35)}
+.kg-notes{border-left-color:#c9d0dc}
+.kg-notes .kg-rows{gap:8px}
+
+.kg-tips{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:-18px 0 40px}
+.kg-tip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;break-inside:avoid}
+.kg-tip .kg-circ{width:58px;height:58px}
+.kg-tip h4{font-size:15px;color:var(--navy);font-weight:800;margin-bottom:6px}
+.kg-tip ul{list-style:none}
+.kg-tip li{font-size:13px;color:#33405c;line-height:1.55;margin-bottom:3px}
+.kg-tip li b{color:var(--navy)}
+
+.kg-plate{display:grid;grid-template-columns:330px 1fr;gap:34px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px 34px;margin:0 0 40px;break-inside:avoid}
+.kg-plate-svg{width:100%;height:auto;display:block}
+.kg-plate-svg svg{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.kg-plate-svg,.kg-plate-svg *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-plate-txt h3{font-size:21px;color:var(--navy);font-weight:800}
+.kg-plate-sub{font-size:13.5px;color:var(--muted);margin:2px 0 12px}
+.kg-plate-txt ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.kg-plate-txt li{display:flex;gap:10px;align-items:baseline;font-size:14px;color:#44506a;line-height:1.45;padding-left:22px;position:relative}
+.kg-plate-txt li:before{content:"";position:absolute;left:0;top:.28em;width:13px;height:13px;border-radius:50%;background:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-plate-txt li b{color:var(--navy);white-space:nowrap;min-width:92px}
+/* ---- tiles: selectable (preferred for the week) ---- */
+.kg-ep-n.wk{background:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-ep-n.wk b,.kg-ep-n.wk span{color:#fff}
+button.kg-ft{font-family:inherit;cursor:pointer;position:relative;transition:.15s;width:100%}
+button.kg-ft:hover{border-color:var(--c)}
+.kg-ck{position:absolute;top:7px;right:7px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--t2);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:800}
+.kg-ft.on{border-color:var(--c);background:var(--t);box-shadow:0 0 0 1px var(--c) inset}
+.kg-ft.on .kg-ck{background:var(--c);border-color:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-ft.on .kg-ck:after{content:"✓"}
+.kg-ft.on .kg-fi{background:#fff}
+
+/* ---- weekly table ---- */
+.kg-wk-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:20px;margin-bottom:14px}
+.kg-wk{width:100%;min-width:1060px;border-collapse:separate;border-spacing:0;table-layout:fixed}
+.kg-wk thead th{background:#f3f5f8;color:var(--navy);font-size:12.5px;font-weight:800;padding:11px 6px;text-align:center;border-left:1px solid var(--line);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-wk thead th:first-child{border-left:0;text-align:left;padding-left:16px}
+.kg-wk th.kg-wk-g{width:210px}
+.kg-wk .kg-wk-t{width:84px}
+.kg-wk tbody th{text-align:left;font-weight:400;vertical-align:top;padding:12px 12px 12px 12px;border-top:1px solid var(--line);border-left:5px solid var(--c);background:var(--t);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-wk-gh{display:flex;gap:9px;align-items:center}
+.kg-wk-gh .kg-circ{width:36px;height:36px}
+.kg-wk-gh b{display:block;font-size:13px;color:var(--navy);line-height:1.25;font-weight:800}
+.kg-wk-gh span{font-size:11.5px;color:#5a6680;font-weight:700}
+.kg-wk-pref{font-size:11.5px;color:#44506a;line-height:1.4;margin-top:7px}
+.kg-wk-pref:empty{display:none}
+.kg-wk-pref span{font-weight:800;color:var(--c)}
+.kg-wk-pref i{font-style:normal}
+.kg-wk td{vertical-align:top;padding:8px 6px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.kg-tks{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.kg-wk .kg-tk,.kg-wk .kg-tk span{width:19px;height:19px}
+.kg-wk .kg-tk span{font-size:9px;border-width:1.5px}
+.kg-wk .kg-tk input:checked+span:after{font-size:11px}
+.kg-wk textarea{width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;padding:5px 6px;font-family:inherit;font-size:12px;line-height:1.35;background:#fbfdfc;color:var(--ink);resize:vertical}
+.kg-ln{display:none}
+.kg-wk textarea:focus{outline:none;border-color:var(--navy);background:#fff}
+.kg-wk td.kg-wk-t{text-align:center;vertical-align:middle;background:#fafbfc}
+.kg-wk td.kg-wk-t b{display:block;font-size:24px;color:var(--c);font-weight:800;font-family:"Poppins","Noto Sans Georgian",sans-serif;line-height:1.1}
+.kg-wk td.kg-wk-t span{font-size:11px;color:var(--muted);font-weight:700}
+.kg-shop{display:flex;align-items:center;gap:12px;background:#F3F5E6;border:1px solid #D8DDB8;border-radius:14px;padding:12px 18px;margin:0 0 30px;color:#4E5A22;font-weight:700;font-size:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-shop svg{width:26px;height:26px;flex-shrink:0;fill:none;stroke:#6B7A34;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.kg-chosen{color:#2F3518}
+
+/* ===== v5: calm food rows (part 2) ===== */
+.kg-eq{display:block;background:#fff;border:1px solid var(--line);border-radius:22px;padding:4px 0;margin-bottom:16px}
+.kg-eq-legend{padding:14px 24px 8px;font-size:13px;color:var(--muted)}
+.kg-eq-one{font-weight:800;color:var(--navy)}
+.kg-er2{display:grid;grid-template-columns:230px minmax(0,1fr);gap:20px;padding:18px 24px;border-top:1px solid #eef0f4;align-items:start}
+.kg-er2-h{display:flex;gap:12px;align-items:center;padding-top:4px}
+.kg-er2-h .kg-circ{width:46px;height:46px}
+.kg-er2-h b{display:block;font-size:14.5px;color:var(--navy);line-height:1.3}
+.kg-cnt{font-size:12.5px;color:var(--muted);font-weight:600}
+.kg-cnt-i{white-space:nowrap}
+.kg-cnt-i+.kg-cnt-i:before{content:" · "}
+.kg-cnt b{display:inline!important;color:var(--c)!important;font-size:14px!important;font-weight:800}
+.kg-opts{display:flex;flex-wrap:wrap;gap:8px}
+.kg-op{position:relative;display:flex;align-items:center;gap:10px;width:calc(33.333% - 6px);min-height:58px;padding:9px 32px 9px 10px;background:#f6f7f9;border:1.5px solid transparent;border-radius:14px;text-align:left;font-family:inherit;cursor:pointer;transition:background .15s,border-color .15s;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-op:hover{background:var(--t)}
+.kg-op:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.kg-op-i{flex-shrink:0;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.kg-op-i svg{width:30px;height:30px;fill:none;stroke:var(--c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.kg-op-t{display:flex;flex-direction:column;min-width:0;gap:1px}
+.kg-op .kg-fa{font-size:12px;color:var(--navy)}
+.kg-op .kg-fa b{font-size:14px}
+.kg-op .kg-fn{font-size:12px;color:#5a6680;line-height:1.35}
+.kg-op .kg-ck{top:50%;transform:translateY(-50%);right:10px;border-radius:50%;width:18px;height:18px;border:1.5px solid #cfd5df;background:#fff}
+.kg-op.on{background:var(--t);border-color:var(--c)}
+.kg-op.on .kg-ck{background:var(--c);border-color:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-op.on .kg-ck:after{content:"✓"}
+.kg-opts .kg-rb{flex-basis:100%;padding:4px 2px 0}
+.kg-selbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 42px;padding:10px 12px 10px 20px;background:#fff;border:1px dashed #cfd5df;border-radius:16px;font-size:14px;color:var(--muted)}
+.kg-selbar b{color:var(--navy);font-size:16px}
+.kg-selbar .btn{border:0;font-size:14px;opacity:.4;pointer-events:none;transition:.2s}
+.kg-selbar.has .btn{opacity:1;pointer-events:auto}
+.kg-toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--navy);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;box-shadow:0 10px 30px rgba(24,36,73,.25);transition:.25s;z-index:50;white-space:nowrap}
+.kg-toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.kg-toast a{color:#f5c451;font-weight:700;margin-left:6px}
+#kgWeekSec{scroll-margin-top:90px}
+.kg-printonly{display:none}
+
+/* ===== v5: weekly table ===== */
+.kg-wk{min-width:1000px}
+.kg-wk thead th:first-child{background:#fff}
+.kg-wkp-w{min-height:24px}
+.kg-wkp{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--navy);line-height:1.3}
+.kg-wkp span b{color:var(--c)}
+.kg-wkp-ln{display:none}
+.kg-wk-pref:empty{display:none}
+.kg-wk-pref i{display:inline-block;font-style:normal;background:#fff;border:1px solid var(--t2);border-radius:999px;padding:1px 8px;margin:5px 4px 0 0;font-size:11px;color:var(--navy)}
+.kg-meal th{background:#FCEFF2!important;border-left-color:#D9869B!important}
+.kg-meal td{background:#FFF8FA}
+.kg-meal textarea{background:#fff;border-color:#F2D3DB;min-height:40px}
+.kg-cell{position:relative}
+.kg-shopbox{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:30px}
+.kg-shopbox .kg-shop{margin:0;border:0;border-bottom:1px solid #D8DDB8;border-radius:0}
+.kg-shop b{display:block}
+.kg-shop span{font-weight:500;font-size:13px}
+.kg-shop-list{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+.kg-shop-g{padding:12px 14px;border-left:1px solid #eef0f4}
+.kg-shop-g:first-child{border-left:0}
+.kg-shop-g>b{display:block;font-size:12.5px;color:var(--c);margin-bottom:6px;line-height:1.3}
+.kg-shop-g ul{list-style:none}
+.kg-shop-g li{display:flex;justify-content:space-between;gap:6px;font-size:12.5px;color:#44506a;padding:4px 0;border-bottom:1px dotted #dfe3ea}
+.kg-shop-g li i{font-style:normal;white-space:nowrap;color:var(--muted)}
+.kg-shop-g li i b{color:var(--navy)}
+.kg-shop-g li em{font-style:normal;font-size:11px}
+.kg-shop-g ul.empty li{height:24px;border-bottom:1px solid #e3e6ec}
+.kg-shop-g ul.bo{display:none}
+
+/* ===== v6: meals + page-4 shopping list ===== */
+.kg-meal-h th{background:#FCEFF2;text-align:left;padding:10px 12px;border-top:1px solid var(--line);border-left:5px solid #D9869B;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-meal-h .kg-wk-gh b{display:inline;font-size:13.5px}
+.kg-meal-h .kg-wk-gh span{font-size:12px}
+.kg-meal th{background:#FFF6F8!important;vertical-align:middle;padding:6px 12px}
+.kg-meal-l{font-size:12.5px;font-weight:800;color:#8A3D52}
+.kg-meal td{background:#FFFBFC;padding:5px 6px}
+.kg-shop-sec{margin-top:10px}
+.kg-shop-empty{display:none;padding:28px 20px;text-align:center;color:#5a6680;font-size:14.5px;line-height:1.6}
+.kg-shop-sec.none .kg-shop-empty{display:block}
+.kg-shop-sec.none .kg-shop-list{display:none}
+.kg-shop-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:16px}
+.kg-shop-g{border:1px solid var(--t2);border-left:1px solid var(--t2);border-radius:14px;padding:12px 14px}
+.kg-shop-g:first-child{border-left:1px solid var(--t2)}
+.kg-shop-gh{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.kg-shop-gh .kg-circ{width:30px;height:30px}
+.kg-shop-gh b{font-size:13px;color:var(--navy);line-height:1.3}
+.kg-shop-g li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:8px;padding:6px 0}
+.kg-buy{position:relative;width:18px;height:18px;cursor:pointer}
+.kg-buy input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.kg-buy span{display:flex;width:18px;height:18px;border:1.5px solid var(--c);border-radius:5px;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800}
+.kg-buy input:checked+span{background:var(--c);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-buy input:checked+span:after{content:"✓"}
+.kg-buy input:checked~.nm{text-decoration:line-through}
+.kg-shop-g li .nm{color:#33405c}
+
+/* ===== v7: tap = 1 serving ===== */
+.kg-op .kg-ck{width:auto;min-width:28px;height:22px;padding:0 7px;border-radius:999px;border:1.5px solid var(--t2);background:#fff;color:var(--c);font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:"Poppins","Noto Sans Georgian",sans-serif}
+.kg-op.on .kg-ck{background:var(--c);border-color:var(--c);color:#fff}
+.kg-op.on .kg-ck:after{content:none}
+.kg-op{padding-right:44px}
+.kg-op:active{transform:scale(.98)}
+.kg-cnt-tg{display:none}
+.kg-cnt-ok{display:inline-flex;margin-left:6px;width:18px;height:18px;border-radius:50%;background:#5E9B3A;color:#fff;font-size:11px;align-items:center;justify-content:center;font-weight:800}
+.kg-er2.full .kg-op:not(.on){opacity:.55}
+@keyframes kgShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.kg-er2.shake .kg-opts{animation:kgShake .35s ease 1}
+.kg-sel-act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kg-copy{border:1.5px solid #cfd5df;background:#fff;color:var(--navy);border-radius:999px;padding:9px 16px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.kg-copy:hover{border-color:var(--navy)}
+.kg-copy:disabled{opacity:.4;cursor:default}
+.kg-toast b{color:#fff}
+.kg-tks{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.kg-slot{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--c);display:inline-flex;align-items:center;justify-content:center;font-size:7px;font-style:normal;color:var(--c);font-weight:800}
+.kg-slot.f{background:var(--c);color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-wkp{flex-direction:row!important;flex-wrap:wrap;gap:4px!important}
+.kg-it{display:inline-flex;align-items:center;gap:2px;background:var(--t);border-radius:999px;padding:2px 3px 2px 9px;font-size:12px;color:var(--navy);line-height:1.3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kg-it b{color:var(--c);margin-left:2px}
+.kg-x{border:0;background:none;color:#8a95a8;font-size:15px;line-height:1;width:18px;height:18px;border-radius:50%;cursor:pointer;padding:0;font-family:inherit}
+.kg-x:hover{background:#fff;color:var(--red,#d33f34)}
+
+.kg-er2-h .kg-cnt-i{display:block}
+.kg-er2-h .kg-cnt-i+.kg-cnt-i:before{content:none}
+.kg-it{max-width:100%;font-size:11.5px}
+.kg-wk td{min-width:0;overflow:hidden}
+
+.kg-print-help{display:none;max-width:760px;margin:-10px auto 26px;padding:14px 18px;border:1px dashed #cfd5df;border-radius:14px;background:#fff;font-size:13.5px;color:#44506a;text-align:center;line-height:1.5}
+.kg-print-help.show{display:block}
+.kg-ph-act{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.kg-sum.solo{grid-template-columns:1fr}
+.kg-sum.solo .kg-sum-side{display:none}
+/* ===== v11: meals — drag products into breakfast/lunch/… ===== */
+.kg-meal-hint{display:block;font-size:11.5px;color:#8A3D52;font-weight:500;margin-top:3px}
+.kg-mc{position:relative;min-height:88px;border:1.5px dashed #F2D3DB;border-radius:10px;background:#fff;padding:6px 7px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s}
+.kg-mc.has{border-style:solid}
+.kg-mc.target{border-color:#D9869B;background:#FFF3F6;box-shadow:0 0 0 3px rgba(217,134,155,.2)}
+.kg-mc.over{background:#FCE3EB}
+.kg-wk textarea.kg-meal-t,.kg-meal-t{width:100%;min-height:0;height:auto;border:0;border-bottom:1px solid #F2D3DB;border-radius:0;background:transparent;font-family:inherit;font-size:12px;font-weight:700;line-height:1.3;color:var(--navy);padding:2px 2px 3px;min-width:0;resize:none;overflow:hidden}
+.kg-meal-t::placeholder{color:#C9A3AE;font-weight:500}
+.kg-meal-t:focus{outline:none;border-bottom-color:#D9869B}
+.kg-mc-items{display:flex;flex-wrap:wrap;gap:4px}
+.kg-mc-items .kg-it{font-size:11px}
+.kg-mc-ln{display:none}
+.kg-pr{cursor:grab;user-select:none}
+.kg-pr:active{cursor:grabbing}
+.kg-pr.done{opacity:.45;cursor:default}
+.kg-pr.picked{background:#fff;box-shadow:0 0 0 2px var(--c)}
+.n-tot{display:none}
+
+.kg-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:10px 0 26px}
+.kg-actions .btn{border:0;cursor:pointer;font-family:inherit;font-size:14.5px}
+.kg-actions .btn.ghost{border:2px solid var(--line)}
+.kg-method{max-width:900px;margin:0 auto;font-size:12.5px;color:#8a95a8;line-height:1.7;text-align:center}
+.kg-method b{color:#66728a}
+
+@media (max-width:1080px){.kg-op{width:calc(50% - 4px)}.kg-shop-list{grid-template-columns:repeat(2,minmax(0,1fr))}.kg-plan{grid-template-columns:repeat(3,minmax(0,1fr))}.kg-tips{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .kg-grid{grid-template-columns:1fr}.kg-sum{grid-template-columns:1fr}.kg-plan{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kg-eq,.kg-dcols,.kg-howto,.kg-plate,.kg-er2{grid-template-columns:1fr}.kg-op{width:100%}.kg-shop-list{grid-template-columns:1fr}.kg-er2{gap:12px;padding:16px}.kg-selbar{flex-direction:column;align-items:stretch;text-align:center}.kg-toast{white-space:normal;width:88%;text-align:center}.kg-plate{padding:20px}.kg-plate-img{max-width:300px;margin:0 auto}.kg-plate-txt li{flex-direction:column;gap:0}.kg-tiles{grid-template-columns:repeat(2,1fr)}
+  .kg-row{grid-template-columns:34px 1fr}.kg-row .amt{grid-column:2}
+  .kg-sum-kcal b{font-size:46px}
+}
+
+/* ============ PRINT ============ */
+@page{size:A4;margin:12mm}
+@page wk{size:A4 landscape;margin:10mm}
+@media print{
+  body{background:#fff}
+  header.site,footer.site,.accent-top,.kg-noprint,.lang-sw,.mobile-nav{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section.kg-sec{padding:0}
+  .kg-print-head{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2px solid var(--navy);padding-bottom:10px;margin-bottom:14px}
+  .kg-ph-logo{display:flex;align-items:center;gap:10px}
+  .kg-ph-logo b{display:block;font-size:20px;color:var(--navy);font-family:"Poppins","Noto Sans Georgian",sans-serif}
+  .kg-ph-logo span{display:block;font-size:8.5px;color:var(--muted);max-width:230px;line-height:1.3}
+  .kg-ph-title{font-size:26px;color:var(--navy);font-weight:800;text-align:right}
+  .kg-ph-title span+span:not(:empty):before{content:" — "}
+  .kg-print-foot{display:block;text-align:center;font-size:10px;color:var(--muted);margin-top:10px}
+  .kg-sum{margin:0 0 14px;border-radius:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kg-sum-main,.kg-sum-side{padding:14px 20px}
+  .kg-sum-kcal b{font-size:40px}
+  .kg-h{margin:0 0 8px}
+  .kg-h h2{font-size:17px}
+  .kg-h-sub{font-size:11px}
+  .kg-plan{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:16px}
+  .kg-pc{padding:9px 5px 8px;border-radius:12px;border-top-width:3px}
+  .kg-circ{width:62px;height:62px}
+  .kg-pc h4{font-size:10px;margin:6px 0 1px}
+  .kg-srv{height:32px;margin-bottom:3px}
+  .kg-srv span{font-size:10px}
+  .kg-srv b{font-size:24px}
+  .kg-pc p{font-size:8.5px;padding-top:5px}
+  .kg-pb{break-before:page}
+  .kg-dots{max-width:80px;gap:3px;margin-bottom:5px;min-height:17px}
+  .kg-dots .d{width:7px;height:7px}
+  .kg-step{width:24px;height:24px;font-size:12px}
+  .kg-eq{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
+  .kg-ep{border-radius:12px}
+  .kg-ep-h{padding:6px 10px;gap:8px}
+  .kg-ep-h .kg-circ{width:32px;height:32px}
+  .kg-ep-t b{font-size:11.5px}
+  .kg-ep-t span{font-size:8.5px}
+  .kg-ep-n{padding:2px 7px;min-width:44px}
+  .kg-ep-n b{font-size:16px}
+  .kg-ep-n span{font-size:8px}
+  .kg-tiles{grid-template-columns:repeat(3,1fr);gap:6px;padding:8px}
+  .kg-ft{padding:6px 4px;border-radius:10px;gap:2px}
+  .kg-fi{width:36px;height:36px}
+  .kg-fi svg{width:25px;height:25px}
+  .kg-fa{font-size:8.5px}
+  .kg-fa b{font-size:12px}
+  .kg-fn{font-size:8.5px;line-height:1.3}
+  .kg-rb{font-size:8.5px;padding:0 10px 8px;gap:3px 8px}
+  .kg-rb-i i{width:8px;height:8px}
+  .kg-h .kg-date{display:inline-flex;margin-left:auto;font-size:11px;color:var(--navy);font-weight:700;align-items:flex-end;gap:6px}
+  .kg-date i{display:inline-block;width:110px;border-bottom:1px solid #9aa3b5;height:12px}
+  .kg-diary{margin-bottom:6px}
+  .kg-dcols{gap:8px}
+  .kg-dcol{gap:8px}
+  .kg-dg{padding:8px 10px;border-radius:12px;border-left-width:4px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kg-dg-h{margin-bottom:4px;gap:8px}
+  .kg-dg-h .kg-circ{width:30px;height:30px}
+  .kg-dg-h b{font-size:11px}
+  .kg-dg-h span{font-size:9.5px}
+  .kg-rows{gap:2px}
+  .kg-row{grid-template-columns:22px 1fr 108px;gap:6px}
+  .kg-row input.amt{font-size:9.5px}
+  .kg-tk,.kg-tk span{width:20px;height:20px}
+  .kg-tk span{font-size:9px;border-width:1.5px}
+  .kg-row input[type=text],.kg-notes input{border:0;border-bottom:1px solid #9aa3b5;border-radius:0;background:transparent;padding:4px 3px;font-size:10.5px;min-height:29px}
+  .kg-dense .kg-row input[type=text]{min-height:22px;padding:2px 3px}
+  .kg-dense .kg-dg{padding:6px 10px}
+  .kg-gl,.kg-gl svg{width:26px;height:30px}
+  .kg-glasses{gap:4px}
+  .kg-tips{grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+  .kg-plate{grid-template-columns:230px 1fr;gap:22px;padding:12px 20px;border-radius:12px;margin:0}
+  .kg-plate-txt h3{font-size:15px}
+  .kg-plate-sub{font-size:10px;margin:0 0 8px}
+  .kg-plate-txt ul{gap:5px}
+  .kg-plate-txt li{font-size:10.5px;padding-left:16px}
+  .kg-plate-txt li:before{width:10px;height:10px}
+  .kg-plate-txt li b{min-width:70px}
+  input::-webkit-calendar-picker-indicator{display:none!important;opacity:0}
+  .kg-actions+.kg-method{margin-top:14px}
+  .kg-tip{padding:10px 12px;border-radius:12px;gap:10px}
+  .kg-tip .kg-circ{width:40px;height:40px}
+  .kg-tip h4{font-size:12px}
+  .kg-tip li{font-size:10.5px}
+  .kg-method{font-size:9px;margin-top:10px}
+  body.kg-blank .kg-diary input[type=text]{color:transparent!important}
+  body.kg-blank .kg-tk span{background:transparent!important;color:var(--c)!important;font-size:9px!important}
+  body.kg-blank .kg-tk span:after{content:none!important}
+  body.kg-blank .kg-gl svg path{fill:none!important}
+  .kg-diary input::placeholder{color:transparent!important}
+  /* weekly table on its own landscape page */
+  .kg-week-sec{page:wk;break-before:page}
+  .kg-week-sec .kg-h{margin-bottom:6px}
+  .kg-date i{width:80px}
+  .kg-wk-wrap{overflow:visible;border-radius:10px;margin-bottom:6px}
+  .kg-wk{min-width:0}
+  .kg-wk thead th{font-size:9.5px;padding:5px 3px}
+  .kg-wk thead th:first-child{padding-left:8px}
+  .kg-wk th.kg-wk-g{width:40mm}
+  .kg-wk .kg-wk-t{width:15mm}
+  .kg-wk tbody th{padding:5px 6px;border-left-width:4px}
+  .kg-wk-gh{gap:5px}
+  .kg-wk-gh .kg-circ{width:22px;height:22px}
+  .kg-wk-gh b{font-size:9px}
+  .kg-wk-gh span{font-size:8px}
+  .kg-wk-pref{font-size:7.5px;margin-top:3px}
+  .kg-wk td{padding:4px 4px}
+  .kg-tks{gap:2px;margin-bottom:2px}
+  .kg-wk .kg-tk,.kg-wk .kg-tk span{width:11px;height:11px}
+  .kg-wk .kg-tk span{font-size:6px;border-width:1px}
+  .kg-wk .kg-tk input:checked+span:after{font-size:7px}
+  .kg-wk td.kg-wk-t b{font-size:15px}
+  .kg-wk td.kg-wk-t span{font-size:7.5px}
+  .kg-shop{padding:6px 12px;margin:0 0 4px;font-size:10.5px;border-radius:10px}
+  .kg-shop svg{width:18px;height:18px}
+  .kg-week-sec .kg-method{font-size:7.5px;line-height:1.5;margin-top:4px;max-width:none}
+  .kg-week-sec .kg-print-foot{margin-top:3px;font-size:8.5px}
+  .kg-ck{width:11px;height:11px;top:4px;right:4px;border-radius:3px;font-size:8px}
+  body.kg-blank .kg-wk textarea{color:transparent!important}
+  body.kg-blank .kg-wk-pref{display:none}
+  body.kg-blank .kg-ft.on{background:#fff;box-shadow:none;border-color:var(--t2)}
+  body.kg-blank .kg-ft.on .kg-ck{background:#fff;border-color:var(--t2)}
+  body.kg-blank .kg-ft.on .kg-ck:after{content:none}
+  body.kg-blank .kg-ft.on .kg-fi{background:var(--t)}
+
+  .kg-ep-h{gap:6px}
+  .kg-ep-t span{font-size:7.5px;white-space:nowrap}
+  .kg-ep-n{min-width:0;padding:2px 6px}
+  .kg-ep-n b{font-size:14px}
+  .kg-ep-n span{font-size:7px}
+  .kg-ep-h .kg-circ{width:28px;height:28px}
+  .kg-tiles{gap:5px;padding:6px}
+  .kg-ft{padding:5px 3px}
+  .kg-fi{width:30px;height:30px}
+  .kg-fi svg{width:21px;height:21px}
+  .kg-fn{font-size:8px}
+
+  .kg-sum.nonote{grid-template-columns:1fr}
+  .kg-sum.nonote .kg-sum-side{display:none}
+  /* v5 print */
+  .kg-printonly{display:block;margin-top:10px}
+  .kg-noprint-m{display:none!important}
+  .kg-eq{border-radius:12px;padding:0;margin:0}
+  .kg-eq-legend{padding:6px 12px 3px;font-size:9px}
+  .kg-er2{grid-template-columns:38mm minmax(0,1fr);gap:8px;padding:8px 12px;break-inside:avoid}
+  .kg-er2-h{gap:7px;padding-top:2px}
+  .kg-er2-h .kg-circ{width:28px;height:28px}
+  .kg-er2-h b{font-size:10.5px}
+  .kg-cnt{font-size:8.5px}
+  .kg-cnt b{font-size:10.5px!important}
+  .kg-opts{gap:4px}
+  .kg-op{width:calc(33.333% - 3px);min-height:0;padding:5px 18px 5px 6px;gap:6px;border-radius:8px;border-width:1px}
+  .kg-op-i{width:22px;height:22px}
+  .kg-op-i svg{width:21px;height:21px}
+  .kg-op .kg-fa{font-size:8px}
+  .kg-op .kg-fa b{font-size:10px}
+  .kg-op .kg-fn{font-size:8px;line-height:1.3}
+  .kg-op .kg-ck{right:5px;width:10px;height:10px;font-size:7px;border-width:1px}
+  .kg-opts .kg-rb{padding:2px 0 0}
+  body.kg-blank .kg-op.on{background:#f6f7f9;border-color:transparent}
+  body.kg-blank .kg-op.on .kg-ck{background:#fff;border-color:#cfd5df}
+  body.kg-blank .kg-op.on .kg-ck:after{content:none}
+  .kg-ln{display:block;height:13px;border-bottom:1px solid #b9c1cf}
+  .kg-wkp{font-size:8px;gap:1px;line-height:1.25}
+  .kg-wkp-w{min-height:0}
+  .kg-wkp-w:not(.auto) .kg-wkp-ln{display:block}
+  body.kg-blank .kg-wkp{display:none}
+  body.kg-blank .kg-wkp-ln{display:block}
+  .kg-wk-pref i{font-size:7px;padding:0 5px;margin:2px 2px 0 0}
+  body.kg-blank .kg-wk-pref{display:none}
+  .kg-cell{position:relative;height:52px}
+  .kg-wk textarea{position:absolute;left:0;top:0;width:100%;height:52px;border:0!important;border-radius:0;padding:0 2px;font-size:8px;line-height:13px;min-height:0;resize:none;overflow:hidden;background:transparent!important}
+  .kg-meal td{background:#FFF8FA;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kg-wk textarea::placeholder{color:transparent}
+  .kg-shopbox{border-radius:10px;margin:0 0 4px;break-inside:avoid}
+  .kg-shopbox .kg-shop{padding:5px 10px;font-size:9.5px;margin:0}
+  .kg-shop span{font-size:8.5px}
+  .kg-shop-g{padding:5px 8px}
+  .kg-shop-g>b{font-size:8.5px;margin-bottom:2px}
+  .kg-shop-g li{font-size:8px;padding:1px 0}
+  .kg-shop-g li em{font-size:7px}
+  .kg-shop-g ul.empty li{height:13px}
+  body.kg-blank .kg-shop-g ul:not(.empty){display:none}
+  body.kg-blank .kg-shop-g ul.bo{display:block}
+  .kg-week-sec .kg-print-foot{margin-top:4px}
+
+  .kg-er2{grid-template-columns:42mm minmax(0,1fr);gap:10px;padding:10px 14px}
+  .kg-er2-h .kg-circ{width:34px;height:34px}
+  .kg-er2-h b{font-size:11.5px}
+  .kg-cnt{font-size:9px}
+  .kg-cnt-i{display:block}
+  .kg-cnt-i+.kg-cnt-i:before{content:none}
+  .kg-cnt b{font-size:11.5px!important}
+  .kg-opts{gap:5px}
+  .kg-op{width:calc(33.333% - 4px);padding:7px 20px 7px 7px;gap:7px}
+  .kg-op-i{width:26px;height:26px}
+  .kg-op-i svg{width:25px;height:25px}
+  .kg-op .kg-fa{font-size:9px}
+  .kg-op .kg-fa b{font-size:11.5px}
+  .kg-op .kg-fn{font-size:9px}
+  .kg-op .kg-ck{width:11px;height:11px}
+  .kg-eq-legend{font-size:10px;padding:8px 14px 4px}
+
+  .kg-printonly{font-size:7.5px!important;line-height:1.45!important;margin-top:6px!important;max-width:none!important}
+  .kg-sum{margin-bottom:10px}
+  .kg-plan{margin-bottom:10px}
+  .kg-tips{margin-bottom:8px}
+  .kg-plate{padding:8px 18px}
+  .kg-plate-img{max-width:190px}
+  /* fallback: no named pages -> rotate the weekly sheet on a portrait A4 */
+  html.kg-rotfb .kg-week-sec{page:auto;position:relative;width:186mm;height:270mm;overflow:hidden}
+  html.kg-rotfb .kg-wk-rot{position:absolute;left:0;top:0;width:266mm;height:184mm;transform-origin:0 0;transform:translate(0,268mm) rotate(-90deg)}
+  /* v6 print */
+  .kg-meal-h th{padding:3px 6px;border-left-width:4px}
+  .kg-meal-h .kg-circ{width:18px!important;height:18px!important}
+  .kg-meal-h .kg-wk-gh b{font-size:9px}
+  .kg-meal-h .kg-wk-gh span{font-size:7.5px}
+  .kg-meal th{padding:2px 6px}
+  .kg-meal-l{font-size:8.5px}
+  .kg-meal td{padding:1px 4px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kg-meal .kg-cell{height:26px}
+  .kg-meal textarea{height:26px!important}
+  .kg-shop-empty{display:none!important}
+  .kg-shop-sec.none .kg-shop-list{display:grid!important}
+  .kg-shop-sec{margin-top:0}
+  .kg-shop-sec .kg-shopbox{border-radius:12px}
+  .kg-shop-sec .kg-shop{padding:10px 16px;font-size:12px}
+  .kg-shop-sec .kg-shop span{font-size:10px}
+  .kg-shop-sec .kg-shop svg{width:24px;height:24px}
+  .kg-shop-list{grid-template-columns:1fr 1fr!important;gap:10px;padding:12px}
+  .kg-shop-g{padding:10px 12px;border-radius:10px;break-inside:avoid}
+  .kg-shop-gh .kg-circ{width:24px;height:24px}
+  .kg-shop-gh b{font-size:11px}
+  .kg-shop-g li{font-size:10.5px;padding:4px 0;grid-template-columns:14px minmax(0,1fr) auto}
+  .kg-shop-g li em{font-size:9px}
+  .kg-buy,.kg-buy span{width:12px;height:12px}
+  .kg-buy span{border-width:1px;border-radius:3px;font-size:9px}
+  .kg-shop-g ul.empty li{height:22px;display:block}
+  body.kg-blank .kg-buy input:checked+span{background:#fff}
+  body.kg-blank .kg-buy input:checked+span:after{content:none}
+  .kg-shop-sec .kg-print-foot{margin-top:10px}
+
+  /* v7 print */
+  .kg-op{padding-right:26px}
+  .kg-op .kg-ck{min-width:18px;height:13px;font-size:7.5px;padding:0 4px;border-width:1px}
+  .kg-op:not(.on) .kg-ck{visibility:hidden}
+  body.kg-blank .kg-op .kg-ck{visibility:hidden}
+  .kg-er2.full .kg-op:not(.on){opacity:1}
+  .kg-cnt-ok{width:11px;height:11px;font-size:7px}
+  body.kg-blank .kg-cnt-p{display:none}
+  body.kg-blank .kg-cnt-tg{display:inline}
+  .kg-slot{width:9px;height:9px;border-width:1px;font-size:5px}
+  body.kg-blank .kg-slot.f{background:#fff;color:var(--c)}
+  .kg-tks{gap:2px;margin-bottom:2px}
+  .kg-it{font-size:7.5px;padding:0 5px;gap:0}
+  .kg-wkp{gap:2px!important}
+
+  .kg-er2{padding:7px 12px}
+  .kg-op{padding:5px 24px 5px 6px;gap:6px}
+  .kg-op-i{width:22px;height:22px}
+  .kg-op-i svg{width:20px;height:20px}
+  .kg-op .kg-fa{font-size:8.5px}
+  .kg-op .kg-fa b{font-size:10.5px}
+  .kg-op .kg-fn{font-size:8.5px;line-height:1.25}
+  .kg-opts{gap:4px}
+  .kg-er2-h .kg-circ{width:30px;height:30px}
+  /* v11 print: meals */
+  .kg-mc{min-height:0;border:0!important;padding:0 1px;background:transparent!important;box-shadow:none!important;gap:1px}
+  .kg-wk textarea.kg-meal-t{position:static;font-size:7px;line-height:9.5px;padding:0 2px;height:30px!important;border-bottom:1px solid #b9c1cf!important;background:transparent!important}
+  .kg-meal-t::placeholder{color:transparent}
+  .kg-mc-items{gap:1px}
+  .kg-mc-items .kg-it{font-size:7px;padding:0 4px}
+  .n-tot{display:inline}
+  .n-rem{display:none}
+  .kg-pr.done{opacity:1}
+  .kg-meal-hint{display:none}
+  body.kg-blank .kg-meal-t{color:transparent!important}
+  body.kg-blank .kg-mc-items{display:none}
+  body.kg-blank .kg-mc-ln{display:block}
+
+}
+</style>
+</head>
+<body>
+<div class="accent-top"></div>
+
+<header class="site">
+  <div class="wrap topbar">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 120 150"><defs><clipPath id="d"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z"/></clipPath></defs>
+        <path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/>
+        <g clip-path="url(#d)" fill="#d33f34"><rect x="55" y="40" width="10" height="108"/><rect x="14" y="95" width="92" height="10"/></g></svg>
+      <span class="lt"><b class="lat">GSPEN</b><span>საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის საზოგადოება</span></span>
+    </a>
+    <nav class="main">
+      <a class="nl" href="index.html">მთავარი</a>
+      <div class="nav-dd">
+        <a class="nl" href="vin-vart.html">ჩვენ შესახებ ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="vin-vart.html"><b>ვინ ვართ ჩვენ</b><span>მისია, პრინციპები და მმართველობითი ორგანო</span></a>
+          <a class="dd-item" href="wesdeba.html"><b>წესდება</b><span>საზოგადოების მმართველი დოკუმენტი</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="proeqtebi.html">პროექტები ▾</a>
+        <div class="dd">
+          <a class="dd-item" href="proeqtebi.html#grpCurrent"><b>მიმდინარე</b><span>პროექტები, რომლებზეც ახლა ვმუშაობთ</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpDone"><b>დასრულებული</b><span>განხორციელებული პროექტები და შედეგები</span></a>
+          <a class="dd-item" href="proeqtebi.html#grpPlanned"><b>დაგეგმილი</b><span>რას ვგეგმავთ უახლოეს მომავალში</span></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a class="nl" href="resursebi.html">რესურსები ▾</a>
+        <div class="dd wide right">
+          <a class="dd-item" href="webinarebi.html"><b>ვებინარები</b><span>ჩაწერილი და მომავალი ვებინარები</span></a>
+          <a class="dd-item" href="statiebi.html"><b>სტატიები</b><span>ბლოგი და პუბლიკაციები</span></a>
+          <a class="dd-item" href="instrumentebi.html"><b>ხელსაწყოები</b><span>ინტერაქტიული ინსტრუმენტები</span></a>
+          <a class="dd-item" href="kalkulatorebi.html"><b>კალკულატორები</b><span>სკრინინგი · ენერგია · წონა</span></a>
+        </div>
+      </div>
+      <a class="nl active" href="kvebis-gegma.html">ჩემი თეფში</a>
+    </nav>
+    <div class="actions">
+      <a class="btn red" href="wevroba.html">გახდი წევრი</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="მენიუ"><svg class="i" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">მთავარი</a>
+    <a href="vin-vart.html">ვინ ვართ ჩვენ</a>
+    <a href="wesdeba.html">წესდება</a>
+    <a href="proeqtebi.html">პროექტები</a>
+    <a href="resursebi.html">რესურსები</a>
+    <a href="kvebis-gegma.html">ჩემი თეფში</a>
+    <a href="wevroba.html">გახდი წევრი</a>
+  </div>
+</header>
+
+<div class="page-hero kg-noprint">
+  <div class="wrap">
+    <div class="crumb"><a href="resursebi.html">რესურსები</a> / <a href="kalkulatorebi.html">კალკულატორები</a> / ჩემი თეფში</div>
+    <span class="kicker">კვების გეგმის კალკულატორი</span>
+    <h1>ჩემი თეფში</h1>
+    <p class="sub">გამოთვალე დღიური ენერგია და ნახე, რამდენი პორცია გჭირდება თითოეული საკვები ჯგუფიდან. შემდეგ ჩაწერე საკუთარი არჩევანი და ამობეჭდე გეგმა.</p>
+  </div>
+</div>
+
+<section class="kg-sec">
+  <div class="wrap">
+
+    <!-- ============ FORM ============ -->
+    <div class="kg-form kg-noprint" id="kgForm">
+      <h3>შენი მონაცემები</h3>
+      <div class="kg-grid">
+        <div class="tc-field"><label for="kgAge">ასაკი (წელი)</label><input id="kgAge" type="number" min="4" max="100" placeholder="მაგ.: 35"></div>
+        <div class="tc-field"><label for="kgSex">სქესი</label>
+          <select id="kgSex"><option value="">აირჩიე</option><option value="f">მდედრობითი</option><option value="m">მამრობითი</option></select></div>
+        <div class="tc-field"><label for="kgW">წონა (კგ)</label><input id="kgW" type="number" min="14" max="300" step="0.1" placeholder="მაგ.: 65"></div>
+        <div class="tc-field"><label for="kgH">სიმაღლე (სმ)</label><input id="kgH" type="number" min="90" max="230" placeholder="მაგ.: 165"></div>
+        <div class="tc-field full"><label for="kgAct">ფიზიკური აქტივობა დღეში</label>
+          <select id="kgAct">
+            <option value="">აირჩიე</option>
+            <option value="low">30 წუთზე ნაკლები ზომიერი აქტივობა</option>
+            <option value="mid">30-დან 60 წუთამდე ზომიერი აქტივობა</option>
+            <option value="high">60 წუთზე მეტი ზომიერი აქტივობა</option>
+          </select></div>
+        <div class="tc-field full" id="kgPregWrap" style="display:none"><label for="kgPreg">ორსულობა და ძუძუთი კვება</label>
+          <select id="kgPreg">
+            <option value="none">არცერთი</option>
+            <option value="preg">ორსული ვარ</option>
+            <option value="lact">ძუძუთი ვკვებავ</option>
+          </select></div>
+        <div class="tc-field full" id="kgTriWrap" style="display:none"><label for="kgTri">ტრიმესტრი</label>
+          <select id="kgTri"><option value="1">I ტრიმესტრი</option><option value="2">II ტრიმესტრი</option><option value="3">III ტრიმესტრი</option></select></div>
+        <div class="tc-field" id="kgLacAmtWrap" style="display:none"><label for="kgLacAmt">ლაქტაციის ტიპი</label>
+          <select id="kgLacAmt"><option value="all">მხოლოდ ძუძუთი კვება</option><option value="half">შერეული კვება</option><option value="some">ძირითადად ხელოვნური კვება</option></select></div>
+        <div class="tc-field" id="kgLacTimeWrap" style="display:none"><label for="kgLacTime">ბავშვის ასაკი</label>
+          <select id="kgLacTime"><option value="0-6">0–6 თვე</option><option value="7+">7 თვე და მეტი</option></select></div>
+        <div class="tc-field full"><label for="kgName">სახელი (ამობეჭდილ გეგმაზე გამოჩნდება — არასავალდებულო)</label><input id="kgName" type="text" maxlength="60" placeholder="მაგ.: ნინო"></div>
+      </div>
+      <div class="kg-err" id="kgErr"></div>
+      <button class="btn red kg-go" id="kgGo" type="button">გამოთვალე ჩემი გეგმა →</button>
+      <p class="kg-foot">კალკულატორი 4 წლიდან მუშაობს. *დამატებითი ინფორმაციისთვის მიმართეთ კვალიფიციურ სპეციალისტს.</p>
+    </div>
+
+    <!-- ============ RESULT ============ -->
+    <div id="kgResult" style="display:none">
+
+      <div class="kg-print-head">
+        <div class="kg-ph-logo">
+          <svg viewBox="0 0 120 150" width="46" height="58"><path d="M60 8 C60 8 104 74 104 100 A44 44 0 1 1 16 100 C16 74 60 8 60 8 Z" fill="#fff" stroke="#d33f34" stroke-width="7"/><g fill="#d33f34"><rect x="54" y="46" width="12" height="92" rx="3"/><rect x="20" y="94" width="80" height="12" rx="3"/><rect x="36.5" y="69" width="5" height="16" rx="1.5"/><rect x="31" y="74.5" width="16" height="5" rx="1.5"/><rect x="78.5" y="69" width="5" height="16" rx="1.5"/><rect x="73" y="74.5" width="16" height="5" rx="1.5"/><rect x="36.5" y="115" width="5" height="16" rx="1.5"/><rect x="31" y="120.5" width="16" height="5" rx="1.5"/><rect x="78.5" y="115" width="5" height="16" rx="1.5"/><rect x="73" y="120.5" width="16" height="5" rx="1.5"/></g></svg>
+          <div><b>GSPEN</b><span>საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის საზოგადოება</span></div>
+        </div>
+        <h2 class="kg-ph-title"><span>ჩემი თეფში</span><span id="kgPhName"></span></h2>
+      </div>
+
+      <!-- summary -->
+      <div class="kg-sum">
+        <div class="kg-sum-main">
+          <span class="kg-sum-lbl">შენი დღიური ენერგია</span>
+          <div class="kg-sum-kcal"><b id="kgKcal">—</b><span>კკალ</span></div>
+          <div class="kg-sum-meta" id="kgMeta"></div>
+        </div>
+        <div class="kg-sum-side">
+          <div class="kg-tabs kg-noprint" id="kgTabs"></div>
+          <div class="kg-sum-note" id="kgNote"></div>
+        </div>
+      </div>
+
+      <!-- plan -->
+      <div class="kg-h"><span class="kg-step">1</span><h2>რამდენი პორცია დღეში</h2><span class="kg-h-sub">საკვები ჯგუფების მიხედვით</span></div>
+      <div class="kg-plan" id="kgPlan"></div>
+
+      <div class="kg-tips" id="kgTips"></div>
+
+      <div class="kg-plate">
+        <div class="kg-plate-img" id="kgPlateImg"></div>
+        <div class="kg-plate-txt">
+          <h3>ჩემი თეფში — ყოველ ჭამაზე</h3>
+          <p class="kg-plate-sub">ასე გაანაწილე საკვები თეფშზე</p>
+          <ul>
+            <li style="--c:#7CB342"><b>½ თეფში</b> <span>ბოსტნეული და ხილი — ბოსტნეული უფრო მეტი</span></li>
+            <li style="--c:#E8772E"><b>¼ თეფში</b> <span>მარცვლეული და სახამებელი — უპირატესად მთელმარცვლოვანი</span></li>
+            <li style="--c:#5B3F8C"><b>¼ თეფში</b> <span>ცილოვანი საკვები — თევზი, ფრინველი, პარკოსნები, კვერცხი</span></li>
+            <li style="--c:#4A7FC1"><b>გვერდით</b> <span>რძის პროდუქტი და წყალი</span></li>
+            <li style="--c:#E0A21F"><b>ცოტაოდენი</b> <span>ჯანსაღი ცხიმი — ზეთი, თხილეული, თესლეული</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="kg-method kg-printonly">
+        <b>როგორ ითვლება:</b> 4–8 წლის ბავშვებში — ასაკის, სქესისა და აქტივობის მიხედვით განსაზღვრული ენერგია; 9–18 წელი — ბავშვებისა და მოზარდების ენერგიის საჭიროების განტოლება (IOM, EER); 19 წლიდან — ზრდასრულების ენერგიის საჭიროების განტოლება (IOM, EER), ასაკის, სქესის, წონის, სიმაღლისა და ფიზიკური აქტივობის მიხედვით. ორსულობისას და ლაქტაციისას ემატება შესაბამისი ენერგია. შედეგი მრგვალდება 200 კკალ-მდე. 4–18 წლის ასაკში 1½ ცილოვანი პორცია ჩანაცვლებულია 1½ ცხიმის პორციით (ენერგია არ იცვლება), რომ ცხიმი ენერგიის 25–35% იყოს.
+        <br><b>წყარო:</b> Institute of Medicine, Dietary Reference Intakes for Energy, 2005 · WHO — შაქრის, მარილისა და ფიზიკური აქტივობის რეკომენდაციები.
+        <br>ეს ინსტრუმენტი საორიენტაციოა და არ ცვლის ინდივიდუალურ სამედიცინო ან დიეტოლოგიურ შეფასებას.
+      </div>
+
+      <!-- equivalents -->
+      <div class="kg-h kg-pb"><span class="kg-step">2</span><h2>რას უდრის 1 პორცია</h2><span class="kg-h-sub">მონიშნე თითოეულ საკვებ ჯგუფში, რა გირჩევნია, რომ ჭამო მთელი კვირა</span></div>
+      <div class="kg-eq" id="kgEq"></div>
+      <div class="kg-selbar kg-noprint" id="kgSelBar"><span id="kgSelInfo"></span><span class="kg-sel-act"><button type="button" class="kg-copy" id="kgCopyMon">ორშაბათის გამეორება მთელ კვირაზე</button><a href="#kgWeekSec" class="btn red">კვირის ცხრილის ნახვა ↓</a></span></div>
+      <div class="kg-toast kg-noprint" id="kgToast" role="status"><span id="kgToastMsg"></span></div>
+
+      <!-- weekly table (prints on a landscape page) -->
+      <div class="kg-week-sec" id="kgWeekSec"><div class="kg-wk-rot">
+        <div class="kg-h"><span class="kg-step">3</span><h2>ჩემი არჩევანი</h2><span class="kg-h-sub">წინა გვერდზე სასურველ პროდუქტებს დააკლიკე და „ჩემი არჩევანის“ ცხრილი შეივსება</span><span class="kg-date">თარიღი: <i></i> – <i></i></span></div>
+        <div class="kg-howto kg-noprint">
+          <div><b>1</b><span>მე-2 ნაწილში დააჭირე საკვებს — ყოველი დაჭერა 1 პორციაა</span></div>
+          <div><b>2</b><span>ცხრილი დღე-დღე ივსება, ზედმეტს აქ წაშლი ×-ით</span></div>
+          <div><b>3</b><span>გადაიტანე პროდუქტები საუზმეში, სადილში… და ჩაწერე კერძის სახელი</span></div>
+        </div>
+        <div class="kg-wk-wrap" id="kgWeek"></div>
+      </div></div><!-- /kg-week-sec -->
+
+      <!-- shopping list (page 4) -->
+      <div class="kg-shop-sec kg-pb" id="kgShopSec">
+        <div class="kg-h"><span class="kg-step">4</span><h2>საყიდლების სია</h2><span class="kg-h-sub">კვირის მარაგი</span></div>
+        <div class="kg-shopbox">
+          <div class="kg-shop"><svg viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 11h10.6l2-8H6.4"/><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><div><b>კვირის მარაგი — საყიდლების სია</b><span>ეს ცხრილი კვირის საყიდლებზე შეგიძლიათ წაიღოთ და იხელმძღვანელოთ.</span></div></div>
+          <div class="kg-shop-empty" id="kgShopEmpty">შეავსე დღის/კვირის პროდუქტების დღიური და საყიდლების სია ავტომატურად დაგენერირდება</div>
+          <div class="kg-shop-list" id="kgShopList"></div>
+        </div>
+
+      <div class="kg-actions kg-noprint">
+        <button class="btn red" type="button" id="kgPrint">🖨 ამობეჭდე ჩემი გეგმა</button>
+        <button class="btn navy" type="button" id="kgPrintBlank">ამობეჭდე ხელით შესავსები ფორმა</button>
+        <button class="btn ghost" type="button" id="kgReset">მონაცემების შეცვლა</button>
+      </div>
+      <div class="kg-print-help kg-noprint" id="kgPrintHelp">
+        <span>ბეჭდვის ფანჯარა არ გაიხსნა? ეს ხდება, როცა გვერდი სხვა პროგრამის შიგნით (პრევიუში) არის გახსნილი.</span>
+        <span class="kg-ph-act"><button type="button" class="kg-copy" id="kgPrintNew">ახალ ფანჯარაში გახსნა და ბეჭდვა</button><button type="button" class="kg-copy" id="kgPrintSave">ფაილად შენახვა</button></span>
+      </div>
+
+      <div class="kg-method kg-noprint-m">
+        <b>როგორ ითვლება:</b> 4–8 წლის ბავშვებში — ასაკის, სქესისა და აქტივობის მიხედვით განსაზღვრული ენერგია; 9–18 წელი — ბავშვებისა და მოზარდების ენერგიის საჭიროების განტოლება (IOM, EER); 19 წლიდან — ზრდასრულების ენერგიის საჭიროების განტოლება (IOM, EER), ასაკის, სქესის, წონის, სიმაღლისა და ფიზიკური აქტივობის მიხედვით. ორსულობისას და ლაქტაციისას ემატება შესაბამისი ენერგია. შედეგი მრგვალდება 200 კკალ-მდე. 4–18 წლის ასაკში 1½ ცილოვანი პორცია ჩანაცვლებულია 1½ ცხიმის პორციით (ენერგია არ იცვლება), რომ ცხიმი ენერგიის 25–35% იყოს.
+        <br><b>წყარო:</b> Institute of Medicine, Dietary Reference Intakes for Energy, 2005 · WHO — შაქრის, მარილისა და ფიზიკური აქტივობის რეკომენდაციები.
+        <br>ეს ინსტრუმენტი საორიენტაციოა და არ ცვლის ინდივიდუალურ სამედიცინო ან დიეტოლოგიურ შეფასებას.
+      </div>
+      <div class="kg-print-foot">gspen.ge · *დამატებითი ინფორმაციისთვის მიმართეთ კვალიფიციურ სპეციალისტს</div>
+      </div><!-- /kg-shop-sec -->
+    </div>
+
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:0;margin-top:0;padding-top:0"><span>© 2026 GSPEN</span><span>gspen.ge</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/i18n.js"></script>
+<script>
+(function(){
+"use strict";
+/* ---------- ICONS (white line icons on colored circles) ---------- */
+var IC = {
+  pot:'<svg viewBox="0 0 48 48"><path d="M10 21h28v11a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z"/><path d="M10 25H6M38 25h4M13 17h22M24 13v4"/><path d="M18 9c0-2 2-2 2-4M28 9c0-2 2-2 2-4"/></svg>',
+  fruit:'<svg viewBox="0 0 48 48"><path d="M24 17c-3-3-10-3-12.5 2.5C9 26 13 36 18.5 37.5c2 .6 3.4-.8 5.5-.8s3.5 1.4 5.5.8C35 36 39 26 36.5 19.5 34 14 27 14 24 17z"/><path d="M24 17c0-4 1.2-6.5 3.5-8.5"/><path d="M26.5 11.5c2.8-1.6 6.2-1 7.8 1.2-2.8 1.5-6.2 1-7.8-1.2z"/></svg>',
+  vegetables:'<svg viewBox="0 0 48 48"><path d="M31.5 17.5c-3-3-7.5-2.2-9.6 1L12.8 35c-1.2 2 .1 3.4 2.1 2.3l16.8-9.4c3.4-2 4-7.3-.2-10.4z"/><path d="M31.5 17.5 35 10.5M31.5 17.5l7.5-2M31.5 17.5l-.5-8"/><path d="M20 26.5l3 2.2M16.8 31.6l3 2.2"/></svg>',
+  grains:'<svg viewBox="0 0 48 48"><path d="M15 22.5c-3.2 0-4.4-4.2-2-6.4 4-3.6 18-3.6 22 0 2.4 2.2 1.2 6.4-2 6.4V36a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2z"/><path d="M20 27.5h.01M24 31h.01M28 27.5h.01M22 34h.01M27 34.5h.01"/></svg>',
+  protein:'<svg viewBox="0 0 48 48"><path d="M8 22c5.5-7.5 15.5-8 22.5 0-7 8-17 7.5-22.5 0z"/><path d="M30.5 22l6.5-5.5v11z"/><path d="M14 21h.01"/><ellipse cx="33" cy="35.5" rx="4.2" ry="5.2"/></svg>',
+  dairy:'<svg viewBox="0 0 48 48"><path d="M16 17h11v4l3 5v14H13V26l3-5z"/><path d="M13 26h17"/><path d="M16 17l1.2-5h8.6l1.2 5"/><path d="M33 28h6l-1 10h-4z"/><path d="M36 28v-3l2-2"/></svg>',
+  fats:'<svg viewBox="0 0 48 48"><path d="M24 9c5.5 8.5 11 13.6 11 20a11 11 0 0 1-22 0c0-6.4 5.5-11.5 11-20z"/><path d="M19.5 30.5a4.5 4.5 0 0 0 4.5 4.5"/></svg>',
+  water:'<svg viewBox="0 0 48 48"><path d="M15 11h18l-2.5 27h-13z"/><path d="M16.2 22c3.6 2.2 12 2.2 15.6 0"/></svg>',
+  limit:'<svg viewBox="0 0 48 48"><path d="M18 20h12l2 18H16z"/><path d="M18 20c0-6 12-6 12 0"/><path d="M21.5 14.5h.01M24 13h.01M26.5 14.5h.01"/><path d="M11 11l26 26"/></svg>',
+  activity:'<svg viewBox="0 0 48 48"><circle cx="29" cy="10.5" r="3.2"/><path d="M27 16.5l-5.5 9.5 6 4.5-2.5 9.5M21.5 26l-7 .8M27 16.5l6.5 5.5 5.5-1M25.5 31l-8 7.5"/></svg>'
+};
+
+/* ---------- FOOD ICONS (line icons, drawn in the group colour) ---------- */
+var FI = {
+ apple:'<path d="M24 17c-3-3-10-3-12.5 2.5C9 26 13 36 18.5 37.5c2 .6 3.4-.8 5.5-.8s3.5 1.4 5.5.8C35 36 39 26 36.5 19.5 34 14 27 14 24 17z"/><path d="M24 17c0-4 1.2-6.5 3.5-8.5"/><path d="M26.5 11.5c2.8-1.6 6.2-1 7.8 1.2-2.8 1.5-6.2 1-7.8-1.2z"/>',
+ raisin:'<path d="M24 13l2-5"/><circle cx="19" cy="19" r="5"/><circle cx="29" cy="19" r="5"/><circle cx="24" cy="28" r="5"/><circle cx="14.5" cy="29" r="4.5"/><circle cx="33.5" cy="29" r="4.5"/><circle cx="24" cy="37.5" r="4"/>',
+ date:'<path d="M24 10c7 0 10 7.5 10 15s-4 14-10 14-10-6.5-10-14 3-15 10-15z"/><path d="M24 14c-2 7-2 15 0 21"/>',
+ leaf:'<path d="M11 37C11 21 21 11 37 11c0 16-10 26-26 26z"/><path d="M11 37l19-19M20 28v-7M26 22h6"/>',
+ pot:'<path d="M11 21h26v11a6 6 0 0 1-6 6H17a6 6 0 0 1-6-6z"/><path d="M11 25H7M37 25h4M14 17h20M24 13v4"/>',
+ pan:'<path d="M8 22h26v5a9 9 0 0 1-9 9h-8a9 9 0 0 1-9-9z"/><path d="M34 25h7"/><path d="M15 16c0-2 2-2 2-4M21 16c0-2 2-2 2-4M27 16c0-2 2-2 2-4"/>',
+ bread:'<path d="M15 22.5c-3.2 0-4.4-4.2-2-6.4 4-3.6 18-3.6 22 0 2.4 2.2 1.2 6.4-2 6.4V36a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2z"/><path d="M20 27.5h.01M24 31h.01M28 27.5h.01M22 34h.01M27 34.5h.01"/>',
+ bowl:'<path d="M8 24h32a16 16 0 0 1-32 0z"/><path d="M13 24c2-6 20-6 22 0"/><path d="M19 19.5h.01M24 18.5h.01M29 19.5h.01"/>',
+ pasta:'<path d="M8 26h32a16 16 0 0 1-32 0z"/><path d="M13 21c2-3 4 3 6 0s4 3 6 0 4 3 6 0 3 3 4 1M15 16c2-3 4 3 6 0s4 3 6 0 4 3 6 0"/>',
+ corn:'<ellipse cx="24" cy="30" rx="15" ry="7"/><path d="M9 30v-3c0-4.5 6.7-8 15-8s15 3.5 15 8v3"/><path d="M18 25h.01M24 23.5h.01M30 25h.01M21 29h.01M27 29h.01"/>',
+ spoonbowl:'<path d="M8 25h32a16 16 0 0 1-32 0z"/><path d="M12 25c3-4 21-4 24 0"/><path d="M33 8l-6 15"/>',
+ potato:'<path d="M12 30c-3-7 2-15 11-16s16 2 15 10-6 13-14 13-10-2-12-7z"/><path d="M20 23h.01M29 21h.01M31 29h.01M22 31h.01"/>',
+ mash:'<path d="M8 26h32a16 16 0 0 1-32 0z"/><path d="M13 26c0-6 5-10 11-10s11 4 11 10"/><path d="M20 21c2-2 6-2 8 0"/>',
+ leg:'<path d="M28 9a11 11 0 0 1 11 11c0 7-7 11-14 10l-6 6"/><path d="M28 9c-7 0-11 6-10 13l-6 6"/><path d="M12 28l7 8"/><circle cx="10" cy="31" r="3"/><circle cx="16" cy="38" r="3"/>',
+ steak:'<path d="M9 27c0-9 9-15 19-14s12 7 11 14-8 11-16 11-14-3-14-11z"/><circle cx="29" cy="23" r="4"/>',
+ fish:'<path d="M7 24c5.5-7.5 15.5-8 22.5 0-7 8-17 7.5-22.5 0z"/><path d="M29.5 24l7.5-6v12z"/><path d="M13 23h.01"/>',
+ can:'<ellipse cx="24" cy="14" rx="11" ry="4"/><path d="M13 14v20c0 2.2 4.9 4 11 4s11-1.8 11-4V14"/><path d="M13 21c0 2.2 4.9 4 11 4s11-1.8 11-4"/><path d="M18 31c3-3 7-3 10 0-3 3-7 3-10 0zM28 31l3-2v4z"/>',
+ egg:'<path d="M24 8c7 0 12 11 12 18.5a12 12 0 0 1-24 0C12 19 17 8 24 8z"/>',
+ beans:'<ellipse cx="17" cy="20" rx="6.5" ry="4.5" transform="rotate(-25 17 20)"/><ellipse cx="31" cy="19" rx="6.5" ry="4.5" transform="rotate(20 31 19)"/><ellipse cx="24" cy="32" rx="6.5" ry="4.5" transform="rotate(-10 24 32)"/>',
+ cup:'<path d="M13 17h22l-3 21H16z"/><path d="M11 12h26v5H11z"/><path d="M18 27h12"/>',
+ glass:'<path d="M15 9h18l-2.5 29h-13z"/><path d="M16 18c3 1.5 13 1.5 16 0"/>',
+ carton:'<path d="M16 17l4-7h8l4 7v21H16z"/><path d="M16 17h16M20 10l-1 7"/><path d="M21 29c0-4 3-6 6-6 0 4-3 6-6 6z"/>',
+ bottle:'<path d="M20 8h8v5l3 5v20H17V18l3-5z"/><path d="M17 25h14M20 13h8"/>',
+ curd:'<path d="M8 26h32a16 16 0 0 1-32 0z"/><path d="M12 26c-1-4 3-6 6-5 1-3 5-4 7-2 2-2 6-2 7 1 3-1 6 2 4 6"/>',
+ cheese:'<path d="M8 31l23-15 9 7v14H8z"/><path d="M8 31h32"/><circle cx="18" cy="35" r="1.6"/><circle cx="31" cy="27" r="1.6"/><circle cx="27" cy="35" r="1.6"/>',
+ oil:'<path d="M21 7h6v6l3 4v21a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V17l3-4z"/><path d="M24 24c2 3 3 4.5 3 6a3 3 0 0 1-6 0c0-1.5 1-3 3-6z"/>',
+ nut:'<path d="M24 10c8 0 13 6 13 14s-5 14-13 14-13-6-13-14 5-14 13-14z"/><path d="M24 10v28"/><path d="M17 19c2 1 2 3 0 4s-2 3 0 4M31 19c-2 1-2 3 0 4s2 3 0 4"/>',
+ jar:'<path d="M15 17h18v19a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3z"/><path d="M14 11h20v6H14z"/><path d="M19 26h10M19 31h7"/>',
+ avocado:'<path d="M24 8c6 0 9 10 11.5 17A11.5 11.5 0 1 1 12.5 25C15 18 18 8 24 8z"/><circle cx="24" cy="28.5" r="5"/>',
+ olive:'<ellipse cx="17.5" cy="29" rx="6" ry="8" transform="rotate(-15 17.5 29)"/><ellipse cx="31" cy="27" rx="6" ry="8" transform="rotate(15 31 27)"/><path d="M19 21c2-6 7-10 15-11M28 12c2-3 6-3 8-1-2 2-6 3-8 1z"/>'
+};
+
+/* ---------- FOOD GROUPS (serving definitions from calculator.gspen.ge) ----------
+   items: [icon, amount, food name]; amount = list of [number, unit, qualifier] joined with " / " */
+var GROUPS = [
+ {id:"fruit", name:"ხილი/ჩირეული", color:"#D2403A",
+  tip:"უპირატესობა მიანიჭე მთლიან ხილს",
+  items:[["apple",[["200","გ"]],"ცოცხალი, დაკონსერვებული ან გაყინული ხილი"],["raisin",[["40","გ"]],"ჩირეული"],["date",[["30","გ"]],"ფინიკი"]],
+  opts:[["ცოცხალი ხილი","200 გ"],["გაყინული ან დაკონსერვებული ხილი","200 გ"],["ჩირეული","40 გ"],["ფინიკი","30 გ"]]},
+ {id:"vegetables", name:"ბოსტნეული", color:"#7CB342",
+  tip:"გააფერადე თეფში ბოსტნეულით",
+  items:[["leaf",[["200","გ"]],"უმი ბოსტნეული"],["pot",[["200","გ"]],"მოხარშული ან მოთუშული ბოსტნეული"],["pan",[["200","გ"]],"გრილზე მომზადებული ბოსტნეული"]],
+  rainbow:true,
+  opts:[["უმი ბოსტნეული","200 გ"],["მოხარშული ბოსტნეული","200 გ"],["გრილზე მომზადებული ბოსტნეული","200 გ"],["მოთუშული ბოსტნეული","200 გ"]]},
+ {id:"grains", name:"ნახშირწყლები (მარცვლეული და სახამებელი)", color:"#E8772E",
+  tip:"უპირატესობა მიანიჭე მთელმარცვლოვანს: ქვავი, შვრია, წიწიბურა",
+  items:[["bread",[["1","ნაჭერი"],["40","გ"]],"პური"],["bowl",[["30","გ","უმი"],["100","გ","მზა"]],"შვრია, ბულგური, ყავისფერი ბრინჯი, ქინოა, ბარდა, წიწიბურა"],["pasta",[["30","გ","უმი"],["70","გ","მოხარშული"]],"მთელმარცვლოვანი მაკარონი"],["corn",[["60","გ"]],"მჭადი"],["spoonbowl",[["120","გ"]],"ღომი"],["mash",[["100","გ"]],"კარტოფილის პიურე"],["potato",[["120","გ"]],"მოხარშული/გამომცხვარი კარტოფილი კანიანად"]],
+  opts:[["პური","1 ნაჭერი (40 გ)"],["შვრიის მარცვალი","30 გ უმი / 100 გ მზა"],["ბულგური","30 გ უმი / 100 გ მზა"],["ყავისფერი ბრინჯი","30 გ უმი / 100 გ მზა"],["ქინოა","30 გ უმი / 100 გ მზა"],["წიწიბურა","30 გ უმი / 100 გ მზა"],["ბარდა","30 გ უმი / 100 გ მზა"],["მთელმარცვლოვანი მაკარონი","30 გ უმი / 70 გ მოხარშული"],["მჭადი","60 გ"],["ღომი","120 გ"],["კარტოფილის პიურე","100 გ"],["მოხარშული/გამომცხვარი კარტოფილი","120 გ"]]},
+ {id:"protein", name:"ცილოვანი საკვები", color:"#5B3F8C",
+  tip:"ყურადღება მიაქციე მცენარეულ ცილას: ლობიო, ოსპი, მუხუდო",
+  items:[["leg",[["80","გ","უმი"],["60","გ","მზა"]],"ფრინველის თეთრი ხორცი კანის გარეშე"],["steak",[["80","გ","უმი"],["60","გ","მზა"]],"საქონლის ნაკლებცხიმიანი ხორცი"],["fish",[["50","გ","უმი"],["40","გ","მზა"]],"ორაგული"],["fish",[["70","გ","უმი"],["50","გ","მზა"]],"კალმახი"],["can",[["90","გ"]],"თინუსის კონსერვი წყალში"],["egg",[["1","დიდი"],["2","პატარა"]],"კვერცხი"],["beans",[["30","გ","უმი"],["70","გ","მზა"]],"სოიო, ლობიო, ოსპი, მუხუდო"]],
+  opts:[["ფრინველის თეთრი ხორცი","80 გ უმი / 60 გ მზა"],["საქონლის ნაკლებცხიმიანი ხორცი","80 გ უმი / 60 გ მზა"],["ორაგული","50 გ უმი / 40 გ მზა"],["თინუსის კონსერვი (წყალში)","90 გ"],["კალმახი","70 გ უმი / 50 გ მზა"],["კვერცხი","1 დიდი ან 2 პატარა"],["ლობიო","30 გ უმი / 70 გ მზა"],["ოსპი","30 გ უმი / 70 გ მზა"],["მუხუდო","30 გ უმი / 70 გ მზა"],["სოიო","30 გ უმი / 70 გ მზა"]]},
+ {id:"dairy", name:"რძის პროდუქტები", color:"#4A7FC1",
+  tip:"უპირატესობა მიანიჭე ბერძნულ იოგურტს და ხაჭოს",
+  items:[["glass",[["200","მლ"]],"რძე 1.5% (ლაქტოზიანი ან ულაქტოზო)"],["cup",[["200","გ"]],"მაწონი 3.2% (ლაქტოზიანი ან ულაქტოზო)"],["carton",[["200","მლ"]],"სოიოს რძე"],["bottle",[["150","მლ"]],"კეფირი 3.5%"],["curd",[["100","გ"]],"ხაჭო 4%"],["curd",[["70","გ"]],"ნადუღი"],["cheese",[["40","გ"]],"ყველი"]],
+  opts:[["რძე 1.5%","200 გ"],["მაწონი 3.2%","200 გ"],["სოიოს რძე","200 გ"],["კეფირი 3.5%","150 გ"],["ხაჭო 4%","100 გ"],["ნადუღი","70 გ"],["ყველი","40 გ"]]},
+ {id:"fats", name:"ჯანსაღი ცხიმები", color:"#E0A21F",
+  tip:"ზეითუნის ზეთი, თხილეული და თესლეული",
+  items:[["oil",[["12","გ"],["1","არასრული ს.კ."]],"ზეთი"],["nut",[["15","გ"]],"თხილეული ან თესლეული: ნიგოზი, ნუში, გოგრის თესლი, ჩია, სელი"],["jar",[["16","გ"],["1","ს.კ."]],"მიწისთხილის კარაქი"],["avocado",[["60","გ"]],"ავოკადო"],["olive",[["75","გ"]],"ზეთისხილი"]],
+  opts:[["ზეთი","12 გ (1 არასრული ს.კ.)"],["ნიგოზი","15 გ"],["ნუში","15 გ"],["გოგრის თესლი","15 გ"],["ჩია / სელი","15 გ"],["მიწისთხილის კარაქი","1 ს.კ. (16 გ)"],["ავოკადო","60 გ"],["ზეთისხილი","75 გ"]]}
+];
+var RAINBOW = [["#D93A33","წითელი"],["#F29A2E","სტაფილოსფერი/ყვითელი"],["#6AAF3D","მწვანე"],["#B9A48A","თეთრი/ყავისფერი"],["#7B4A9E","იასამნისფერი"]];
+var IDS = ["fruit","vegetables","grains","protein","dairy","fats"];
+
+/* ---------- PLANS: servings per day [fruit, veg, grains, protein, dairy, fats] ---------- */
+var PLANS = {
+ "4-8":  {1200:[1,1.5,4,3,2.5,.5],1400:[1,1.5,5,4,2.5,.5],1600:[1.5,2,5,5,2.5,.5],1800:[1.5,2,6,5,2.5,1],2000:[2,2,6,5.5,2.5,1.5]},
+ "9-13": {1400:[1,1.5,5,4,3,.5],1600:[1.5,2,5,5,3,.5],1800:[1.5,2,6,5,3,1],2000:[2,2,6,5.5,3,1.5],2200:[2,2,7,6,3,2],2400:[2,2,8,6.5,3,2],2600:[2,2,9,6.5,3,3],2800:[2,2,10,7,3,3],3000:[2,2,12,7,3,3],3200:[2,2,13,8,3,3]},
+ "14-99":{1600:[1.5,2,5,5,3,.5],1800:[1.5,2,6,5,3,1],2000:[2,2,6,5.5,3,1.5],2200:[2,2,7,6,3,2],2400:[2,2,8,6.5,3,2],2600:[2,2,9,6.5,3,3],2800:[2,2,10,7,3,3],3000:[2,2,12,7,3,3],3200:[2,2,13,8,3,3]}
+};
+
+/* Children & adolescents (4–18 y): 1½ protein servings are swapped for 1½ fat servings (same energy, ~90–95 kcal each),
+   so that fat reaches 25–35% of energy (IOM AMDR 4–18 y) and protein stays within 10–30%. Adults keep the original tables. */
+var KID_SWAP = 1.5;
+function planServings(group, kcal, age){
+  var s = PLANS[group][kcal].slice();
+  if(age <= 18){ s[3] -= KID_SWAP; s[5] += KID_SWAP; }
+  return s;
+}
+
+/* ---------- ENERGY ---------- */
+// 4–8 y: [low, mid, high] kcal (from calculator.gspen.ge)
+var KIDS = {
+ m:{4:[1000,1400,1400],5:[1200,1400,1600],6:[1200,1400,1600],7:[1400,1600,1800],8:[1400,1600,2000]},
+ f:{4:[1200,1400,1400],5:[1200,1400,1400],6:[1200,1400,1600],7:[1200,1600,1800],8:[1400,1600,1800]}
+};
+var ACT_I = {low:0, mid:1, high:2};
+// BMI-for-age percentiles 9–18 y (5th, median, 85th, 95th) — from calculator.gspen.ge
+var PCT = {
+ m:{9:[14.07936677,16.39605916,19.00335954,21.61938426],10:[14.37920031,16.91512487,19.78938034,22.68718928],11:[14.75988661,17.50138161,20.60910189,23.72897155],12:[15.2111263,18.1387275,21.43852405,24.71352325],13:[15.71971118,18.81201584,22.25973057,25.62255542],14:[16.26979755,19.50672885,23.06061552,26.45091448],15:[16.84323264,20.20858236,23.83459013,27.20682538],16:[17.41995236,20.90294449,24.58032971,27.91225209],17:[17.97833773,21.57417053,25.30172632,28.60329919]},
+ f:{9:[13.87942647,16.57626713,19.54662051,22.39788709],10:[14.21040706,17.16096656,20.42657139,23.56546313],11:[14.61099007,17.78355575,21.30973548,24.70603086],12:[15.06558978,18.42002284,22.16531999,25.78730634],13:[15.55572457,19.04811118,22.96953922,26.78861781],14:[16.05992392,19.64746266,23.70570337,27.70078892],15:[16.55358366,20.19980767,24.3643699,28.52601678],16:[17.00880162,20.6891237,24.94355805,29.27780966],17:[17.39427286,21.10163241,25.44895346,29.98109225]}
+};
+var TRI_ADD = {1:0, 2:340, 3:452};                     // IOM 2005
+function lacAdd(amt, time){ if(amt==="all") return time==="0-6"?330:400; if(amt==="half") return time==="0-6"?70:200; return 0; }
+
+function eerChild(sex, age, w, hcm, act){             // IOM EER 9–18 y (maintenance, no growth term) — calculator.gspen.ge
+  var h=hcm/100, pa;
+  if(sex==="m"){ pa={low:1,mid:1.13,high:1.26}[act]; return 88.5-61.9*age+pa*(26.7*w+903*h); }
+  pa={low:1,mid:1.16,high:1.31}[act]; return 135.3-30.8*age+pa*(10*w+934*h);
+}
+function eerPregTeen(age, w, hcm, act){                // as on calculator.gspen.ge (14–17 y, pregnant)
+  var pa={low:1,mid:1.14,high:1.27}[act]; return 387-7.31*age+pa*(10.9*w+660.7*hcm/100);
+}
+function eerAdult(sex, age, w, hcm, act){             // IOM EER adults (>18 y) — as on calculator.gspen.ge
+  var h=hcm/100, pa;
+  if(sex==="m"){ pa={low:1,mid:1.12,high:1.27}[act]; return 662-9.53*age+pa*(15.91*w+539.6*h); }
+  pa={low:1,mid:1.14,high:1.27}[act]; return 354-6.91*age+pa*(9.36*w+726*h);
+}
+function round200(x){ return 200*Math.round(x/200); }
+
+function bmiClass(sex, age, bmi){
+  if(age>=18) return bmi<18.5?"under":bmi>=30?"obese":bmi>=25?"over":"healthy";
+  var p = PCT[sex][Math.min(17,Math.max(9,age))];
+  return bmi<p[0]?"under":bmi>=p[3]?"obese":bmi>=p[2]?"over":"healthy";
+}
+var BMI_TXT = {under:"წონის დეფიციტი", healthy:"ნორმალური წონა", over:"ჭარბი წონა", obese:"სიმსუქნე"};
+
+function compute(d){
+  var r = {bmi: d.w/Math.pow(d.h/100,2), options:[]};
+  var group = d.age<9?"4-8":d.age<14?"9-13":"14-99"; r.group=group;
+  var special = (d.preg==="preg"||d.preg==="lact");
+  var energy = function(weight){
+    if(d.age<9){ return KIDS[d.sex][d.age][ACT_I[d.act]]; }
+    if(d.age<=18){                                     // ≤18 y: child/teen EER (calculator.gspen.ge)
+      if(d.preg==="preg") return eerPregTeen(d.age,weight,d.h,d.act)+TRI_ADD[d.tri]-(r.bmi>=35&&d.tri>1?180:0);
+      var e = eerChild(d.sex,d.age,weight,d.h,d.act);
+      if(d.preg==="lact") e += lacAdd(d.lacAmt,d.lacTime);
+      return e;
+    }
+    var t = eerAdult(d.sex,d.age,weight,d.h,d.act);
+    if(d.preg==="preg") t += TRI_ADD[d.tri]-(r.bmi>=35&&d.tri>1?180:0);
+    if(d.preg==="lact") t += lacAdd(d.lacAmt,d.lacTime);
+    return t;
+  };
+  r.cls = d.age>=9 ? bmiClass(d.sex,d.age,r.bmi) : null;
+  r.options.push({key:"maintain", label:"წონის შენარჩუნება", raw:energy(d.w)});
+  if(r.cls && r.cls!=="healthy" && !special){
+    var target = d.age>=18 ? (d.sex==="m"?22.5:21.5)*Math.pow(d.h/100,2) : PCT[d.sex][Math.min(17,d.age)][1]*Math.pow(d.h/100,2);
+    r.target = target;
+    r.options.push({key:"healthy", label:"ჯანსაღი წონისკენ", raw:energy(target)});
+  }
+  var keys = Object.keys(PLANS[group]).map(Number), min=Math.min.apply(null,keys), max=Math.max.apply(null,keys);
+  r.options.forEach(function(o){
+    o.kcal = Math.min(3200, round200(o.raw));
+    o.plan = Math.max(min, Math.min(max, o.kcal));
+    o.floored = o.plan > o.kcal;
+  });
+  return r;
+}
+
+/* ---------- RENDER ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function frac(v){ var w=Math.floor(v), h=(v-w)>0.25; return ((w?String(w):"")+(h?"½":""))||"0"; }
+function circ(id,color){ return '<div class="kg-circ" style="background:'+color+'">'+IC[id]+'</div>'; }
+function tint(hex,a){ var n=parseInt(hex.slice(1),16); return "rgba("+(n>>16)+","+((n>>8)&255)+","+(n&255)+","+a+")"; }
+function vars(g){ return '--c:'+g.color+';--t:'+tint(g.color,.12)+';--t2:'+tint(g.color,.28); }
+function fic(k){ return '<svg viewBox="0 0 48 48">'+FI[k]+'</svg>'; }
+function amtHTML(list){
+  return list.map(function(p){ return '<b>'+p[0]+'</b> <span>'+p[1]+'</span>'+(p[2]?' <em>'+p[2]+'</em>':''); }).join(' <i>/</i> ');
+}
+function dots(n){
+  var h="", w=Math.floor(n);
+  for(var i=0;i<w;i++) h+='<i class="d"></i>';
+  if(n-w>0.25) h+='<i class="d h"></i>';
+  return '<div class="kg-dots">'+h+'</div>';
+}
+
+function plateSVG(){
+  function ic(id,x,y,s){ return IC[id].replace('<svg ','<svg x="'+x+'" y="'+y+'" width="'+s+'" height="'+s+'" '); }
+  return '<svg class="kg-plate-svg" viewBox="0 0 330 250" role="img" aria-label="ჩემი თეფში"><circle cx="120" cy="124" r="118" fill="#e6e9ef"/><circle cx="120" cy="120" r="118" fill="#fff" stroke="#d5dae3" stroke-width="2"/><path d="M120 120L120.0 16.0A104 104 0 0 1 224.0 120.0Z" fill="#E8772E"/><path d="M120 120L224.0 120.0A104 104 0 0 1 120.0 224.0Z" fill="#5B3F8C"/><path d="M120 120L120.0 224.0A104 104 0 0 1 35.9 58.9Z" fill="#7CB342"/><path d="M120 120L35.9 58.9A104 104 0 0 1 120.0 16.0Z" fill="#D2403A"/><g stroke="#fff" stroke-width="4"><line x1="120" y1="120" x2="120" y2="16"/><line x1="120" y1="120" x2="120" y2="224"/><line x1="120" y1="120" x2="224" y2="120"/><line x1="120" y1="120" x2="35.9" y2="58.9"/></g>'+
+    ic('grains',141.0,59.0,40)+
+    ic('protein',141.0,141.0,40)+
+    ic('vegetables',48.3,126.3,40)+
+    ic('fruit',72.3,40.8,30)+
+    '<circle cx="286" cy="72" r="36" fill="#4A7FC1"/>'+ic('dairy',264,50,44)+
+    '<circle cx="286" cy="170" r="26" fill="#E0A21F"/>'+ic('fats',270,154,32)+
+    '</svg>';
+}
+
+var STATE = null, CUR = 0;
+
+/* short names (weekly table / shopping list) and shopping units — same order as GROUPS[].items
+   BUY: [amount per serving, unit, note]; units: g, ml, pcs (egg), slice (bread: slices + grams) */
+var SHORT = {
+ fruit:["ხილი","ჩირეული","ფინიკი"],
+ vegetables:["ბოსტნეული","მოხარშული ბოსტნეული","ბოსტნეული გრილზე"],
+ grains:["პური","მარცვლეული","მაკარონი","მჭადი","ღომი","კარტოფილის პიურე","კარტოფილი"],
+ protein:["ფრინველი","საქონლის ხორცი","ორაგული","კალმახი","თინუსი","კვერცხი","პარკოსნები"],
+ dairy:["რძე","მაწონი","სოიოს რძე","კეფირი","ხაჭო","ნადუღი","ყველი"],
+ fats:["ზეთი","თხილეული","მიწისთხილის კარაქი","ავოკადო","ზეთისხილი"]
+};
+var BUY = {
+ fruit:[[200,"g"],[40,"g"],[30,"g"]],
+ vegetables:[[200,"g"],[200,"g"],[200,"g"]],
+ grains:[[1,"slice",40],[30,"g","უმი"],[30,"g","უმი"],[60,"g"],[120,"g"],[100,"g"],[120,"g"]],
+ protein:[[80,"g","უმი"],[80,"g","უმი"],[50,"g","უმი"],[70,"g","უმი"],[90,"g"],[1,"pcs"],[30,"g","უმი"]],
+ dairy:[[200,"ml"],[200,"g"],[200,"ml"],[150,"ml"],[100,"g"],[70,"g"],[40,"g"]],
+ fats:[[13,"ml"],[15,"g"],[16,"g"],[60,"g"],[75,"g"]]
+};
+var DAYS = ["ორშაბათი","სამშაბათი","ოთხშაბათი","ხუთშაბათი","პარასკევი","შაბათი","კვირა"];
+
+/* ---- weekly slots: STATE.slots[gid][day] = array of item index | null (last slot is ½ when the plan has ½) ---- */
+function slotVal(n, k){ var per=Math.ceil(n); return (n%1!==0 && k===per-1) ? .5 : 1; }
+function ensureSlots(){
+  var old = STATE.slots || {}; STATE.slots = {};
+  GROUPS.forEach(function(g,i){
+    var per = Math.ceil(STATE.srv[i]);
+    STATE.slots[g.id] = [];
+    for(var d=0; d<7; d++){
+      var prev = (old[g.id] && old[g.id][d] || []).filter(function(x){ return x!==null; }), row = [];
+      for(var k=0;k<per;k++) row.push(k<prev.length ? prev[k] : null);
+      STATE.slots[g.id].push(row);
+    }
+  });
+}
+function addServing(gi, j){
+  var g = GROUPS[gi], S = STATE.slots[g.id];
+  for(var d=0; d<7; d++) for(var k=0;k<S[d].length;k++) if(S[d][k]===null){ S[d][k]=j; return d; }
+  return -1;
+}
+function removeServing(gid, d, j){
+  var row = STATE.slots[gid][d];
+  for(var k=row.length-1;k>=0;k--) if(row[k]===j){ row[k]=null; return true; }
+  return false;
+}
+function fmtAmt(total, u, note){
+  var r;
+  if(u==="g" || u==="ml"){
+    var big = u==="g" ? "კგ" : "ლ", small = u==="g" ? "გ" : "მლ";
+    r = total>=1000 ? '<b>'+(Math.round(total/100)/10)+'</b> <span>'+big+'</span>' : '<b>'+(Math.round(total/5)*5)+'</b> <span>'+small+'</span>';
+  } else if(u==="pcs"){ r = '<b>'+frac(total)+'</b> <span>ცალი</span>'; }
+  else { r = '<b>'+frac(total)+'</b> <span>ნაჭერი</span>'; }
+  return r + (note ? ' <em>'+note+'</em>' : '');
+}
+function qtyHTML(gid, j, servings){
+  var b = BUY[gid][j];
+  if(b[1]==="slice"){ var gr = servings*b[2]; return fmtAmt(servings*b[0],"slice")+' <em>· '+(gr>=1000?(Math.round(gr/100)/10)+' კგ':Math.round(gr)+' გ')+'</em>'; }
+  return fmtAmt(servings*b[0], b[1], b[2]);
+}
+function renderWeekFill(){
+  if(!STATE || !STATE.slots) return;
+  var srv = STATE.srv, any = 0, shop = "", bought = {}, monday = 0;
+  Array.prototype.forEach.call(document.querySelectorAll("#kgShopList input"),function(x){ bought[x.name]=x.checked; });
+  GROUPS.forEach(function(g,i){
+    var S = STATE.slots[g.id], n = srv[i], tot = {}, week = 0, cur = -1, curSum = 0;
+    for(var d=0; d<7; d++){
+      var cnt = {}, daySum = 0, ticks = "";
+      S[d].forEach(function(j,k){
+        var v = slotVal(n,k);
+        if(j!==null){ cnt[j]=(cnt[j]||0)+v; tot[j]=(tot[j]||0)+v; daySum+=v; if(d===0) monday++; }
+        ticks += '<i class="kg-slot'+(j!==null?' f':'')+(v<1?' h':'')+'">'+(v<1?'½':'')+'</i>';
+      });
+      week += daySum;
+      if(cur<0 && S[d].indexOf(null)>=0){ cur = d; curSum = daySum; }
+      var tk = $("wkt_"+g.id+"_"+d); if(tk) tk.innerHTML = ticks;
+      var el = $("wkp_"+g.id+"_"+d);
+      if(el){
+        reconcileMeals(d, g.id, cnt);
+        el.innerHTML = Object.keys(cnt).map(function(j){ var c=cnt[j], rem = c - assignedCount(d, g.id, +j), done = rem<=0.001;
+          return '<span class="kg-it kg-pr'+(done?' done':'')+(PICK&&PICK.d===d&&PICK.g===g.id&&PICK.j===+j?' picked':'')+'" draggable="'+(!done)+'" data-d="'+d+'" data-g="'+g.id+'" data-j="'+j+'" title="'+(done?'განაწილებულია':'გადაიტანე ქვემოთ, ან დააჭირე და მერე აირჩიე კვება')+'">'+SHORT[g.id][j]+
+            '<b class="n-tot">'+(c!==1?' ×'+frac(c):'')+'</b><b class="n-rem">'+(done?' ✓':(rem!==1?' ×'+frac(rem):''))+'</b>'+
+            '<button type="button" class="kg-x kg-noprint" data-g="'+g.id+'" data-d="'+d+'" data-j="'+j+'" title="წაშლა" aria-label="წაშლა">×</button></span>'; }).join("");
+        el.parentNode.classList.toggle("auto", Object.keys(cnt).length>0);
+      }
+    }
+    any += week;
+    // counters on part 2 (current day being filled / whole week)
+    var full = cur<0, c = $("kgCnt_"+g.id);
+    if(c) c.innerHTML = '<span class="kg-cnt-p"><span class="kg-cnt-i"><b>'+frac(full?n:curSum)+'/'+frac(n)+'</b> <span>'+(full?'დღეში':DAYS[cur])+'</span></span><span class="kg-cnt-i"><b>'+frac(week)+'/'+frac(n*7)+'</b> <span>კვირაში</span></span>'+(full?'<span class="kg-cnt-ok">✓</span>':'')+'</span>'+
+      '<span class="kg-cnt-tg"><span class="kg-cnt-i"><b>'+frac(n)+'</b> <span>დღეში</span></span><span class="kg-cnt-i"><b>'+frac(n*7)+'</b> <span>კვირაში</span></span></span>';
+    var row = $("kgEqRow_"+g.id); if(row) row.classList.toggle("full", full);
+    // tile badges
+    Array.prototype.forEach.call(document.querySelectorAll('#kgEq .kg-op[data-g="'+i+'"]'),function(t){
+      var j = +t.getAttribute("data-j"), c2 = tot[j]||0;
+      t.classList.toggle("on", c2>0);
+      t.querySelector(".kg-ck").textContent = c2>0 ? '×'+frac(c2) : '+';
+    });
+    // shopping list for this group
+    var keys = Object.keys(tot), empty = '<ul class="empty"><li></li><li></li><li></li><li></li></ul>';
+    shop += '<div class="kg-shop-g" style="'+vars(g)+'"><div class="kg-shop-gh">'+circ(g.id,g.color)+'<b>'+g.name+'</b></div>'+
+      (keys.length ? '<ul class="kg-buyl">'+keys.map(function(j){ var nm='buy_'+g.id+'_'+j;
+          return '<li><label class="kg-buy"><input type="checkbox" name="'+nm+'"'+(bought[nm]?' checked':'')+'><span></span></label><span class="nm">'+SHORT[g.id][j]+'</span><i>'+qtyHTML(g.id,+j,tot[j])+'</i></li>'; }).join("")+'</ul>'+empty.replace('class="empty"','class="empty bo"')
+        : empty)+'</div>';
+  });
+  $("kgShopList").innerHTML = shop;
+  $("kgShopSec").classList.toggle("none", !any);
+  $("kgSelInfo").innerHTML = any ? '<b>'+frac(any)+'</b> <span>პორცია ჩაწერილია კვირის ცხრილში</span>' : '<span>დააჭირე საკვებს — ყოველი დაჭერა = 1 პორცია</span>';
+  $("kgSelBar").classList.toggle("has", !!any);
+  $("kgCopyMon").disabled = !monday;
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek .kg-x"),function(x){
+    x.onclick = function(ev){ ev.stopPropagation(); removeServing(x.getAttribute("data-g"), +x.getAttribute("data-d"), +x.getAttribute("data-j")); renderWeekFill(); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek .kg-pr"),function(ch){
+    var d=+ch.getAttribute("data-d"), gid=ch.getAttribute("data-g"), j=+ch.getAttribute("data-j");
+    ch.addEventListener("dragstart",function(ev){ PICK={d:d,g:gid,j:j}; try{ ev.dataTransfer.setData("text/plain", d+"|"+gid+"|"+j); ev.dataTransfer.effectAllowed="copy"; }catch(e){} markTargets(); });
+    ch.addEventListener("dragend",function(){ setTimeout(function(){ PICK=null; markTargets(); },0); });
+    ch.onclick = function(){
+      if(ch.classList.contains("done")) return;
+      PICK = (PICK && PICK.d===d && PICK.g===gid && PICK.j===j) ? null : {d:d,g:gid,j:j};
+      renderWeekFill(); markTargets();
+      if(PICK) toast('<span>ახლა დააჭირე კვებას ქვემოთ —</span> <b>'+DAYS[d]+'</b>');
+    };
+  });
+  renderMeals();
+}
+
+/* ---------- meals: distribute the day's products and name the dish ---------- */
+var PICK = null;
+var MEAL_N = 5;
+function mealList(d, mi){ var k=d+"_"+mi; STATE.meal = STATE.meal || {}; return STATE.meal[k] || (STATE.meal[k]=[]); }
+function assignedCount(d, gid, j){
+  var t=0; for(var mi=0; mi<MEAL_N; mi++) mealList(d,mi).forEach(function(e){ if(e[0]===gid && e[1]===j) t+=e[2]; }); return t;
+}
+function reconcileMeals(d, gid, cnt){          // never keep more in the meals than the day actually has
+  var items = {}; for(var mi=0; mi<MEAL_N; mi++) mealList(d,mi).forEach(function(e){ if(e[0]===gid) items[e[1]]=1; });
+  Object.keys(items).forEach(function(j){
+    j=+j; var have = cnt[j]||0, extra = assignedCount(d,gid,j) - have;
+    for(var mi=MEAL_N-1; mi>=0 && extra>0.001; mi--){
+      var L = mealList(d,mi);
+      for(var k=L.length-1; k>=0 && extra>0.001; k--) if(L[k][0]===gid && L[k][1]===j){ extra -= L[k][2]; L.splice(k,1); }
+    }
+  });
+}
+function dayCount(d, gid, j){
+  var gi = GROUPS.map(function(x){ return x.id; }).indexOf(gid), n = STATE.srv[gi], t=0;
+  STATE.slots[gid][d].forEach(function(x,k){ if(x===j) t += slotVal(n,k); }); return t;
+}
+function assignTo(d, mi, gid, j){
+  var rem = dayCount(d,gid,j) - assignedCount(d,gid,j);
+  if(rem <= 0.001) return false;
+  mealList(d,mi).push([gid, j, rem>=1 ? 1 : rem]);
+  return true;
+}
+function unassign(d, mi, gid, j){
+  var L = mealList(d,mi);
+  for(var k=L.length-1;k>=0;k--) if(L[k][0]===gid && L[k][1]===j){ L.splice(k,1); return; }
+}
+function markTargets(){
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek .kg-mc"),function(c){
+    c.classList.toggle("target", !!PICK && +c.getAttribute("data-d")===PICK.d);
+  });
+}
+function renderMeals(){
+  var gidx = {}; GROUPS.forEach(function(g,i){ gidx[g.id]=i; });
+  for(var d=0; d<7; d++) for(var mi=0; mi<MEAL_N; mi++){
+    var box = $("mci_"+mi+"_"+d); if(!box) continue;
+    var agg = {}, order = [];
+    mealList(d,mi).forEach(function(e){ var k=e[0]+":"+e[1]; if(!(k in agg)){ agg[k]=0; order.push(k); } agg[k]+=e[2]; });
+    box.innerHTML = order.map(function(k){
+      var p=k.split(":"), g=GROUPS[gidx[p[0]]], c=agg[k];
+      return '<span class="kg-it" style="'+vars(g)+'">'+SHORT[g.id][+p[1]]+(c!==1?' <b>×'+frac(c)+'</b>':'')+
+        '<button type="button" class="kg-x kg-x2 kg-noprint" data-d="'+d+'" data-m="'+mi+'" data-g="'+p[0]+'" data-j="'+p[1]+'" title="დაბრუნება" aria-label="დაბრუნება">×</button></span>';
+    }).join("");
+    box.parentNode.classList.toggle("has", order.length>0);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek .kg-x2"),function(x){
+    x.onclick = function(ev){ ev.stopPropagation(); unassign(+x.getAttribute("data-d"), +x.getAttribute("data-m"), x.getAttribute("data-g"), +x.getAttribute("data-j")); renderWeekFill(); };
+  });
+  markTargets();
+}
+function bindMealCells(){
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek .kg-mc"),function(c){
+    var d=+c.getAttribute("data-d"), mi=+c.getAttribute("data-m");
+    c.addEventListener("dragover",function(ev){ if(PICK && PICK.d===d){ ev.preventDefault(); c.classList.add("over"); } });
+    c.addEventListener("dragleave",function(){ c.classList.remove("over"); });
+    c.addEventListener("drop",function(ev){
+      ev.preventDefault(); c.classList.remove("over");
+      var p = PICK; if(!p){ try{ var t=ev.dataTransfer.getData("text/plain").split("|"); p={d:+t[0],g:t[1],j:+t[2]}; }catch(e){} }
+      if(p && p.d===d){ assignTo(d, mi, p.g, p.j); PICK=null; renderWeekFill(); }
+    });
+    c.addEventListener("click",function(ev){
+      if(ev.target.closest("button")) return;
+      if(!(PICK && PICK.d===d) && ev.target.closest("textarea")) return;
+      if(PICK && PICK.d===d && ev.target.closest("textarea")){ ev.preventDefault(); ev.target.blur(); }
+      if(PICK && PICK.d===d){ assignTo(d, mi, PICK.g, PICK.j); if(dayCount(d,PICK.g,PICK.j)-assignedCount(d,PICK.g,PICK.j) <= 0.001) PICK=null; renderWeekFill(); }
+      else if(!PICK) { var inp=c.querySelector("textarea"); if(inp) inp.focus(); }
+    });
+  });
+}
+function copyMonday(){
+  GROUPS.forEach(function(g){ var S = STATE.slots[g.id]; for(var d=1; d<7; d++) S[d] = S[0].slice(); });
+  for(var d=1; d<7; d++) for(var mi=0; mi<MEAL_N; mi++) STATE.meal[d+"_"+mi] = mealList(0,mi).map(function(e){ return e.slice(); });
+  renderWeekFill();
+}
+function toast(msg){
+  var t = $("kgToast"); $("kgToastMsg").innerHTML = msg; t.classList.add("show");
+  clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+}
+
+function renderPlan(){
+  var o = STATE.r.options[CUR], srv = planServings(STATE.r.group, o.plan, STATE.d.age);
+  $("kgKcal").textContent = o.plan;
+  // tabs
+  if(STATE.r.options.length>1){
+    $("kgTabs").innerHTML = STATE.r.options.map(function(op,i){
+      return '<button type="button" class="kg-tab'+(i===CUR?' on':'')+'" data-i="'+i+'"><small>'+op.label+'</small><b>'+op.plan+'</b> <span>კკალ</span></button>';
+    }).join("");
+    Array.prototype.forEach.call($("kgTabs").querySelectorAll(".kg-tab"),function(b){ b.onclick=function(){ CUR=+b.getAttribute("data-i"); renderPlan(); }; });
+  } else $("kgTabs").innerHTML = "";
+  // note
+  var note = "";
+  if(o.floored){
+    note += '<span class="warn">'+(STATE.d.age>=18
+      ? 'გამოთვლილი ენერგია 1600 კკალ-ზე ნაკლებია. ასეთი დაბალკალორიული გეგმა ინდივიდუალურად, დიეტოლოგთან ერთად უნდა შედგეს — მანამდე ნაჩვენებია 1600 კკალ-ის გეგმა.'
+      : 'ამ ასაკისთვის გეგმა ნაჩვენებია მინიმალური რეკომენდებული ენერგიით.')+'</span>';
+  }
+  if(STATE.d.preg==="preg") note += '<span class="warn">ორსულობის დროს კვების გეგმა აუცილებლად შეათანხმე ექიმთან ან დიეტოლოგთან.</span>';
+  $("kgNote").innerHTML = note;
+  document.querySelector(".kg-sum").classList.toggle("nonote", !note);
+  document.querySelector(".kg-sum").classList.toggle("solo", !note && STATE.r.options.length<2);
+
+  // plan cards
+  $("kgPlan").innerHTML = GROUPS.map(function(g,i){
+    return '<div class="kg-pc" style="'+vars(g)+'">'+circ(g.id,g.color)+'<h4>'+g.name+'</h4>'+
+      '<div class="kg-srv"><b>'+frac(srv[i])+'</b><span>პორცია</span></div>'+dots(srv[i])+'<p>'+g.tip+'</p></div>';
+  }).join("");
+
+  STATE.srv = srv;
+  ensureSlots();
+  // part 2: one calm row per group; each tap on a food = 1 serving placed in the weekly table
+  $("kgEq").innerHTML = '<div class="kg-eq-legend"><span class="kg-eq-one">1 პორცია</span> <span>= ნებისმიერი ერთი ვარიანტი ჯგუფიდან.</span> <span>ყოველი დაჭერა ამატებს 1 პორციას კვირის ცხრილში.</span></div>'+
+    GROUPS.map(function(g,i){
+    return '<div class="kg-er2" id="kgEqRow_'+g.id+'" style="'+vars(g)+'">'+
+      '<div class="kg-er2-h">'+circ(g.id,g.color)+'<div><b>'+g.name+'</b><span class="kg-cnt" id="kgCnt_'+g.id+'"></span></div></div>'+
+      '<div class="kg-opts">'+g.items.map(function(it,j){
+        return '<button type="button" class="kg-op" data-g="'+i+'" data-j="'+j+'">'+
+          '<span class="kg-op-i">'+fic(it[0])+'</span><span class="kg-op-t"><span class="kg-fa">'+amtHTML(it[1])+'</span><span class="kg-fn">'+it[2]+'</span></span><span class="kg-ck">+</span></button>';
+      }).join("")+
+      (g.rainbow?'<div class="kg-rb"><span class="kg-rb-l">გააფერადე თეფში:</span>'+RAINBOW.map(function(c){ return '<span class="kg-rb-i"><i style="background:'+c[0]+'"></i><span>'+c[1]+'</span></span>'; }).join("")+'</div>':'')+
+      '</div></div>';
+  }).join("");
+  Array.prototype.forEach.call(document.querySelectorAll("#kgEq .kg-op"),function(t){
+    t.onclick = function(){
+      var gi = +t.getAttribute("data-g"), j = +t.getAttribute("data-j"), d = addServing(gi, j);
+      if(d<0){ var row=$("kgEqRow_"+GROUPS[gi].id); row.classList.add("shake"); setTimeout(function(){ row.classList.remove("shake"); },500);
+        toast('<span>ამ ჯგუფის კვირის პორციები უკვე შევსებულია</span> <a href="#kgWeekSec">ნახვა ↓</a>'); return; }
+      renderWeekFill();
+      toast('✓ <span>დაემატა:</span> <b>'+DAYS[d]+'</b> <a href="#kgWeekSec">ნახვა ↓</a>');
+    };
+  });
+
+  // weekly table Mon–Sun: filled from part 2 (removable with ×), meals are written by hand
+  var saved = {};
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek textarea"),function(inp){ saved[inp.name] = inp.value; });
+  var lines = function(n){ var h=""; for(var q=0;q<n;q++) h+='<i class="kg-ln"></i>'; return h; };
+  var html = '<table class="kg-wk"><thead><tr><th class="kg-wk-g"></th>'+DAYS.map(function(d){ return '<th>'+d+'</th>'; }).join("")+'</tr></thead><tbody>';
+  GROUPS.forEach(function(g,i){
+    var n = srv[i];
+    html += '<tr style="'+vars(g)+'"><th class="kg-wk-g"><div class="kg-wk-gh">'+circ(g.id,g.color)+'<div><b>'+g.name+'</b><span class="kg-cnt"><b>'+frac(n)+'</b> <span>დღეში</span></span></div></div></th>';
+    for(var d=0; d<7; d++){
+      html += '<td><div class="kg-tks" id="wkt_'+g.id+'_'+d+'"></div><div class="kg-wkp-w"><div class="kg-wkp" id="wkp_'+g.id+'_'+d+'"></div><div class="kg-wkp-ln">'+lines(2)+'</div></div></td>';
+    }
+    html += '</tr>';
+  });
+  var MEALS = ["საუზმე","სადილი","ვახშამი","ხემსი 1","ხემსი 2"];
+  html += '<tr class="kg-meal-h"><th colspan="8"><div class="kg-wk-gh"><div class="kg-circ" style="background:#D9869B">'+IC.pot+'</div><div><b>რას მოვამზადებ?</b> <span>ამ დღის პროდუქტებით</span><span class="kg-meal-hint kg-noprint">გადაიტანე პროდუქტი ზემოდან საჭირო კვებაში (ან დააჭირე პროდუქტს, მერე — კვებას) და ჩაწერე კერძის სახელი</span></div></div></th></tr>';
+  MEALS.forEach(function(m,mi){
+    html += '<tr class="kg-meal"><th class="kg-wk-g"><span class="kg-meal-l">'+m+'</span></th>';
+    for(var d2=0; d2<7; d2++) html += '<td><div class="kg-mc" data-d="'+d2+'" data-m="'+mi+'"><textarea class="kg-meal-t" id="mealt_'+mi+'_'+d2+'" name="mealt_'+mi+'_'+d2+'" rows="2" placeholder="რას მოვამზადებ?"></textarea><div class="kg-mc-items" id="mci_'+mi+'_'+d2+'"></div><div class="kg-mc-ln">'+lines(1)+'</div></div></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  $("kgWeek").innerHTML = html;
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek textarea"),function(inp){ if(saved[inp.name]!==undefined) inp.value = saved[inp.name]; });
+  Array.prototype.forEach.call(document.querySelectorAll("#kgWeek textarea.kg-meal-t"),function(t){
+    var grow=function(){ t.style.height="auto"; t.style.height=(t.scrollHeight+2)+"px"; };
+    t.addEventListener("input",grow); if(t.value) setTimeout(grow,0);
+  });
+  PICK = null; bindMealCells();
+  renderWeekFill();
+
+  // tips
+  var kcal = o.plan, kid = STATE.d.age<18;
+  var sugar = Math.round(kcal*0.10/4/5)*5, satfat = Math.round(kcal*0.10/9);
+  $("kgTips").innerHTML =
+    '<div class="kg-tip">'+circ("water","#6FA8DC")+'<div><h4>წყალი</h4><ul><li>ძირითადი სასმელი — წყალი.</li><li>შეზღუდე შაქრიანი სასმელები და წვენები.</li></ul></div></div>'+
+    '<div class="kg-tip">'+circ("limit","#D12E7A")+'<div><h4>შეამცირე</h4><ul>'+
+      '<li><span>დამატებული შაქარი — მაქსიმუმ</span> <b>'+sugar+'</b> <span>გ დღეში</span></li>'+
+      '<li><span>ნაჯერი ცხიმი — მაქსიმუმ</span> <b>'+satfat+'</b> <span>გ დღეში</span></li>'+
+      '<li>'+(kid?'მარილი — 5 გ-ზე ნაკლები (ბავშვებში — ასაკის შესაბამისად კიდევ ნაკლები)':'მარილი — 5 გ-ზე ნაკლები (1 ჩაის კოვზზე ნაკლები)')+'</li></ul></div></div>'+
+    '<div class="kg-tip">'+circ("activity","#1F4E79")+'<div><h4>ფიზიკური აქტივობა</h4><ul>'+
+      (kid?'<li>ყოველდღე მინიმუმ 60 წუთი ზომიერი ან ინტენსიური აქტივობა.</li><li>ეკრანთან გატარებული დროის შეზღუდვა.</li>'
+          :'<li>კვირაში მინიმუმ 150 წუთი ზომიერი აქტივობა.</li><li>კვირაში 2-ჯერ კუნთების გამაძლიერებელი ვარჯიში.</li>')+'</ul></div></div>';
+}
+
+function renderResult(){
+  var d = STATE.d, r = STATE.r;
+  CUR = r.options.length>1 ? 1 : 0;      // default: healthy-weight plan when offered
+  var meta = '<span>ასაკი:</span> <b>'+d.age+'</b> <span>წ</span> · <span>'+(d.sex==="m"?'მამრობითი':'მდედრობითი')+'</span> · <span>წონა:</span> <b>'+d.w+'</b> <span>კგ</span> · <span>სიმაღლე:</span> <b>'+d.h+'</b> <span>სმ</span>';
+  if(d.age>=9) meta += '<br><span>BMI:</span> <b>'+r.bmi.toFixed(1)+'</b> — <span>'+BMI_TXT[r.cls]+'</span>';
+  $("kgMeta").innerHTML = meta;
+  $("kgPhName").textContent = d.name||"";
+  $("kgPlateImg").innerHTML = plateSVG();
+  renderPlan();
+  $("kgForm").style.display="none"; $("kgResult").style.display="block";
+  window.scrollTo({top:$("kgResult").getBoundingClientRect().top+window.pageYOffset-90,behavior:"smooth"});
+}
+
+function readForm(){
+  var d = {
+    age: parseInt($("kgAge").value,10), sex: $("kgSex").value,
+    w: parseFloat($("kgW").value), h: parseFloat($("kgH").value), act: $("kgAct").value,
+    preg: $("kgPregWrap").style.display==="none" ? "none" : $("kgPreg").value,
+    tri: +$("kgTri").value, lacAmt: $("kgLacAmt").value, lacTime: $("kgLacTime").value,
+    name: $("kgName").value.trim()
+  };
+  if(isNaN(d.age)||d.age<4||d.age>100) return [null,"ასაკი უნდა იყოს 4-დან 100 წლამდე."];
+  if(!d.sex) return [null,"აირჩიე სქესი."];
+  if(isNaN(d.w)||d.w<14||d.w>300) return [null,"წონა უნდა იყოს 14–300 კგ."];
+  if(isNaN(d.h)||d.h<90||d.h>230) return [null,"სიმაღლე უნდა იყოს 90–230 სმ."];
+  if(!d.act) return [null,"აირჩიე ფიზიკური აქტივობა."];
+  return [d,""];
+}
+function syncCond(){
+  var age=parseInt($("kgAge").value,10), f=$("kgSex").value==="f" && age>=14 && age<=50;
+  $("kgPregWrap").style.display = f?"":"none";
+  var p = f ? $("kgPreg").value : "none";
+  $("kgTriWrap").style.display = p==="preg"?"":"none";
+  $("kgLacAmtWrap").style.display = p==="lact"?"":"none";
+  $("kgLacTimeWrap").style.display = p==="lact"?"":"none";
+}
+
+
+/* ---------- PRINT ----------
+   Inside an embedded preview (iframe) browsers often block window.print(); then we offer a printable copy
+   of the current page (with everything filled in) in a new window, or as an .html file. */
+var PRINT_BLANK = false;
+function inFrame(){ try{ return window.self !== window.top; }catch(e){ return true; } }
+function doPrint(blank){
+  if(document.activeElement) document.activeElement.blur();
+  PRINT_BLANK = blank;
+  document.body.classList.toggle("kg-blank", blank);
+  if(inFrame()) $("kgPrintHelp").classList.add("show");
+  try{ window.print(); }catch(e){ $("kgPrintHelp").classList.add("show"); }
+  if(blank) setTimeout(function(){ document.body.classList.remove("kg-blank"); },500);
+}
+function snapshotHTML(blank){
+  // write the current values into the markup so the copy looks exactly like the page
+  Array.prototype.forEach.call(document.querySelectorAll("input"),function(x){
+    if(x.type==="checkbox"){ if(x.checked) x.setAttribute("checked",""); else x.removeAttribute("checked"); }
+    else x.setAttribute("value", x.value);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("textarea"),function(x){ x.textContent = x.value; });
+  Array.prototype.forEach.call(document.querySelectorAll("select option"),function(o){ if(o.selected) o.setAttribute("selected",""); else o.removeAttribute("selected"); });
+  var doc = document.documentElement.cloneNode(true);
+  Array.prototype.forEach.call(doc.querySelectorAll("script"),function(sc){ sc.parentNode.removeChild(sc); });
+  // keep relative links (site CSS, images) working in the copy
+  if(/^(https?|file):/.test(location.href)){ var bs = doc.ownerDocument.createElement("base"); bs.href = location.href.split("#")[0]; var hd = doc.querySelector("head"); hd.insertBefore(bs, hd.firstChild); }
+  var h = doc.querySelector("#kgPrintHelp"); if(h) h.parentNode.removeChild(h);
+  var b = doc.querySelector("body"); b.classList.toggle("kg-blank", !!blank);
+  doc.classList.remove("kg-rotfb");
+  return "<!DOCTYPE html>\n"+doc.outerHTML.replace("</body>","<script>try{if(!(window.CSS&&CSS.supports&&CSS.supports('page','wk')))document.documentElement.classList.add('kg-rotfb');}catch(e){document.documentElement.classList.add('kg-rotfb');}window.addEventListener('load',function(){setTimeout(function(){window.print();},500);});<\/script></body>");
+}
+function openPrintCopy(blank, asFile){
+  var html = snapshotHTML(blank), url;
+  try{ url = URL.createObjectURL(new Blob([html],{type:"text/html"})); }catch(e){ url = null; }
+  if(!asFile && url){
+    var w = null; try{ w = window.open(url, "_blank"); }catch(e){}
+    if(w) return;
+  }
+  var a = document.createElement("a");
+  a.href = url || ("data:text/html;charset=utf-8,"+encodeURIComponent(html));
+  a.download = "chemi-tefshi"+(blank?"-carieli":"")+".html";
+  document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },1000);
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  // browsers without named-page support (e.g. Safari) print the weekly table rotated on a portrait page
+  try{ if(!(window.CSS && CSS.supports && CSS.supports("page","wk"))) document.documentElement.classList.add("kg-rotfb"); }catch(e){ document.documentElement.classList.add("kg-rotfb"); }
+  ["kgAge","kgSex","kgPreg"].forEach(function(id){ $(id).addEventListener("input",syncCond); $(id).addEventListener("change",syncCond); });
+  $("kgGo").onclick = function(){
+    var res = readForm();
+    if(!res[0]){ $("kgErr").textContent = res[1]; return; }
+    $("kgErr").textContent = "";
+    STATE = {d:res[0], r:compute(res[0])};
+    renderResult();
+  };
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && PICK){ PICK=null; renderWeekFill(); } });
+  $("kgCopyMon").onclick = function(){ if(STATE && STATE.slots) copyMonday(); };
+  $("kgReset").onclick = function(){ $("kgResult").style.display="none"; $("kgForm").style.display=""; window.scrollTo({top:0,behavior:"smooth"}); };
+  $("kgPrint").onclick = function(){ doPrint(false); };
+  $("kgPrintBlank").onclick = function(){ doPrint(true); };
+  $("kgPrintNew").onclick = function(){ openPrintCopy(PRINT_BLANK, false); };
+  $("kgPrintSave").onclick = function(){ openPrintCopy(PRINT_BLANK, true); };
+});
+window.__kg = {compute:compute, PLANS:PLANS, planServings:planServings};
+})();
+</script>
+</body>
+</html>

@@ -1215,7 +1215,15 @@ var M = {
 "მიღებულ ცოდნასა და გამოცდილებას ნინი საქართველოში კლინიკურ პრაქტიკასა და პროფესიულ საგანმანათლებლო საქმიანობაში გამოიყენებს.":"Nini will apply the knowledge and experience she gains in clinical practice and professional education in Georgia.",
 "— ჩვენი წევრები ევროპული საზოგადოების სრულ წევრობას შეღავათიანი ტარიფით იღებენ და, შესაბამისად, გრანტებზე წვდომაც უჩნდებათ.":"— our members receive full membership of the European society at a reduced rate and, with it, access to grants.",
 "გილოცავთ, ნინი!":"Congratulations, Nini!",
-"23 სექტემბერი, 2026":"23 September, 2026"
+"23 სექტემბერი, 2026":"23 September, 2026",
+/* ===== Intro meeting recording ===== */
+"ჩატარდა 30 სექტემბერს — ჩანაწერს შეგიძლიათ უყუროთ აქ →":"Held on 30 September — you can watch the recording here →",
+"ჩატარდა ონლაინ გაცნობითი შეხვედრა — GSPEN-ის საქმიანობა და ESPEN-ის წევრობის შესაძლებლობები. ჩანაწერს შეგიძლიათ უყუროთ აქ.":"The online introductory meeting took place — GSPEN's activities and the opportunities of ESPEN membership. You can watch the recording here.",
+"30 სექტემბერს ჩატარდა GSPEN-ის ონლაინ გაცნობითი შეხვედრა. GSPEN-ის გუნდმა წარმოგიდგინათ საზოგადოების საქმიანობა და ის საერთაშორისო შესაძლებლობები, რომლებსაც ESPEN-ის წევრობა ქართველ ექიმებს, დიეტოლოგებსა და სტუდენტებს უხსნის.":"On 30 September GSPEN held its online introductory meeting. The GSPEN team presented the society's activities and the international opportunities that ESPEN membership opens up for Georgian doctors, dietitians and students.",
+"ვისაუბრეთ:":"We talked about:",
+"ჩანაწერს შეგიძლიათ უყუროთ აქ.":"You can watch the recording here.",
+"30 სექტემბერს ჩატარდა GSPEN-ის გაცნობითი შეხვედრა, სადაც ESPEN-ის გრანტებსა და წევრობის სხვა შესაძლებლობებზეც ვისაუბრეთ. ჩანაწერს შეგიძლიათ უყუროთ აქ:":"On 30 September GSPEN held its introductory meeting, where we also talked about ESPEN grants and other membership opportunities. You can watch the recording here:",
+"ჩანაწერის ნახვა →":"Watch the recording →"
 };
 
 /* regex fallbacks for composed strings */

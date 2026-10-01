@@ -1264,7 +1264,8 @@ var M = {
 "სიმსუქნის მქონე ბავშვს შეიძლება ერთდროულად ჰქონდეს ენერგიის ჭარბი მიღება და კონკრეტული მიკრონუტრიენტების დეფიციტი. ამიტომ ბავშვთა სიმსუქნის შეფასებისას ყურადღება მხოლოდ სხეულის წონასა და BMI-ზე არ უნდა გავამახვილოთ.":"A child with obesity can have excess energy intake and specific micronutrient deficiencies at the same time. When assessing childhood obesity, we should therefore not focus on body weight and BMI alone.",
 "არანაკლებ მნიშვნელოვანია კითხვა —":"Just as important is the question —",
 "რამდენად სრულფასოვანია ბავშვის კვება და იღებს თუ არა ის ზრდა-განვითარებისთვის აუცილებელ საკვებ ნივთიერებებს?":"how complete is the child's diet, and is the child getting the nutrients needed for growth and development?",
-"მომზადებულია ნინა ზივზივაძის მიერ":"Prepared by Nina Zivzivadze"
+"მომზადებულია ნინა ზივზივაძის მიერ":"Prepared by Nina Zivzivadze",
+"პედიატრი, ბავშვთა ენდოკრინოლოგიის რეზიდენტი":"Paediatrician, paediatric endocrinology resident"
 };
 
 /* regex fallbacks for composed strings */

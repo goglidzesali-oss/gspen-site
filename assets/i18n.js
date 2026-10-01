@@ -1265,7 +1265,15 @@ var M = {
 "არანაკლებ მნიშვნელოვანია კითხვა —":"Just as important is the question —",
 "რამდენად სრულფასოვანია ბავშვის კვება და იღებს თუ არა ის ზრდა-განვითარებისთვის აუცილებელ საკვებ ნივთიერებებს?":"how complete is the child's diet, and is the child getting the nutrients needed for growth and development?",
 "მომზადებულია ნინა ზივზივაძის მიერ":"Prepared by Nina Zivzivadze",
-"პედიატრი, ბავშვთა ენდოკრინოლოგიის რეზიდენტი":"Paediatrician, paediatric endocrinology resident"
+"პედიატრი, ბავშვთა ენდოკრინოლოგიის რეზიდენტი":"Paediatrician, paediatric endocrinology resident",
+/* ===== ESPEN Basic Course 2026 (home) ===== */
+"ESPEN-ის კურსი · რეგისტრაცია 10 ოქტომბრამდე":"ESPEN course · registration until 10 October",
+"31-ე ESPEN Basic Course კლინიკურ კვებასა და მეტაბოლიზმში":"31st ESPEN Basic Course in Clinical Nutrition and Metabolism",
+"8–13 ნოემბერი 2026, ბუქარესტი — ESPEN-ის წევრებისთვის 250 €, GSPEN-ის რეკომენდაციით":"8–13 November 2026, Bucharest — €250 for ESPEN members, with a GSPEN recommendation",
+"ოფიციალური საიტი →":"Official website →",
+"კურსი":"Course",
+"8–13 ნოემბერი 2026 · ბუქარესტი":"8–13 November 2026 · Bucharest",
+"ESPEN-ის 6-დღიანი საბაზისო კურსი ექიმებისა და ჯანდაცვის სპეციალისტებისთვის. ESPEN-ის წევრებისთვის — 250 €, GSPEN-ის რეკომენდაციის წერილით. რეგისტრაცია 10 ოქტომბრამდე →":"ESPEN's 6-day basic course for doctors and healthcare professionals. €250 for ESPEN members, with a GSPEN recommendation letter. Registration until 10 October →"
 };
 
 /* regex fallbacks for composed strings */

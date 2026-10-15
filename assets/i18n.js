@@ -279,6 +279,8 @@ var M = {
 "ონლაინ ვებინარი კვებაზე ბარიატრიული ქირურგიის წინ და შემდეგ — შეფასება, სტანდარტები, ხშირი შეცდომები. რეგისტრაციის ბმული მალე დაემატება.":"Online webinar on nutrition before and after bariatric surgery — assessment, standards, common mistakes. Registration link coming soon.",
 "ონლაინ ვებინარი ცელიაკიაზე — დიაგნოზი, უგლუტენო დიეტა და ვიტამინების მენეჯმენტი. რეგისტრაციის ბმული მალე დაემატება.":"Online webinar on celiac disease — diagnosis, gluten-free diet and vitamin management. Registration link coming soon.",
 "რეგისტრაცია მალე გაიხსნება — ბმული ამ გვერდზე დაემატება.":"Registration will open soon — the link will be added to this page.",
+"სიმპოზიუმი ონლაინ, Google Meet-ზე გაიმართება. დასწრება უფასოა.":"The symposium will be held online on Google Meet. Attendance is free.",
+"შეუერთდით Google Meet-ით →":"Join on Google Meet →",
 "GSPEN-ის (საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის საზოგადოება) ორგანიზებით გაიმართება ონლაინ ვებინარი, რომელიც ეძღვნება კვების მართვას ტიპი I დიაბეტის დროს.":"Organized by GSPEN (the Georgian Society for Parenteral, Enteral Nutrition and Metabolism), an online webinar will be held on nutrition management in type 1 diabetes.",
 "GSPEN-ის (საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის საზოგადოება) ორგანიზებით გაიმართება ონლაინ ვებინარი, რომელიც ეძღვნება კვებას ბარიატრიული ქირურგიის გარშემო.":"Organized by GSPEN (the Georgian Society for Parenteral, Enteral Nutrition and Metabolism), an online webinar will be held on nutrition around bariatric surgery.",
 "GSPEN-ის (საქართველოს პარენტერალური, ენტერალური კვებისა და მეტაბოლიზმის საზოგადოება) ორგანიზებით გაიმართება ონლაინ ვებინარი, რომელიც ეძღვნება ცელიაკიის დროს კვების მართვას.":"Organized by GSPEN (the Georgian Society for Parenteral, Enteral Nutrition and Metabolism), an online webinar will be held on nutrition management in celiac disease.",
@@ -1273,7 +1275,14 @@ var M = {
 "ოფიციალური საიტი →":"Official website →",
 "კურსი":"Course",
 "8–13 ნოემბერი 2026 · ბუქარესტი":"8–13 November 2026 · Bucharest",
-"ESPEN-ის 6-დღიანი საბაზისო კურსი ექიმებისა და ჯანდაცვის სპეციალისტებისთვის. ESPEN-ის წევრებისთვის — 250 €, GSPEN-ის რეკომენდაციის წერილით. რეგისტრაცია 10 ოქტომბრამდე →":"ESPEN's 6-day basic course for doctors and healthcare professionals. €250 for ESPEN members, with a GSPEN recommendation letter. Registration until 10 October →"
+"ESPEN-ის 6-დღიანი საბაზისო კურსი ექიმებისა და ჯანდაცვის სპეციალისტებისთვის. ESPEN-ის წევრებისთვის — 250 €, GSPEN-ის რეკომენდაციის წერილით. რეგისტრაცია 10 ოქტომბრამდე →":"ESPEN's 6-day basic course for doctors and healthcare professionals. €250 for ESPEN members, with a GSPEN recommendation letter. Registration until 10 October →",
+"სიმპოზიუმი · 25 ოქტომბერი, 13:00 · ონლაინ":"Symposium · 25 October, 13:00 · online",
+"მალნუტრიცია ბარიატრიულ ქირურგიაში":"Malnutrition in bariatric surgery",
+"ოთხი მოხსენება — დასწრება უფასოა, საჭიროა რეგისტრაცია":"Four talks — attendance is free, registration required",
+"დეტალები და რეგისტრაცია →":"Details and registration →",
+"25 ოქტომბერი, 2026 · 13:00 · ონლაინ":"25 October 2026 · 13:00 · online",
+"სიმპოზიუმი: მალნუტრიცია ბარიატრიულ ქირურგიაში":"Symposium: Malnutrition in bariatric surgery",
+"ოთხი მოხსენება — სარკოპენიული სიმსუქნიდან გასტროენტეროლოგიურ გართულებებამდე. დასწრება უფასოა, დარეგისტრირდი →":"Four talks — from sarcopenic obesity to gastroenterological complications. Attendance is free — register →",
 };
 
 /* regex fallbacks for composed strings */

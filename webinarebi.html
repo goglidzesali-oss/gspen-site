@@ -284,7 +284,7 @@ function submitGate(i){
     postToForm(GATE.action, fields);
   }
   grantAccess();
-  renderWebinar(i);
+  renderWebinar(i, true);
 }
 function qaArea(w, i){
   var out = "";
@@ -321,15 +321,16 @@ function submitAsk(i){
   document.getElementById("askOk").style.display = "block";
 }
 
-function renderWebinar(i){
+function renderWebinar(i, keepVideo){
   var w = WEBINARS[i];
   if(!w){ renderWebinars(); return; }
   document.getElementById("webList").style.display="none";
   document.getElementById("webHero").style.display="none";
   document.getElementById("webDetail").style.display="";
-  var actions = "";
+  var actions = "", videoTop = "";
   if(!w.upcoming && (w.youtube || w.video)){
-    actions = videoArea(w, i) + qaArea(w, i);
+    videoTop = '<div id="wbVideo" style="margin:22px 0 26px">' + videoArea(w, i) + '</div>';
+    actions = qaArea(w, i);
   } else if(w.upcoming && w.meet){
     actions = '<div class="reg-box"><p>სიმპოზიუმი ონლაინ, Google Meet-ზე გაიმართება. დასწრება უფასოა.</p>' +
       '<a class="btn red" href="'+esc(w.meet)+'" target="_blank" rel="noopener">შეუერთდით Google Meet-ით →</a></div>';
@@ -348,12 +349,14 @@ function renderWebinar(i){
     '<span class="kicker">'+(w.upcoming?"დაგეგმილი ვებინარი · ონლაინ":"ჩატარებული ვებინარი")+'</span>' +
     '<h1>'+esc(w.title)+'</h1>' +
     '<div class="meta">'+esc(fmtDate(w.date))+(w.time?" · "+esc(w.time):"")+'</div>' +
+    videoTop +
     ((w.upcoming && w.reg && w.speakers) ? '<div style="margin:18px 0 6px"><a class="btn red" href="'+esc(w.reg)+'" target="_blank" rel="noopener">რეგისტრაცია →</a></div>' : '') +
     '<div class="txt">'+detailsHtml(w.details||w.description)+'</div>' +
     speakersHtml(w.speakers) +
     (w.speaker?'<div class="speaker">'+esc(w.speaker)+'</div>':'') +
     actions;
   document.title = w.title + " — GSPEN";
+  if(keepVideo){ var v = document.getElementById("wbVideo"); if(v){ v.scrollIntoView({block:"center"}); return; } }
   window.scrollTo(0,0);
 }
 loadContent("content/webinars.json","webSeed",function(data){

@@ -1358,6 +1358,7 @@ var M = {
 "ნაწლავის უკმარისობა და პარენტერალური ნუტრიცია":"Intestinal failure and parenteral nutrition",
 "ლექციაში განვიხილავთ ნაწლავის უკმარისობის ამოცნობასა და კლასიფიკაციას და პარენტერალური ნუტრიციის ჩვენებებს. პრაქტიკული, კლინიკურ შემთხვევებზე დაფუძნებული მიდგომით წარმოვაჩენთ კლინიკური გადაწყვეტილების მიღების პროცესს და იმ პაციენტების მართვის ძირითად პრინციპებს, რომლებსაც ინტრავენური ნუტრიციული მხარდაჭერა სჭირდებათ.":"This lecture will cover the recognition and classification of intestinal failure and the indications for parenteral nutrition. A practical, case-based approach will highlight clinical decision-making and the key principles of managing patients who require intravenous nutritional support.",
 "ნახშირწყლებს მიღმა: უნდა დავითვალოთ თუ არა ინსულინის დოზირების მიზნით ცილა და ცხიმი შაქრიანი დიაბეტი ტიპი 1-ის დროს?":"Beyond carbohydrates: should protein and fat be counted for insulin dosing in type 1 diabetes?",
+"მომზადებულია თორნიკე ენუქიძის მიერ":"Prepared by Tornike Enukidze",
 "კლინიკურ ნუტრიციოლოგიაზე — რა პროფესიაა, როგორ დაეუფლო და სად დაგჭირდება, როგორც ექიმს;":"clinical nutrition — what the profession is, how to master it and where you will need it as a doctor;",
 "გრანტებსა და დაფინანსებაზე — ESPEN-ის საგანმანათლებლო, კვლევით და სამოგზაურო გრანტებზე;":"grants and funding — ESPEN education, research and travel grants;",
 "რა შესაძლებლობებს სთავაზობს GSPEN სტუდენტებს — წევრობას, კურსებს, ვებინარებსა და კვლევებში ჩართვას;":"what GSPEN offers students — membership, courses, webinars and involvement in research;",
